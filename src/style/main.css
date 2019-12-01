@@ -7,7 +7,7 @@ html, body {
 
 html {
   overflow-y: auto;
-  background: linear-gradient(120deg, rgba(81,90,132,1) 0%, rgba(35,43,76,1) 100%);
+  background: linear-gradient(120deg, #4D5579 0%, #2D324B 100%);
   cursor: default;
 }
 
