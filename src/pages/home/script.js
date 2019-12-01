@@ -1,3 +1,5 @@
+import {Card} from '../../components';
+
 export default {
   name: 'home-page',
   data() {
@@ -23,5 +25,8 @@ export default {
         }
       ]
     };
+  },
+  components: {
+    Card
   }
 };

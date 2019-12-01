@@ -1,0 +1,59 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  min-width: 200px;
+  max-width: 300px;
+  min-height: 120px;
+  border-radius: 20px;
+
+  background-color: #485073;
+  box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.2), -3px -3px 10px 0 rgba(255, 255, 255, 0.1), inset 1px 1px 0 0 rgba(255, 255, 255, 0.05);
+}
+
+.card > header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.card > header > .inset {
+  display: flex;
+  width: 48px;
+  height: 48px;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 15px;
+  box-shadow: inset 1px 1px 3px 0 rgba(0, 0, 0, 0.3), inset -1px -1px 3px 0 rgba(255, 255, 255, 0.1);
+}
+
+.card > header > .inset > b {
+  color: #F77976;
+}
+
+.card > header > h1 {
+  margin-left: 10px;
+  color: #BEC3DC;
+  font-weight: 500;
+}
+
+.card > h2 {
+  color: #BEC3DC;
+  font-weight: 500;
+}
+
+.card > footer {
+  display: flex;
+  margin-top: 10px;
+  flex-direction: row;
+  align-items: center;
+  justify-items: center;
+  justify-self: flex-end;
+}
+
+.card > footer > p {
+  color: #656A89;
+}

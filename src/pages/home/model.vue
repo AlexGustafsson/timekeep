@@ -1,18 +1,7 @@
 <template>
   <div class="home-page">
     <main>
-      <div v-for="timekeep in timekeepings" class="card">
-        <header>
-          <div class="inset">
-            <b>{{timekeep.name[0]}}</b>
-          </div>
-          <h1>{{timekeep.name}}</h1>
-        </header>
-        <h2>{{timekeep.time}}</h2>
-        <footer>
-          <p>{{timekeep.previous}}</p>
-        </footer>
-      </div>
+      <card v-for="timekeep in timekeepings" :key="timekeep.id" :name="timekeep.name" :time="timekeep.time" :previous="timekeep.previous"></card>
     </main>
   </div>
 </template>
