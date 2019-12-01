@@ -1,0 +1,7 @@
+.app {
+  position: relative;
+  padding-top: 48px;
+  display: flex;
+  flex-direction: column;
+  min-height: 90vh;
+}
