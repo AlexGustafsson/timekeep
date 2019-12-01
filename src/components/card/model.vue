@@ -2,7 +2,7 @@
   <div class="card">
     <header>
       <div class="inset">
-        <b>{{name[0]}}</b>
+        <b :class="classes">{{name[0]}}</b>
       </div>
       <h1>{{name}}</h1>
     </header>

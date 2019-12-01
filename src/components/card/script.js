@@ -8,6 +8,14 @@ export default {
     },
     prettyPrevious() {
       return humanizeDuration(this.previous * 1000, {largest: 2});
+    },
+    classes() {
+      // Dummy hash for assigning color
+      const hash = Number(this.name.substr(0, 10).split('').map(x => x.charCodeAt(0).toString()).join(''));
+      const colors = 4;
+      const color = Math.round(hash % colors) + 1;
+
+      return [`color${color}`];
     }
   },
   props: {

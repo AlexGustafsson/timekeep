@@ -30,8 +30,20 @@
   box-shadow: inset 1px 1px 3px 0 rgba(0, 0, 0, 0.3), inset -1px -1px 3px 0 rgba(255, 255, 255, 0.1);
 }
 
-.card > header > .inset > b {
+.card > header > .inset > b.color1 {
   color: #F77976;
+}
+
+.card > header > .inset > b.color2 {
+  color: #FAAF6E;
+}
+
+.card > header > .inset > b.color3 {
+  color: #9172FB;
+}
+
+.card > header > .inset > b.color4 {
+  color: #5EC1FB;
 }
 
 .card > header > h1 {
