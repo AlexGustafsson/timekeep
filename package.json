@@ -25,7 +25,7 @@
     "xo": "^0.25.3"
   },
   "dependencies": {
-    "moment": "^2.24.0",
+    "humanize-duration": "^3.21.0",
     "reset-css": "^5.0.1",
     "vue": "^2.6.10",
     "vue-router": "^3.1.3",

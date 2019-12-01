@@ -6,9 +6,9 @@
       </div>
       <h1>{{name}}</h1>
     </header>
-    <h2>{{time}}</h2>
+    <h2>{{prettyTime}}</h2>
     <footer>
-      <p>{{previous}}</p>
+      <p>{{prettyPrevious}}</p>
     </footer>
   </div>
 </template>
