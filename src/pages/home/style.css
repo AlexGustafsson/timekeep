@@ -1,5 +1,19 @@
 .home-page main {
   display: grid;
-  grid-gap: 10px;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  padding: 50px 20px;
+  grid-gap: 20px;
+
+  grid-template-columns: repeat(4, minmax(200px, 250px));
+}
+
+.home-page main.cards1 {
+  grid-template-columns: repeat(1, minmax(200px, 250px));
+}
+
+.home-page main.cards2 {
+  grid-template-columns: repeat(2, minmax(200px, 250px));
+}
+
+.home-page main.cards3 {
+  grid-template-columns: repeat(3, minmax(200px, 250px));
 }

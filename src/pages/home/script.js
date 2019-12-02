@@ -28,6 +28,18 @@ export default {
       timer: null
     };
   },
+  computed: {
+    classes() {
+      if (this.timekeepings.length === 1)
+        return ['cards1'];
+      else if (this.timekeepings.length === 2)
+        return ['cards2'];
+      else if (this.timekeepings.length === 3)
+        return ['cards3'];
+
+      return [];
+    }
+  },
   mounted() {
     this.timer = setInterval(this.tick.bind(this), 1000);
   },
