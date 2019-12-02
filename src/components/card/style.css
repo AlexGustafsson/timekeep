@@ -11,6 +11,9 @@
   box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.2), -3px -3px 10px 0 rgba(255, 255, 255, 0.1), inset 1px 1px 0 0 rgba(255, 255, 255, 0.05);
 
   transition: 0.2s transform;
+
+  -webkit-touch-callout: none;
+  user-select: none;
 }
 
 .card.focused {
