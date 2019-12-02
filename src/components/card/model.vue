@@ -4,7 +4,7 @@
       <div class="inset">
         <b :class="classes">{{name[0]}}</b>
       </div>
-      <h1>{{name}}</h1>
+      <h1>{{name}} <i v-if="focused" class="material-icons">access_time</i></h1>
     </header>
     <h2>{{prettyTime}}</h2>
     <footer>

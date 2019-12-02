@@ -16,8 +16,13 @@
   user-select: none;
 }
 
+.card .material-icons {
+  vertical-align: middle;
+}
+
 .card.focused {
   transform: scale(1.05, 1.05);
+
 }
 
 .card > header {
