@@ -21,6 +21,10 @@ export default {
   props: {
     name: String,
     time: Number,
-    previous: Number
+    previous: Number,
+    focused: {
+      type: Boolean,
+      default: false
+    }
   }
 };

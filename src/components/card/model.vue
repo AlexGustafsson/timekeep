@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card" :class="{focused}">
     <header>
       <div class="inset">
         <b :class="classes">{{name[0]}}</b>
