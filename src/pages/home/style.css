@@ -1,6 +1,9 @@
+.home-page {
+  padding: 50px 20px;
+}
+
 .home-page main {
   display: grid;
-  padding: 50px 20px;
   grid-gap: 20px;
   box-sizing: border-box;
 
@@ -20,7 +23,7 @@
 }
 
 .home-page > footer {
-  margin: 0px 20px;
+  margin-top: 20px;
   padding: 15px;
   border-radius: 20px;
   box-sizing: border-box;
