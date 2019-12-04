@@ -1,4 +1,4 @@
-import {Card} from '../../components';
+import {Card, FormInput} from '../../components';
 
 export default {
   name: 'home-page',
@@ -25,7 +25,10 @@ export default {
         }
       ],
       activeID: null,
-      timer: null
+      timer: null,
+      form: {
+        name: ''
+      }
     };
   },
   computed: {
@@ -53,9 +56,25 @@ export default {
     tick() {
       if (this.activeID !== null)
         this.timekeepings[this.activeID].time++;
+    },
+    submit(event) {
+      if (event)
+        event.preventDefault(true);
+
+      this.timekeepings.push({
+        id: this.timekeepings.length,
+        name: this.form.name,
+        time: 0,
+        previous: 0
+      });
+
+      this.form.name = '';
+
+      return false;
     }
   },
   components: {
-    Card
+    Card,
+    FormInput
   }
 };

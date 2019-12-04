@@ -19,13 +19,40 @@
   grid-template-columns: repeat(3, minmax(180px, 250px));
 }
 
+.home-page > footer {
+  margin: 0px 20px;
+  padding: 15px;
+  border-radius: 20px;
+  box-sizing: border-box;
+  background-color: #485073;
+  box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.2), -3px -3px 10px 0 rgba(255, 255, 255, 0.1), inset 1px 1px 0 0 rgba(255, 255, 255, 0.05);
+}
+
+.home-page > footer > form {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.home-page > footer > form > :not(:first-child) {
+  margin-left: 25px;
+}
+
 @media only screen and (max-width: 900px) {
+  .home-page main {
+    grid-template-columns: repeat(2, minmax(180px, 250px));
+  }
+
   .home-page main.cards3 {
     grid-template-columns: repeat(2, minmax(180px, 250px));
   }
 }
 
 @media only screen and (max-width: 450px) {
+  .home-page main {
+    grid-template-columns: repeat(1, minmax(180px, 250px));
+  }
+
   .home-page main.cards3 {
     grid-template-columns: repeat(1, minmax(180px, 250px));
   }
