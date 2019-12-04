@@ -2,18 +2,31 @@
   display: grid;
   padding: 50px 20px;
   grid-gap: 20px;
+  box-sizing: border-box;
 
-  grid-template-columns: repeat(4, minmax(200px, 250px));
+  grid-template-columns: repeat(4, minmax(180px, 250px));
 }
 
 .home-page main.cards1 {
-  grid-template-columns: repeat(1, minmax(200px, 250px));
+  grid-template-columns: repeat(1, minmax(180px, 250px));
 }
 
 .home-page main.cards2 {
-  grid-template-columns: repeat(2, minmax(200px, 250px));
+  grid-template-columns: repeat(2, minmax(180px, 250px));
 }
 
 .home-page main.cards3 {
-  grid-template-columns: repeat(3, minmax(200px, 250px));
+  grid-template-columns: repeat(3, minmax(180px, 250px));
+}
+
+@media only screen and (max-width: 900px) {
+  .home-page main.cards3 {
+    grid-template-columns: repeat(2, minmax(180px, 250px));
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .home-page main.cards3 {
+    grid-template-columns: repeat(1, minmax(180px, 250px));
+  }
 }
