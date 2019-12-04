@@ -6,6 +6,8 @@ A simple timekeeping web app using modern techniques such as modern EcmaScript, 
   <img alt="Demo" src="https://github.com/AlexGustafsson/timekeep/raw/master/.github/screenshot.png">
 <p>
 
+_The UI is heavily inspired by the great work of uixNinja over at https://dribbble.com/shots/8659108-Dashboard-user-interface._
+
 # Quickstart
 <a name="quickstart"></a>
 
