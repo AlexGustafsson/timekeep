@@ -61,6 +61,9 @@ export default {
       if (event)
         event.preventDefault(true);
 
+      if (this.form.name === '')
+        return false;
+
       this.timekeepings.push({
         id: this.timekeepings.length,
         name: this.form.name,
