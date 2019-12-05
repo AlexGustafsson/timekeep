@@ -4,74 +4,42 @@ export default {
   name: 'home-page',
   data() {
     return {
-      timekeepings: [
-        {
-          id: 0,
-          name: 'Skanska',
-          time: 5,
-          previous: 45678
-        },
-        {
-          id: 1,
-          name: 'Bofors',
-          time: 100,
-          previous: 456
-        },
-        {
-          id: 2,
-          name: 'SAAB',
-          time: 12345,
-          previous: 45
-        }
-      ],
-      activeID: null,
-      timer: null,
       form: {
+        enabled: true,
         name: ''
       }
     };
   },
   computed: {
     classes() {
-      if (this.timekeepings.length === 1)
+      if (this.$store.state.timekeepings.length === 1)
         return ['cards1'];
-      else if (this.timekeepings.length === 2)
+      else if (this.$store.state.timekeepings.length === 2)
         return ['cards2'];
-      else if (this.timekeepings.length === 3)
+      else if (this.$store.state.timekeepings.length === 3)
         return ['cards3'];
 
       return [];
     }
   },
-  mounted() {
-    this.timer = setInterval(this.tick.bind(this), 1000);
-  },
   methods: {
     cardClicked(id) {
-      if (id == this.activeID)
-        this.activeID = null;
-      else
-        this.activeID = id;
-    },
-    tick() {
-      if (this.activeID !== null)
-        this.timekeepings[this.activeID].time++;
+      this.$store.dispatch('toggleTick', id).catch(error => {
+        alert(error);
+      });
     },
     submit(event) {
       if (event)
         event.preventDefault(true);
 
-      if (this.form.name === '')
-        return false;
-
-      this.timekeepings.push({
-        id: this.timekeepings.length,
-        name: this.form.name,
-        time: 0,
-        previous: 0
+      this.form.enabled = false;
+      this.$store.dispatch('addTimekeep', this.form.name).then(() => {
+        this.form.name = '';
+        this.form.enabled = true;
+      }).catch(error => {
+        alert(error);
+        this.form.enabled = true;
       });
-
-      this.form.name = '';
 
       return false;
     }
