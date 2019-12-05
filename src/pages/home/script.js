@@ -1,4 +1,5 @@
 import {Card, FormInput} from '../../components';
+import {exportToCSV} from '../../utils';
 
 export default {
   name: 'home-page',
@@ -42,6 +43,18 @@ export default {
       });
 
       return false;
+    },
+    exportTimekeeps() {
+      const content = exportToCSV(this.$store);
+
+      const element = document.createElement('a');
+      element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(content));
+      element.setAttribute('download', 'timekeeps.csv');
+
+      element.style.display = 'none';
+      document.body.appendChild(element);
+      element.click();
+      document.body.removeChild(element);
     }
   },
   components: {
