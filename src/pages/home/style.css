@@ -1,5 +1,7 @@
 .home-page {
   padding: 50px 20px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .home-page main {
@@ -7,19 +9,19 @@
   grid-gap: 20px;
   box-sizing: border-box;
 
-  grid-template-columns: repeat(4, minmax(180px, 250px));
+  grid-template-columns: repeat(4, minmax(150x, 250px));
 }
 
 .home-page main.cards1 {
-  grid-template-columns: repeat(1, minmax(180px, 250px));
+  grid-template-columns: repeat(1, minmax(150px, 250px));
 }
 
 .home-page main.cards2 {
-  grid-template-columns: repeat(2, minmax(180px, 250px));
+  grid-template-columns: repeat(2, minmax(150px, 250px));
 }
 
 .home-page main.cards3 {
-  grid-template-columns: repeat(3, minmax(180px, 250px));
+  grid-template-columns: repeat(3, minmax(150px, 250px));
 }
 
 .home-page > footer {
@@ -43,30 +45,20 @@
 
 @media only screen and (max-width: 900px) {
   .home-page main {
-    grid-template-columns: repeat(3, minmax(180px, 250px));
+    grid-template-columns: repeat(3, minmax(150px, 250px));
   }
 
   .home-page main.cards3 {
-    grid-template-columns: repeat(3, minmax(180px, 250px));
+    grid-template-columns: repeat(3, minmax(150px, 250px));
   }
 }
 
 @media only screen and (max-width: 700px) {
   .home-page main {
-    grid-template-columns: repeat(2, minmax(180px, 250px));
+    grid-template-columns: repeat(2, minmax(150px, 250px));
   }
 
   .home-page main.cards3 {
-    grid-template-columns: repeat(2, minmax(180px, 250px));
-  }
-}
-
-@media only screen and (max-width: 450px) {
-  .home-page main {
-    grid-template-columns: repeat(1, minmax(180px, 250px));
-  }
-
-  .home-page main.cards3 {
-    grid-template-columns: repeat(1, minmax(180px, 250px));
+    grid-template-columns: repeat(2, minmax(150px, 250px));
   }
 }
