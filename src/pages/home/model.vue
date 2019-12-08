@@ -1,7 +1,7 @@
 <template>
   <div class="home-page">
     <main :class="classes">
-      <card v-for="timekeep in $store.state.timekeepings" :key="timekeep.id" :name="timekeep.name" :time="timekeep.time" :previous="timekeep.previous" :focused="timekeep.id === $store.state.activeId" @click.native="cardClicked(timekeep.id)"></card>
+      <card v-for="timekeep in $store.state.timekeepings" :key="timekeep.id" :name="timekeep.name" :time="timekeep.time" :previous="timekeep.previous" :focused="timekeep.id === $store.state.activeId" @click.native="cardClicked(timekeep.id)" @remove="cardRemove(timekeep.id)"></card>
     </main>
     <footer>
       <form v-on:submit="submit">

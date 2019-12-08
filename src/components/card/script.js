@@ -18,6 +18,11 @@ export default {
       return [`color${color}`];
     }
   },
+  methods: {
+    remove() {
+      this.$emit('remove');
+    }
+  },
   props: {
     name: String,
     time: Number,

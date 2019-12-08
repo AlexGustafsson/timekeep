@@ -51,7 +51,15 @@ export default new Vuex.Store({
       if (id < 0 || id >= state.timekeepings.length)
         throw new Error('There exists no timekeep with that ID');
 
+      if (state.activeId === id) {
+        state.timer = clearInterval(state.timer);
+        state.activeId = null;
+      }
+
       commit('removeTimekeep', id);
+
+      for (let i = 0; i < state.timekeepings.length; i++)
+        state.timekeepings[i].id = i;
     },
     async toggleTick({commit, state}, id) {
       if (id < 0 || id >= state.timekeepings.length)

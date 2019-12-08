@@ -29,6 +29,11 @@ export default {
         alert(error);
       });
     },
+    cardRemove(id) {
+      this.$store.dispatch('removeTimekeep', id).catch(error => {
+        alert(error);
+      });
+    },
     submit(event) {
       if (event)
         event.preventDefault(true);
