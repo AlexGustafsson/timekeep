@@ -10,23 +10,13 @@
 
 .form-input.button {
   border: none;
-  border-radius: 15px;
   transition: 0.2s box-shadow, 0.2s background;
   cursor: pointer;
   min-width: 25px;
   -webkit-touch-callout: none;
   user-select: none;
-}
 
-/* Used to have a linear gradient animate in */
-.form-input.button::before {
-  position: absolute;
-  display: block;
-  content: '';
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
+  padding: 10px 15px;
   border-radius: 5px;
   background-color: #485073;
   box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.2), -3px -3px 10px 0 rgba(255, 255, 255, 0.1), inset 1px 1px 0 0 rgba(255, 255, 255, 0.05);
