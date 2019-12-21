@@ -3,7 +3,7 @@
     <week-scroller v-model="week" />
     <main>
       <ul :class="classes">
-        <card v-for="timekeep in $store.state.timekeepings" :key="timekeep.id" :name="timekeep.name" :time="timekeep.time" :previous="timekeep.previous" :focused="timekeep.id === $store.state.activeId" @click.native="cardClicked(timekeep.id)" @remove="cardRemove(timekeep.id)"></card>
+        <card v-for="timekeep in $store.state.timekeeps" :key="timekeep.id" :timekeep="timekeep" :focused="timekeep.id === $store.state.activeId" @click.native="cardClicked(timekeep)" @remove="cardRemove(timekeep)"></card>
       </ul>
       <footer>
         <form v-on:submit="submit">

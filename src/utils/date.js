@@ -9,3 +9,11 @@ export function getWeek(date = new Date()) {
 
   return weeks;
 }
+
+export function getYear(date = new Date()) {
+  return date.getFullYear();
+}
+
+export function getDay(date = new Date()) {
+  return (date.getDay() + 6) % 7 + 1
+}

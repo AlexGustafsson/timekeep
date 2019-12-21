@@ -17,24 +17,24 @@ export default {
   },
   computed: {
     classes() {
-      if (this.$store.state.timekeepings.length === 1)
+      if (this.$store.state.timekeeps.length === 1)
         return ['cards1'];
-      else if (this.$store.state.timekeepings.length === 2)
+      else if (this.$store.state.timekeeps.length === 2)
         return ['cards2'];
-      else if (this.$store.state.timekeepings.length === 3)
+      else if (this.$store.state.timekeeps.length === 3)
         return ['cards3'];
 
       return [];
     }
   },
   methods: {
-    cardClicked(id) {
-      this.$store.dispatch('toggleTick', id).catch(error => {
+    cardClicked(timekeep) {
+      this.$store.dispatch('toggleCounting', timekeep).catch(error => {
         alert(error);
       });
     },
-    cardRemove(id) {
-      this.$store.dispatch('removeTimekeep', id).catch(error => {
+    cardRemove(timekeep) {
+      this.$store.dispatch('removeTimekeep', timekeep).catch(error => {
         alert(error);
       });
     },

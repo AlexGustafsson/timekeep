@@ -2,10 +2,10 @@
   <div class="card" :class="{focused}">
     <header>
       <div class="inset">
-        <b :class="classes">{{name[0]}}</b>
+        <b :class="classes">{{timekeep.name[0]}}</b>
       </div>
       <h1>
-        {{name}}
+        {{timekeep.name}}
         <i v-if="focused" class="material-icons">access_time</i>
         <i class="remove material-icons" @click.stop="remove">delete_forever</i>
       </h1>
