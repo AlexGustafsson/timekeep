@@ -1,0 +1,31 @@
+.week-scroller {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.week-scroller li {
+  width: 100%;
+  text-align: center;
+  padding: 10px 0;
+  color: #656A89;
+  cursor: pointer;
+  -webkit-touch-callout: none;
+  user-select: none;
+}
+
+.week-scroller li.selected {
+  color: #BEC3DC;
+}
+
+.week-scroller li:hover {
+  color: #BEC3DC;
+}
+
+.week-scroller .material-icons.up {
+  transform: rotateZ(-90deg);
+}
+
+.week-scroller .material-icons.down {
+  transform: rotateZ(90deg);
+}

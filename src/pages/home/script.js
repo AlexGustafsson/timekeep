@@ -1,5 +1,5 @@
-import {Card, FormInput} from '../../components';
-import {exportToCSV} from '../../utils';
+import {Card, FormInput, WeekScroller} from '../../components';
+import {exportToCSV, getWeek} from '../../utils';
 
 export default {
   name: 'home-page',
@@ -8,6 +8,10 @@ export default {
       form: {
         enabled: true,
         name: ''
+      },
+      week: {
+        year: new Date().getFullYear(),
+        week: getWeek()
       }
     };
   },
@@ -64,6 +68,7 @@ export default {
   },
   components: {
     Card,
-    FormInput
+    FormInput,
+    WeekScroller
   }
 };
