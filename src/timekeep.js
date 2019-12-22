@@ -5,6 +5,7 @@ export default class Timekeeping {
     this.name = state.name;
     this.years = state.years || {};
     this.id = state.id || Math.random() * 1E17;
+    this.favorite = state.favorite || true;
   }
 
   get counting() {
@@ -87,5 +88,9 @@ export default class Timekeeping {
     }
 
     return sum;
+  }
+
+  toggleFavorite() {
+    this.favorite = !this.favorite;
   }
 }

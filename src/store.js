@@ -51,6 +51,10 @@ export default new Vuex.Store({
       state.timekeeps.push(new Timekeep({name}));
     },
     removeTimekeep(state, timekeep) {
+      if (state.activeId && state.activeId === timekeep.id) {
+        state.activeId = null;
+      }
+
       state.timekeeps = state.timekeeps.filter(x => x !== timekeep);
     },
     toggleCounting(state, timekeep) {
@@ -68,6 +72,10 @@ export default new Vuex.Store({
         state.activeId = timekeep.id;
       else
         state.activeId = null;
+    },
+    toggleFavorite(state, timekeep) {
+      timekeep.toggleFavorite();
+      state.timekeeps[state.timekeeps.indexOf(timekeep)] = timekeep;
     }
   },
   actions: {
@@ -92,6 +100,12 @@ export default new Vuex.Store({
         throw new Error('No such timekeep in the store');
 
       commit('toggleCounting', timekeep);
+    },
+    async toggleFavorite({commit, state}, timekeep) {
+      if (state.timekeeps.indexOf(timekeep) === -1)
+        throw new Error('No such timekeep in the store');
+
+      commit('toggleFavorite', timekeep);
     }
   },
   plugins: [vuexLocal.plugin]

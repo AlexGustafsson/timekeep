@@ -7,7 +7,6 @@
       <h1>
         {{timekeep.name}}
         <i v-if="focused" class="material-icons">access_time</i>
-        <i class="remove material-icons" @click.stop="remove">delete_forever</i>
       </h1>
     </header>
     <h2>{{prettyTime}}</h2>

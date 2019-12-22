@@ -1,8 +1,92 @@
 .app {
+  position: relative;
+  padding-top: 48px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  min-height: 90vh;
+}
+
+.app > nav.top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 48px;
+  padding: 0px 48px;
+  padding-left: 20%;
+
+  display: grid;
+  grid-template-columns: 1fr 20%;
+  align-items: center;
+
+  background-color: #485073;
+  line-height: 48px;
+
+  z-index: 1000;
+
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.app > nav.top > a {
+  color: #BEC3DC;
+  justify-self: center;
+}
+
+.app > nav.top > .material-icons {
+  color: #868F98;
+  cursor: pointer;
+  grid-column: 4;
+}
+
+.app > nav.side {
+  position: fixed;
+  top: 48px;
+  right: -300px;
+  bottom: 0;
+  width: 250px;
+  background-color: white;
+
+  padding: 25px;
+
+  display: flex;
+  flex-direction: column;
+
+  z-index: 900;
+
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+
+  transition: 0.2s right;
+}
+
+.app > nav.side.open {
+  right: 0px;
+}
+
+.app > nav.side ul > :not(:first-child) {
+  margin-top: 10px;
+}
+
+.app > nav.side li {
+  display: grid;
+  grid-template-columns: 1fr 32px 32px;
+  align-items: center;
+
+  color: #BEC3DC;
+}
+
+.app > nav.side li > .material-icons {
+  text-align: right;
 }
 
 .app > main {
-  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+}
+
+@supports (backdrop-filter: blur(4px)) {
+  .app > nav {
+    background-color: rgba(72, 80, 115, 0.4)!important;
+    backdrop-filter: blur(4px);
+  }
 }

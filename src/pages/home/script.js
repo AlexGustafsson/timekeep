@@ -35,11 +35,6 @@ export default {
         alert(error);
       });
     },
-    cardRemove(timekeep) {
-      this.$store.dispatch('removeTimekeep', timekeep).catch(error => {
-        alert(error);
-      });
-    },
     submit(event) {
       if (event)
         event.preventDefault(true);
