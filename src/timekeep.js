@@ -76,26 +76,16 @@ export default class Timekeeping {
     return sum;
   }
 
-  getTimeToday() {
-    const year = getYear();
-    const week = getWeek();
-    const day = getDay();
+  getTotalTime(year, week) {
+    this.assertDay(year, week);
 
-    return this.getTime(year, week, day);
-  }
+    const days = this.years[year][week];
+    let sum = 0;
 
-  getTimeYesterday() {
-    let year = getYear();
-    let week = getWeek();
-    let day = getDay() - 1;
-
-    if (day < 1) {
-      day = 7;
-      week--;
-      if (week < 1)
-        year--;
+    for (const day of Object.keys(days)) {
+      sum += this.getTime(year, week, day);
     }
 
-    return this.getTime(year, week, day);
+    return sum;
   }
 }

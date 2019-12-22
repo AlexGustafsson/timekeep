@@ -18,6 +18,7 @@ export default {
   },
   computed: {
     classes() {
+      console.log(this.week);
       if (this.$store.state.timekeeps.length === 1)
         return ['cards1'];
       else if (this.$store.state.timekeeps.length === 2)
