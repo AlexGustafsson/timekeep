@@ -1,5 +1,5 @@
 import {Card, FormInput, WeekScroller} from '../../components';
-import {exportToCSV, getWeek} from '../../utils';
+import {exportToCSV, getWeek, getDay, getYear} from '../../utils';
 
 export default {
   name: 'home-page',
@@ -10,8 +10,9 @@ export default {
         name: ''
       },
       week: {
-        year: new Date().getFullYear(),
-        week: getWeek()
+        year: getYear(),
+        week: getWeek(),
+        day: getDay()
       }
     };
   },
