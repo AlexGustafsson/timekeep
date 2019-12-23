@@ -36,6 +36,8 @@
   color: #868F98;
   cursor: pointer;
   grid-column: 4;
+  -webkit-touch-callout: none;
+  user-select: none;
 }
 
 .app > nav.side {
@@ -76,6 +78,10 @@
 
 .app > nav.side li > .material-icons {
   text-align: right;
+
+  -webkit-touch-callout: none;
+  user-select: none;
+  cursor: pointer;
 }
 
 .app > main {
