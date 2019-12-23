@@ -4,7 +4,7 @@
       <router-link to="/">Timekeep</router-link>
       <i class="material-icons" v-on:click="toggleMenu">menu</i>
     </nav>
-    <nav class="side" ref="menu" v-bind:class="{open: menuIsOpen}" v-on:click="toggleMenu">
+    <nav class="side" ref="menu" v-bind:class="{open: menuIsOpen}">
       <ul>
         <li v-for="timekeep in $store.state.timekeeps">
           <p>{{timekeep.name}}</p>
