@@ -20,7 +20,7 @@
   box-sizing: border-box;
   flex-grow: 1;
 
-  grid-template-columns: repeat(4, minmax(150x, 250px));
+  grid-template-columns: repeat(5, minmax(150px, 250px));
   grid-template-rows: 150px;
 }
 
