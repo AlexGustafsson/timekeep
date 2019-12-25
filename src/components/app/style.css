@@ -84,6 +84,16 @@
   cursor: pointer;
 }
 
+.app > nav.side li.spacer {
+  margin-bottom: 15px;
+  height: 5px;
+  border-bottom: 1px solid #656A89;
+}
+
+.app > nav.side li.menu-button {
+  cursor: pointer;
+}
+
 .app > main {
   display: flex;
   justify-content: center;

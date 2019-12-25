@@ -39,6 +39,16 @@ export default {
           alert(error);
         });
       }
+    },
+    reset() {
+      const confirmed = confirm('Are you sure you want to reset the application? Any state will be permanently lost.')
+
+      if (confirmed) {
+        // Remove state
+        localStorage.removeItem('vuex');
+        // Reload page
+        window.location.replace('/');
+      }
     }
   }
 }
