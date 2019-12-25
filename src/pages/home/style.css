@@ -9,6 +9,15 @@
   min-height: 100%;
 }
 
+.home-page > .wrapper {
+  position: relative;
+}
+
+.home-page > .wrapper > .week-scroller {
+  position: fixed;
+  top: 30vh;
+}
+
 .home-page > main {
   display: flex;
   flex-direction: column;
