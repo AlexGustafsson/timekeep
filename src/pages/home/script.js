@@ -1,5 +1,5 @@
 import {Card, FormInput, WeekScroller} from '../../components';
-import {exportToCSV, getWeek, getDay, getYear} from '../../utils';
+import {exportToExcel, getWeek, getDay, getYear} from '../../utils';
 
 export default {
   name: 'home-page',
@@ -50,17 +50,15 @@ export default {
 
       return false;
     },
-    exportTimekeeps() {
-      const content = exportToCSV(this.$store);
+    async exportTimekeeps() {
+      const buffer = await exportToExcel(this.$store.state.timekeeps);
+      const bytes = new Uint8Array(buffer);
+      const blob = new Blob([bytes], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
 
       const element = document.createElement('a');
-      element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(content));
-      element.setAttribute('download', 'timekeeps.csv');
-
-      element.style.display = 'none';
-      document.body.appendChild(element);
+      element.href = URL.createObjectURL(blob);
+      element.download = 'timekeep.xlsx';
       element.click();
-      document.body.removeChild(element);
     }
   },
   components: {

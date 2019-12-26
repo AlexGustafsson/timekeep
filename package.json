@@ -25,6 +25,7 @@
     "xo": "^0.25.3"
   },
   "dependencies": {
+    "exceljs": "^3.5.0",
     "humanize-duration": "^3.21.0",
     "reset-css": "^5.0.1",
     "vue": "^2.6.10",
