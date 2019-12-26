@@ -6,9 +6,20 @@ html, body {
 }
 
 html {
+  position: relative;
   overflow-y: auto;
-  background: linear-gradient(120deg, #4D5579 0%, #2D324B 100%);
   cursor: default;
+}
+
+html::before {
+  position: fixed;
+  display: block;
+  content: '';
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(120deg, #4D5579 0%, #2D324B 100%);
 }
 
 a {
