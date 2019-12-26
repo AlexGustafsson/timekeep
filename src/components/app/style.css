@@ -13,10 +13,10 @@
   right: 0;
   height: 48px;
   padding: 0px 48px;
-  padding-left: 20%;
+  box-sizing: border-box;
 
   display: grid;
-  grid-template-columns: 1fr 20%;
+  grid-template-columns: 20% 1fr 20%;
   align-items: center;
 
   background-color: #485073;

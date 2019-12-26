@@ -1,6 +1,7 @@
 <template>
   <div class="app">
     <nav class="top">
+      <i></i>
       <router-link to="/">Timekeep</router-link>
       <i class="material-icons" v-on:click="toggleMenu">menu</i>
     </nav>
@@ -11,7 +12,7 @@
           <i class="material-icons" @click.stop="toggleFavorite(timekeep)">{{timekeep.favorite ? 'favorite' : 'favorite_border'}}</i>
           <i class="remove material-icons" @click.stop="remove(timekeep)">delete_forever</i>
         </li>
-        <li class="spacer"></li>
+        <li v-if="$store.state.timekeeps.length > 0" class="spacer"></li>
         <li @click.stop="reset" class="menu-button">
           <p>Reset</p>
         </li>
