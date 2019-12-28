@@ -8,8 +8,8 @@
     <nav class="side" ref="menu" v-bind:class="{open: menuIsOpen}">
       <ul>
         <li class="form">
-          <form-input name="name" type="text" label="Name" v-model="form.name"></form-input>
-          <form-input :disabled="formDisabled" name="submit" type="button" label="Add" v-on:click="submit"></form-input>
+          <form-input name="name" type="text" label="Name" v-model="form.name" @keyup.native.enter="submit"></form-input>
+          <form-input :disabled="formDisabled" name="submit" type="button" label="Add" @click="submit"></form-input>
         </li>
         <li v-for="timekeep in $store.state.timekeeps">
           <p>{{timekeep.name}}</p>
