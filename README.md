@@ -1,6 +1,6 @@
 Timekeep
 ======
-A simple timekeeping web app using modern techniques such as modern EcmaScript, Poi (Webpack, Babel etc.) and Vue.
+A simple timekeeping web app using modern techniques such as modern EcmaScript, Poi (Webpack, Babel etc.) and Vue. Try it live: https://timekeep.axgn.se.
 
 <p align="center">
   <img alt="Demo" src="https://github.com/AlexGustafsson/timekeep/raw/master/.github/screenshot.png">
