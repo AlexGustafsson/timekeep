@@ -33,18 +33,6 @@
   grid-template-rows: 150px;
 }
 
-.home-page > main > ul.cards1 {
-  grid-template-columns: repeat(1, minmax(150px, 250px));
-}
-
-.home-page > main > ul.cards2 {
-  grid-template-columns: repeat(2, minmax(150px, 250px));
-}
-
-.home-page > main > ul.cards3 {
-  grid-template-columns: repeat(3, minmax(150px, 250px));
-}
-
 .home-page > main > footer {
   margin-top: 20px;
   padding: 15px;
@@ -64,22 +52,20 @@
   margin-left: 25px;
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 1200px) {
   .home-page > main > ul {
-    grid-template-columns: repeat(3, minmax(150px, 250px));
+    grid-template-columns: repeat(4, minmax(150px, 250px));
   }
+}
 
-  .home-page > main > ul.cards3 {
+@media only screen and (max-width: 975px) {
+  .home-page > main > ul {
     grid-template-columns: repeat(3, minmax(150px, 250px));
   }
 }
 
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 750px) {
   .home-page > main > ul {
-    grid-template-columns: repeat(2, minmax(150px, 250px));
-  }
-
-  .home-page > main > ul.cards3 {
     grid-template-columns: repeat(2, minmax(150px, 250px));
   }
 }

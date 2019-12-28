@@ -16,19 +16,6 @@ export default {
       }
     };
   },
-  computed: {
-    classes() {
-      console.log(this.week);
-      if (this.$store.state.timekeeps.length === 1)
-        return ['cards1'];
-      else if (this.$store.state.timekeeps.length === 2)
-        return ['cards2'];
-      else if (this.$store.state.timekeeps.length === 3)
-        return ['cards3'];
-
-      return [];
-    }
-  },
   methods: {
     cardClicked(timekeep) {
       this.$store.dispatch('toggleCounting', timekeep).catch(error => {
