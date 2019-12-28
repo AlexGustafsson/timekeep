@@ -10,7 +10,8 @@
     "coverage": "nyc ava -t",
     "dev": "poi --serve",
     "check-duplicate-code": "jsinspect -t 20 src",
-    "build": "poi --production"
+    "build": "poi --production",
+    "start": "node ./server.js"
   },
   "author": "Alex Gustafsson",
   "license": "ISC",
