@@ -47,5 +47,9 @@ const server = http.createServer((request, response) => {
 
 })
 
+process.on('SIGINT', () => {
+  process.exit();
+});
+
 server.listen(3000);
 console.log('Listening on :3000');
