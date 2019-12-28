@@ -60,3 +60,9 @@
     grid-template-columns: repeat(2, minmax(150px, 250px));
   }
 }
+
+@media only screen and (max-width: 450px) {
+  .home-page > main > ul {
+    grid-template-columns: repeat(1, minmax(150px, 250px));
+  }
+}
