@@ -18,11 +18,21 @@ git clone https://github.com/AlexGustafsson/timekeep
 # Enter the directory
 cd timekeep
 
-# Install dependencies and launch development server
+## Option A:
+# Install dependencies
 npm install
-npm start
+# Option A 1: Run development server
+npm run dev
+# Option A 2: Build and run minimal server
+npm run build
+npm run start
 
-# You can now go to http://localhost:4000
+## Option B:
+# Build and run using Docker
+./docker-build.sh
+docker run -it -p 3000:3000 axgn/timekeep
+
+# You can now go to http://localhost:3000 or http://localhost:4000 if you're using the development server
 ```
 
 # Table of contents
