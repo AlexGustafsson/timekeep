@@ -1,3 +1,5 @@
+import {exportToExcel} from '../../utils';
+
 export default {
   name: 'app',
   data() {
@@ -31,6 +33,16 @@ export default {
       this.$store.dispatch('toggleFavorite', timekeep).catch(error => {
         alert(error);
       });
+    },
+    async exportToExcel() {
+      const buffer = await exportToExcel(this.$store.state.timekeeps);
+      const bytes = new Uint8Array(buffer);
+      const blob = new Blob([bytes], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+
+      const element = document.createElement('a');
+      element.href = URL.createObjectURL(blob);
+      element.download = 'timekeep.xlsx';
+      element.click();
     },
     remove(timekeep) {
       const result = window.confirm(`Are you sure you want to remove '${timekeep.name}' permanently?`);

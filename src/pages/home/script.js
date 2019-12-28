@@ -1,5 +1,5 @@
 import {Card, FormInput, WeekScroller} from '../../components';
-import {exportToExcel, getWeek, getDay, getYear} from '../../utils';
+import {getWeek, getDay, getYear} from '../../utils';
 
 export default {
   name: 'home-page',
@@ -49,16 +49,6 @@ export default {
       });
 
       return false;
-    },
-    async exportTimekeeps() {
-      const buffer = await exportToExcel(this.$store.state.timekeeps);
-      const bytes = new Uint8Array(buffer);
-      const blob = new Blob([bytes], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
-
-      const element = document.createElement('a');
-      element.href = URL.createObjectURL(blob);
-      element.download = 'timekeep.xlsx';
-      element.click();
     }
   },
   components: {
