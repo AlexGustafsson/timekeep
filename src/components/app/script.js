@@ -1,11 +1,20 @@
+import {default as FormInput} from '../form-input/model.vue';
 import {exportToExcel} from '../../utils';
 
 export default {
   name: 'app',
   data() {
     return {
+      form: {
+        name: ''
+      },
       menuIsOpen: false
     };
+  },
+  computed: {
+    formDisabled() {
+      return this.form.name === '';
+    }
   },
   methods: {
     openMenu() {
@@ -61,6 +70,24 @@ export default {
         // Reload page
         window.location.replace('/');
       }
+    },
+    submit(event) {
+      if (event)
+        event.preventDefault(true);
+
+      this.form.enabled = false;
+      this.$store.dispatch('addTimekeep', this.form.name).then(() => {
+        this.form.name = '';
+        this.form.enabled = true;
+      }).catch(error => {
+        alert(error);
+        this.form.enabled = true;
+      });
+
+      return false;
     }
+  },
+  components: {
+    FormInput
   }
 }

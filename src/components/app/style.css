@@ -82,6 +82,12 @@
   color: #BEC3DC;
 }
 
+.app > nav.side li.form {
+  grid-template-columns: 1fr 64px;
+  grid-gap: 10px;
+  padding: 10px 0;
+}
+
 .app > nav.side li > .material-icons {
   text-align: right;
 

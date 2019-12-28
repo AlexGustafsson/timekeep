@@ -15,6 +15,7 @@
   min-width: 25px;
   -webkit-touch-callout: none;
   user-select: none;
+  height: 10px;
 
   padding: 10px 15px;
   border-radius: 5px;
@@ -28,9 +29,8 @@
 }
 
 .form-input.button.disabled {
-  background: none;
-  background-color: #F2F5F7;
   cursor: default;
+  box-shadow: none;
 }
 
 .form-input label {
