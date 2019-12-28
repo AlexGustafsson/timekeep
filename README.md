@@ -46,7 +46,12 @@ docker run -it -p 3000:3000 axgn/timekeep
 # Features
 <a name="features"></a>
 
-_This project is still under active development._
+* Stunning dark UI
+* Intuitive user experience for simple timekeeping
+* Keeps track of time spent on projects even when the app is closed
+* Works fully offline with client-side storage
+* Exports data for use with Excel
+* 296kB gzipped
 
 # Technology
 <a name="technology"></a>
