@@ -68,6 +68,7 @@
   overflow: hidden;
   overflow-y: scroll;
   padding-right: 10px;
+  height: 100%;
 }
 
 .app > nav.side ul > :not(:first-child) {
