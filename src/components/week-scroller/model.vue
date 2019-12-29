@@ -7,7 +7,7 @@
     </ul>
     <ul>
       <li @click="previousDay()"><i class="material-icons up">chevron_right</i></li>
-      <li v-for="day in days" :key="day" :class="{selected: value.day === day}" @click="dayChanged(day)">{{day}}</li>
+      <li v-for="day in days" :key="day" :class="{selected: value.day === day}" @click="dayChanged(day)">{{dayLabel(day)}}</li>
       <li @click="nextDay()"><i class="material-icons down">chevron_right</i></li>
     </ul>
   </div>

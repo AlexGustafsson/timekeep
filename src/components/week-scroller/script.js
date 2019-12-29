@@ -97,6 +97,10 @@ export default {
       }
 
       this.$emit('input', {year, week, day});
+    },
+    dayLabel(day) {
+      const labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+      return labels[day - 1];
     }
   },
   props: {

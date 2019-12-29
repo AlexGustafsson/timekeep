@@ -4,7 +4,7 @@
   box-sizing: border-box;
   position: relative;
   display: grid;
-  grid-template-columns: 50px 1fr;
+  grid-template-columns: 65px 1fr;
   grid-gap: 20px;
   min-height: 100%;
 }
