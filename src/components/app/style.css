@@ -89,6 +89,17 @@
   padding: 10px 0;
 }
 
+.app > nav.side li.github {
+  display: flex;
+  justify-content: center;
+}
+
+.app > nav.side li.github > a {
+  width: 32px;
+  height: 32px;
+  fill: #BEC3DC;
+}
+
 .app > nav.side li > .material-icons {
   text-align: right;
 

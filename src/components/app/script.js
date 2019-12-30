@@ -61,6 +61,9 @@ export default {
         });
       }
     },
+    edit(a) {
+      console.log(a);
+    },
     reset() {
       const confirmed = confirm('Are you sure you want to reset the application? Any state will be permanently lost.')
 
