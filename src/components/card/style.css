@@ -35,8 +35,8 @@
 }
 
 .card > header {
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: 48px 1fr;
   align-items: center;
   margin-bottom: 25px;
 }
@@ -75,6 +75,8 @@
   margin-left: 10px;
   color: #BEC3DC;
   font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .card > h2 {
