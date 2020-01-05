@@ -14,6 +14,7 @@
         <li v-for="timekeep in $store.state.timekeeps">
           <p>{{timekeep.name}}</p>
           <i class="material-icons" @click.stop="toggleFavorite(timekeep)">{{timekeep.favorite ? 'favorite' : 'favorite_border'}}</i>
+          <i class="material-icons" @click.stop="changeName(timekeep)">edit</i>
           <i class="material-icons" @click.stop="remove(timekeep)">delete_forever</i>
         </li>
         <li v-if="$store.state.timekeeps.length > 0" class="spacer"></li>

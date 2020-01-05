@@ -93,6 +93,10 @@ export default new Vuex.Store({
     toggleFavorite(state, timekeep) {
       timekeep.toggleFavorite();
       state.timekeeps[state.timekeeps.indexOf(timekeep)] = timekeep;
+    },
+    changeName(state, {timekeep, name}) {
+      timekeep.name = name;
+      state.timekeeps[state.timekeeps.indexOf(timekeep)] = timekeep;
     }
   },
   actions: {
@@ -123,6 +127,16 @@ export default new Vuex.Store({
         throw new Error('No such timekeep in the store');
 
       commit('toggleFavorite', timekeep);
+    },
+    async changeName({commit, state}, {timekeep, name}) {
+      if (!name || name === '')
+        throw new Error('Cannot change name to be empty');
+
+      const duplicates = state.timekeeps.filter(x => x.name === name);
+      if (duplicates.length > 0)
+        throw new Error('A timekeep with that name already exists');
+
+      commit('changeName', {timekeep, name});
     }
   },
   plugins: [vuexLocal.plugin]

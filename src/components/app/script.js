@@ -61,8 +61,11 @@ export default {
         });
       }
     },
-    edit(a) {
-      console.log(a);
+    changeName(timekeep) {
+      const name = prompt(`New name for '${timekeep.name}'`);
+      this.$store.dispatch('changeName', {timekeep, name}).catch(error => {
+        alert(error);
+      });
     },
     reset() {
       const confirmed = confirm('Are you sure you want to reset the application? Any state will be permanently lost.')
