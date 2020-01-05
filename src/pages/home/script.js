@@ -1,3 +1,6 @@
+/* globals alert */
+/* eslint-disable no-alert */
+
 import {Card, WeekScroller} from '../../components';
 import {getWeek, getDay, getYear} from '../../utils';
 

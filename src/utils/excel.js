@@ -5,12 +5,12 @@ function addWeek(workbook, year, week, timekeeps) {
   for (const timekeep of timekeeps) {
     const weeks = timekeep.years[year];
     // The timekeep does not have any entries during that year
-    if (!weeks || weeks.length == 0)
+    if (!weeks || weeks.length === 0)
       continue;
 
     const days = weeks[week];
     // The timekeep does not have any entries during that year and week
-    if (!days || days.length == 0)
+    if (!days || days.length === 0)
       continue;
 
     const row = [timekeep.name];
@@ -20,11 +20,11 @@ function addWeek(workbook, year, week, timekeeps) {
     row.push({formula: `SUM(B${rows.length + 2}:H${rows.length + 2})`, result: Math.round(timekeep.getTotalTime(year, week) / 1000) / 86400});
 
     // Only add rows that actually have time tracked
-    if (row[8].result != 0)
+    if (row[8].result !== 0)
       rows.push(row);
   }
 
-  if (rows.length == 0)
+  if (rows.length === 0)
     return;
 
   const worksheet = workbook.addWorksheet(`${year} week ${week}`, {
@@ -47,7 +47,7 @@ function addWeek(workbook, year, week, timekeeps) {
     {name: 'Friday', totalsRowLabel: 'Total', totalsRowFunction: 'custom', totalsRowFormula: `SUM(F2:F${rowsEnd})`},
     {name: 'Saturday', totalsRowLabel: 'Total', totalsRowFunction: 'custom', totalsRowFormula: `SUM(G2:G${rowsEnd})`},
     {name: 'Sunday', totalsRowLabel: 'Total', totalsRowFunction: 'custom', totalsRowFormula: `SUM(H2:H${rowsEnd})`},
-    {name: 'Total'},
+    {name: 'Total'}
   ];
 
   worksheet.addTable({
@@ -58,15 +58,15 @@ function addWeek(workbook, year, week, timekeeps) {
     totalsRow: true,
     style: {
       theme: 'TableStyleLight1',
-      showRowStripes: false,
+      showRowStripes: false
     },
     columns,
-    rows,
+    rows
   });
 
   // Style the width of the columns
   for (let i = 0; i < columns.length; i++) {
-    if (i == 0)
+    if (i === 0)
       worksheet.getColumn(i + 1).width = 25;
     else
       worksheet.getColumn(i + 1).width = 12;

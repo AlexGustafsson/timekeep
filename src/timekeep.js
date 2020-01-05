@@ -37,7 +37,7 @@ export default class Timekeeping {
     const day = getDay();
     this.assertDay(year, week, day);
 
-    this.years[year][week][day].push(new Date())
+    this.years[year][week][day].push(new Date());
   }
 
   stopCounting() {
@@ -46,7 +46,7 @@ export default class Timekeeping {
     const day = getDay();
     this.assertDay(year, week, day);
 
-    this.years[year][week][day].push(new Date())
+    this.years[year][week][day].push(new Date());
   }
 
   toggleCounting() {
@@ -67,9 +67,9 @@ export default class Timekeeping {
     const checkpoints = [...this.years[year][week][day], new Date()];
 
     let sum = 0;
-    for (let i = 0; i < Math.floor(checkpoints.length / 2); i ++) {
+    for (let i = 0; i < Math.floor(checkpoints.length / 2); i++) {
       const a = checkpoints[i * 2];
-      const b = checkpoints[i * 2 + 1];
+      const b = checkpoints[(i * 2) + 1];
 
       sum += b - a;
     }
@@ -83,9 +83,8 @@ export default class Timekeeping {
     const days = this.years[year][week];
     let sum = 0;
 
-    for (const day of Object.keys(days)) {
+    for (const day of Object.keys(days))
       sum += this.getTime(year, week, day);
-    }
 
     return sum;
   }

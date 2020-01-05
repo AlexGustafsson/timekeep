@@ -12,7 +12,7 @@ export default {
   computed: {
     classes() {
       // Dummy hash for assigning color
-      const hash = Number(this.timekeep.name.substr(0, 10).split('').map(x => x.charCodeAt(0).toString()).join(''));
+      const hash = Number(this.timekeep.name.slice(0, 10).split('').map(x => x.charCodeAt(0).toString()).join(''));
       const colors = 4;
       const color = Math.round(hash % colors) + 1;
 

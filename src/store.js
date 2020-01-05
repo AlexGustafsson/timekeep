@@ -1,4 +1,4 @@
-/* globals window */
+/* globals localStorage */
 
 import Vue from 'vue';
 import Vuex from 'vuex';
@@ -9,7 +9,7 @@ import Timekeep from './timekeep';
 import {getYear, getWeek, getDay} from './utils';
 
 const vuexLocal = new VuexPersistence({
-  storage: window.localStorage,
+  storage: localStorage,
   reducer: state => ({
     timekeeps: state.timekeeps
   }),
@@ -68,14 +68,13 @@ export default new Vuex.Store({
       state.timekeeps.push(new Timekeep({name}));
     },
     removeTimekeep(state, timekeep) {
-      if (state.activeId && state.activeId === timekeep.id) {
+      if (state.activeId && state.activeId === timekeep.id)
         state.activeId = null;
-      }
 
       state.timekeeps = state.timekeeps.filter(x => x !== timekeep);
     },
     toggleCounting(state, timekeep) {
-      if (state.activeId && state.activeId != timekeep.id) {
+      if (state.activeId && state.activeId !== timekeep.id) {
         const activeTimekeep = state.timekeeps.find(x => x.id === state.activeId);
         activeTimekeep.toggleCounting();
         state.timekeeps[state.timekeeps.indexOf(activeTimekeep)] = activeTimekeep;
@@ -111,19 +110,19 @@ export default new Vuex.Store({
       commit('addTimekeep', name);
     },
     async removeTimekeep({commit, state}, timekeep) {
-      if (state.timekeeps.indexOf(timekeep) === -1)
+      if (!state.timekeeps.includes(timekeep))
         throw new Error('No such timekeep in the store');
 
       commit('removeTimekeep', timekeep);
     },
     async toggleCounting({commit, state}, timekeep) {
-      if (state.timekeeps.indexOf(timekeep) === -1)
+      if (!state.timekeeps.includes(timekeep))
         throw new Error('No such timekeep in the store');
 
       commit('toggleCounting', timekeep);
     },
     async toggleFavorite({commit, state}, timekeep) {
-      if (state.timekeeps.indexOf(timekeep) === -1)
+      if (!state.timekeeps.includes(timekeep))
         throw new Error('No such timekeep in the store');
 
       commit('toggleFavorite', timekeep);

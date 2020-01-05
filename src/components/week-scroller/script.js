@@ -7,7 +7,7 @@ export default {
         let {year, week, day} = this.value;
         if (week + i > 52) {
           year++;
-          week = (week + i) % 52
+          week = (week + i) % 52;
         } else if (week + i < 1) {
           year--;
           week = 53 + i;
@@ -23,13 +23,12 @@ export default {
       const days = [];
       for (let i = -2; i <= 2; i++) {
         let {day} = this.value;
-        if (day + i > 7) {
-          day = (day + i) % 7
-        } else if (day + i < 1) {
-          day = 8 + i
-        } else {
+        if (day + i > 7)
+          day = (day + i) % 7;
+        else if (day + i < 1)
+          day = 8 + i;
+        else
           day += i;
-        }
 
         days.push(day);
       }
@@ -41,7 +40,7 @@ export default {
       this.$emit('input', week);
     },
     dayChanged(day) {
-      const {year, week} = this.value
+      const {year, week} = this.value;
       this.$emit('input', {year, week, day});
     },
     nextWeek() {

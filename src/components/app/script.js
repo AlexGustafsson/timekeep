@@ -1,3 +1,6 @@
+/* globals window document alert prompt confirm localStorage Blob */
+/* eslint-disable no-alert */
+
 import {default as FormInput} from '../form-input/model.vue';
 import {exportToExcel} from '../../utils';
 
@@ -54,7 +57,7 @@ export default {
       element.click();
     },
     remove(timekeep) {
-      const result = window.confirm(`Are you sure you want to remove '${timekeep.name}' permanently?`);
+      const result = confirm(`Are you sure you want to remove '${timekeep.name}' permanently?`);
       if (result) {
         this.$store.dispatch('removeTimekeep', timekeep).catch(error => {
           alert(error);
@@ -68,7 +71,7 @@ export default {
       });
     },
     reset() {
-      const confirmed = confirm('Are you sure you want to reset the application? Any state will be permanently lost.')
+      const confirmed = confirm('Are you sure you want to reset the application? Any state will be permanently lost.');
 
       if (confirmed) {
         // Remove state
@@ -96,4 +99,4 @@ export default {
   components: {
     FormInput
   }
-}
+};

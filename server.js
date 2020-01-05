@@ -15,12 +15,12 @@ const server = http.createServer((request, response) => {
 
   // Ensure that '/' is handled as '/index.html'
   if (filePath === './dist/')
-    filePath = './dist/index.html'
+    filePath = './dist/index.html';
 
   const extension = path.extname(filePath).toLowerCase();
 
   // All routing is done locally, redirect to main html
-  if (extension == 'html')
+  if (extension === 'html')
     filePath = './dist/index.html';
 
   // Resolve path to mitigate path traverals
@@ -44,8 +44,7 @@ const server = http.createServer((request, response) => {
     response.writeHead(200, {'Content-Type': contentType});
     response.end(content, 'utf-8');
   });
-
-})
+});
 
 process.on('SIGINT', () => {
   process.exit();

@@ -1,5 +1,5 @@
 export function getWeek(date = new Date()) {
-  const nearestThursday = new Date()
+  const nearestThursday = new Date();
   nearestThursday.setDate(date.getDate() + 4 - (date.getDay() || 7));
 
   const firstDayOfYear = new Date(nearestThursday.getFullYear(), 0, 1);
@@ -15,5 +15,5 @@ export function getYear(date = new Date()) {
 }
 
 export function getDay(date = new Date()) {
-  return (date.getDay() + 6) % 7 + 1
+  return ((date.getDay() + 6) % 7) + 1;
 }
