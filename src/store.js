@@ -6,6 +6,8 @@ import VuexPersistence from 'vuex-persist';
 
 import Timekeep from './timekeep';
 
+import {getYear, getWeek, getDay} from './utils';
+
 const vuexLocal = new VuexPersistence({
   storage: window.localStorage,
   reducer: state => ({
@@ -23,10 +25,25 @@ const vuexLocal = new VuexPersistence({
       if (!timekeep.years)
         break;
 
+      const now = {year: getYear(), week: getWeek(), day: getDay()};
       for (const year of Object.keys(timekeep.years)) {
         for (const week of Object.keys(timekeep.years[year])) {
-          for (const day of Object.keys(timekeep.years[year][week]))
+          for (const day of Object.keys(timekeep.years[year][week])) {
             timekeep.years[year][week][day] = timekeep.years[year][week][day].map(x => new Date(x));
+            const isCounting = timekeep.years[year][week][day].length % 2 !== 0;
+            const isToday = year === now.year.toString() && week === now.week.toString() && day === now.day.toString();
+            // Stop counting by the end of the day
+            // Note that unless the state is manipulated, vuex will not update and save the patched state
+            if (isCounting && !isToday) {
+              const last = timekeep.years[year][week][day].slice(-1)[0];
+              const end = new Date(last);
+              end.setHours(23);
+              end.setMinutes(59);
+              end.setSeconds(59);
+              end.setMilliseconds(59);
+              timekeep.years[year][week][day].push(end);
+            }
+          }
         }
       }
 
