@@ -18,7 +18,7 @@
           <i class="material-icons" @click.stop="remove(timekeep)">delete_forever</i>
         </li>
         <li v-if="$store.state.timekeeps.length > 0" class="spacer"></li>
-        <li @click.stop="exportToExcel" class="menu-button">
+        <li v-if="$store.state.timekeeps.length > 0" @click.stop="exportToExcel" class="menu-button">
           <p>Export to Excel</p>
         </li>
         <li @click.stop="reset" class="menu-button">
