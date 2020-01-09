@@ -8,7 +8,7 @@
     <nav class="side" ref="menu" v-bind:class="{open: menuIsOpen}">
       <ul>
         <li class="form">
-          <form-input name="name" type="text" label="Name" v-model="form.name" @keyup.native.enter="submit"></form-input>
+          <form-input name="name" type="text" label="Add a project" v-model="form.name" @keyup.native.enter="submit"></form-input>
           <form-input :disabled="formDisabled" name="submit" type="button" label="Add" @click="submit"></form-input>
         </li>
         <li v-for="timekeep in $store.state.timekeeps">
