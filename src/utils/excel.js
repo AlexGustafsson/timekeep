@@ -1,4 +1,4 @@
-import Excel from 'exceljs';
+import XlsxPopulate from '../../node_modules/xlsx-populate/browser/xlsx-populate.min';
 
 function addWeek(workbook, year, week, timekeeps) {
   const rows = [];
@@ -13,11 +13,11 @@ function addWeek(workbook, year, week, timekeeps) {
     if (!days || days.length === 0)
       continue;
 
-    const row = [timekeep.name];
+    const row = [{type: 'text', value: timekeep.name}];
     // Add the total of all checkpoints that day
     for (let i = 0; i < 7; i++)
-      row.push(Math.round(timekeep.getTime(year, week, i) / 1000) / 86400);
-    row.push({formula: `SUM(B${rows.length + 2}:H${rows.length + 2})`, result: Math.round(timekeep.getTotalTime(year, week) / 1000) / 86400});
+      row.push({type: 'time', value: Math.round(timekeep.getTime(year, week, i) / 1000) / 86400});
+    row.push({type: 'time', formula: `SUM(B${rows.length + 2}:H${rows.length + 2})`});
 
     // Only add rows that actually have time tracked
     if (row[8].result !== 0)
@@ -27,60 +27,66 @@ function addWeek(workbook, year, week, timekeeps) {
   if (rows.length === 0)
     return;
 
-  const worksheet = workbook.addWorksheet(`${year} week ${week}`, {
-    properties: {
-      tabColor: {
-        showGridLines: true,
-        defaultRowHeight: 35,
-        dyDescent: 55
-      }
-    }
-  });
+  const worksheet = workbook.addSheet(`${year} week ${week}`);
 
-  const rowsEnd = Math.max(rows.length + 1, 2);
   const columns = [
-    {name: 'Project'},
-    {name: 'Monday', totalsRowLabel: 'Total', totalsRowFunction: 'custom', totalsRowFormula: `SUM(B2:B${rowsEnd})`},
-    {name: 'Tuesday', totalsRowLabel: 'Total', totalsRowFunction: 'custom', totalsRowFormula: `SUM(C2:C${rowsEnd})`},
-    {name: 'Wednesday', totalsRowLabel: 'Total', totalsRowFunction: 'custom', totalsRowFormula: `SUM(D2:D${rowsEnd})`},
-    {name: 'Thursday', totalsRowLabel: 'Total', totalsRowFunction: 'custom', totalsRowFormula: `SUM(E2:E${rowsEnd})`},
-    {name: 'Friday', totalsRowLabel: 'Total', totalsRowFunction: 'custom', totalsRowFormula: `SUM(F2:F${rowsEnd})`},
-    {name: 'Saturday', totalsRowLabel: 'Total', totalsRowFunction: 'custom', totalsRowFormula: `SUM(G2:G${rowsEnd})`},
-    {name: 'Sunday', totalsRowLabel: 'Total', totalsRowFunction: 'custom', totalsRowFormula: `SUM(H2:H${rowsEnd})`},
-    {name: 'Total'}
+    {name: 'Project', width: 25},
+    {name: 'Monday', width: 12},
+    {name: 'Tuesday', width: 12},
+    {name: 'Wednesday', width: 12},
+    {name: 'Thursday', width: 12},
+    {name: 'Friday', width: 12},
+    {name: 'Saturday', width: 12},
+    {name: 'Sunday', width: 12},
+    {name: 'Total', width: 12}
   ];
 
-  worksheet.addTable({
-    name: 'week1',
-    displayName: 'Week 1',
-    ref: 'A1',
-    headerRow: true,
-    totalsRow: true,
-    style: {
-      theme: 'TableStyleLight1',
-      showRowStripes: false
-    },
-    columns,
-    rows
-  });
+  // Create and style table header
+  for (const [i, {name, width}] of columns.entries()) {
+    const row = worksheet.row(1);
+    row.height(35);
 
-  // Style the width of the columns
-  for (let i = 0; i < columns.length; i++) {
-    if (i === 0)
-      worksheet.getColumn(i + 1).width = 25;
-    else
-      worksheet.getColumn(i + 1).width = 12;
+    const column = worksheet.column(i + 1);
+    column.width(width);
+
+    const cell = row.cell(i + 1);
+    cell.value(name);
+    cell.style('bold', true);
+    cell.style('border', {bottom: true});
+    cell.style('horizontalAlignment', 'center');
+    cell.style('verticalAlignment', 'center');
   }
 
   // Style the cells to use a specific format and height
-  for (let i = 0; i <= worksheet.lastRow.number; i++) {
-    const row = worksheet.getRow(i);
-    row.height = 35;
+  for (const [i, columns] of rows.entries()) {
+    const row = worksheet.row(i + 2);
+    row.height(35);
 
-    row.eachCell({includeEmpty: true}, (cell => {
-      cell.alignment = {vertical: 'middle', horizontal: 'center', wrapText: true};
-      cell.numFmt = 'hh:mm:ss';
-    }));
+    for (const [j, column] of columns.entries()) {
+      const cell = row.cell(j + 1);
+      cell.value(column.value);
+      cell.style('horizontalAlignment', 'center');
+      cell.style('verticalAlignment', 'center');
+      if (column.type === 'time')
+        cell.style('numberFormat', 'hh:mm:ss');
+      if (column.formula)
+        cell.formula(column.formula);
+    }
+  }
+
+  // Add a footer with the total
+  const footer = worksheet.row(rows.length + 2);
+  footer.height(35);
+  footer.style('bold', true);
+  footer.style('border', {top: true});
+  footer.style('horizontalAlignment', 'center');
+  footer.style('verticalAlignment', 'center');
+  footer.cell(1).value('Total');
+  const columnLabels = ['B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
+  for (const [i, label] of columnLabels.entries()) {
+    const cell = footer.cell(i + 2);
+    cell.style('numberFormat', 'hh:mm:ss');
+    cell.formula(`SUM(${label}2:${label}${rows.length + 1})`);
   }
 }
 
@@ -109,19 +115,7 @@ function getWeeks(timekeeps) {
 }
 
 export async function exportToExcel(timekeeps) {
-  const workbook = new Excel.Workbook();
-
-  workbook.creator = 'Timekeep';
-  workbook.lastModifiedBy = 'Timekeep';
-  workbook.created = new Date();
-  workbook.modified = new Date();
-
-  workbook.views = [
-    {
-      x: 0, y: 0, width: 100, height: 100,
-      firstSheet: 0, activeTab: 0, visibility: 'visible'
-    }
-  ];
+  const workbook = await XlsxPopulate.fromBlankAsync();
 
   const years = getWeeks(timekeeps);
   for (const year of Object.keys(years)) {
@@ -129,7 +123,11 @@ export async function exportToExcel(timekeeps) {
       addWeek(workbook, year, week, timekeeps);
   }
 
-  const buffer = await workbook.xlsx.writeBuffer();
+  // Remove the default sheet
+  if (workbook.sheets().length > 0)
+    workbook.deleteSheet(0);
 
-  return buffer;
+  const blob = await workbook.outputAsync();
+
+  return blob;
 }
