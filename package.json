@@ -88,6 +88,9 @@
     "files": [
       "test/*.js"
     ],
+    "require": [
+      "esm"
+    ],
     "concurrency": 5,
     "failFast": false,
     "verbose": true,
