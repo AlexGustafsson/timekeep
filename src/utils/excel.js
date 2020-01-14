@@ -19,8 +19,9 @@ function addWeek(workbook, year, week, timekeeps) {
       row.push({type: 'time', value: Math.round(timekeep.getTime(year, week, i) / 1000) / 86400});
     row.push({type: 'time', formula: `SUM(B${rows.length + 2}:H${rows.length + 2})`});
 
+    const total = timekeep.getTotalTime(year, week);
     // Only add rows that actually have time tracked
-    if (row[8].result !== 0)
+    if (total !== 0)
       rows.push(row);
   }
 
