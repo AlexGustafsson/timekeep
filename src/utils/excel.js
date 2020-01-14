@@ -15,7 +15,7 @@ function addWeek(workbook, year, week, timekeeps) {
 
     const row = [{type: 'text', value: timekeep.name}];
     // Add the total of all checkpoints that day
-    for (let i = 0; i < 7; i++)
+    for (let i = 1; i <= 7; i++)
       row.push({type: 'time', value: Math.round(timekeep.getTime(year, week, i) / 1000) / 86400});
     row.push({type: 'time', formula: `SUM(B${rows.length + 2}:H${rows.length + 2})`});
 
