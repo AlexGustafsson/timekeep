@@ -26,7 +26,7 @@ export default {
   methods: {
     update() {
       this.prettyTime = humanizeDuration(Math.round(this.timekeep.getTime(this.week.year, this.week.week, this.week.day) / 1000) * 1000, {largest: 2});
-      this.prettyPrevious = humanizeDuration(Math.round(this.timekeep.getTotalTime(this.week.year, this.week.week) / 1000) * 1000, {largest: 2});
+      this.prettyPrevious = humanizeDuration(Math.round(this.timekeep.getTime(this.week.year, this.week.week) / 1000) * 1000, {largest: 2});
     }
   },
   props: {

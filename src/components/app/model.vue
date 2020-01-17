@@ -11,14 +11,14 @@
           <form-input name="name" type="text" label="Add a project" v-model="form.name" @keyup.native.enter="submit"></form-input>
           <form-input :disabled="formDisabled" name="submit" type="button" label="Add" @click="submit"></form-input>
         </li>
-        <li v-for="timekeep in $store.state.timekeeps">
+        <li v-for="timekeep in $store.timekeeps">
           <p>{{timekeep.name}}</p>
           <i class="material-icons" @click.stop="toggleFavorite(timekeep)">{{timekeep.favorite ? 'favorite' : 'favorite_border'}}</i>
           <i class="material-icons" @click.stop="changeName(timekeep)">edit</i>
           <i class="material-icons" @click.stop="remove(timekeep)">delete_forever</i>
         </li>
-        <li v-if="$store.state.timekeeps.length > 0" class="spacer"></li>
-        <li v-if="$store.state.timekeeps.length > 0" @click.stop="exportToExcel" class="menu-button">
+        <li v-if="$store.timekeeps.length > 0" class="spacer"></li>
+        <li v-if="$store.timekeeps.length > 0" @click.stop="exportToExcel" class="menu-button">
           <p>Export to Excel</p>
         </li>
         <li @click.stop="reset" class="menu-button">

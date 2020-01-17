@@ -1,2 +1,2 @@
 export * from './excel';
-export * from './date';
+export {default as UniversalDate} from './universal-date';

@@ -1,25 +1,29 @@
-/* globals alert */
-/* eslint-disable no-alert */
-
 import {Card, WeekScroller} from '../../components';
-import {getWeek, getDay, getYear} from '../../utils';
+import {UniversalDate} from '../../utils';
 
 export default {
   name: 'home-page',
   data() {
+    const today = new UniversalDate();
+
     return {
       week: {
-        year: getYear(),
-        week: getWeek(),
-        day: getDay()
-      }
+        year: today.year,
+        week: today.week,
+        day: today.day
+      },
+      activeTimekeep: null
     };
   },
   methods: {
     cardClicked(timekeep) {
-      this.$store.dispatch('toggleCounting', timekeep).catch(error => {
-        alert(error);
-      });
+      if (this.activeTimekeep)
+        this.activeTimekeep.addCheckpoint();
+
+      if (timekeep !== this.activeTimekeep) {
+        timekeep.addCheckpoint();
+        this.activeTimekeep = timekeep;
+      }
     }
   },
   components: {

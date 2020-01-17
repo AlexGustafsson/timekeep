@@ -19,6 +19,10 @@ export default {
       return this.form.name === '';
     }
   },
+  mounted() {
+    this.$store.load();
+    console.log(this.$store);
+  },
   methods: {
     openMenu() {
       this.menuIsOpen = true;
@@ -42,9 +46,7 @@ export default {
         this.hideMenu();
     },
     toggleFavorite(timekeep) {
-      this.$store.dispatch('toggleFavorite', timekeep).catch(error => {
-        alert(error);
-      });
+      timekeep.toggleFavorite();
     },
     async exportToExcel() {
       const blob = await exportToExcel(this.$store.state.timekeeps);
@@ -56,24 +58,20 @@ export default {
     },
     remove(timekeep) {
       const result = confirm(`Are you sure you want to remove '${timekeep.name}' permanently?`);
-      if (result) {
-        this.$store.dispatch('removeTimekeep', timekeep).catch(error => {
-          alert(error);
-        });
-      }
+      if (result)
+        this.$store.removeTimekeep(timekeep);
     },
     changeName(timekeep) {
       const name = prompt(`New name for '${timekeep.name}'`);
-      this.$store.dispatch('changeName', {timekeep, name}).catch(error => {
-        alert(error);
-      });
+      if (name)
+        timekeep.name = name;
     },
     reset() {
       const confirmed = confirm('Are you sure you want to reset the application? Any state will be permanently lost.');
 
       if (confirmed) {
         // Remove state
-        localStorage.removeItem('vuex');
+        this.$store.nuke();
         // Reload page
         window.location.replace('/');
       }
@@ -83,13 +81,11 @@ export default {
         event.preventDefault(true);
 
       this.form.enabled = false;
-      this.$store.dispatch('addTimekeep', this.form.name).then(() => {
-        this.form.name = '';
-        this.form.enabled = true;
-      }).catch(error => {
-        alert(error);
-        this.form.enabled = true;
-      });
+
+      this.$store.addTimekeep(this.form.name);
+
+      this.form.name = '';
+      this.form.enabled = true;
 
       return false;
     }
