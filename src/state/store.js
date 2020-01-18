@@ -17,6 +17,9 @@ export default class Store {
     this.timekeeps = [];
     this.groups = [];
     this.version = CURRENT_VERSION;
+    this.options = {
+      resetFavoritesEachWeek: false
+    };
   }
 
   static install(vue) {
@@ -39,6 +42,7 @@ export default class Store {
       this.timekeeps = state.timekeeps.map(Timekeep.parse);
       this.groups = state.groups;
       this.version = state.version;
+      this.options = state.options;
     } else {
       throw new Error(`Unsupported store version '${state.version}'`);
     }
@@ -48,7 +52,8 @@ export default class Store {
     const serialized = {
       timekeeps: this.timekeeps.map(Timekeep.serialize),
       groups: this.groups.map(Group.serialize),
-      version: this.version
+      version: this.version,
+      options: this.options
     };
 
     localStorage.setItem(STORAGE_NAME, JSON.stringify(serialized));

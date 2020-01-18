@@ -17,7 +17,11 @@
           <i class="material-icons" @click.stop="changeName(timekeep)">edit</i>
           <i class="material-icons" @click.stop="remove(timekeep)">delete_forever</i>
         </li>
-        <li v-if="$store.timekeeps.length > 0" class="spacer"></li>
+        <li class="spacer"></li>
+        <li class="options">
+          <form-input name="resetFavoritesEachWeek" type="checkbox" label="Reset favorites each week" v-model="form.resetFavoritesEachWeek"></form-input>
+        </li>
+        <li class="spacer"></li>
         <li v-if="$store.timekeeps.length > 0" @click.stop="exportToExcel" class="menu-button">
           <p>Export to Excel</p>
         </li>

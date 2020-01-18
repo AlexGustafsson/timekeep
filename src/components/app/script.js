@@ -1,4 +1,4 @@
-/* globals window document alert prompt confirm localStorage Blob */
+/* globals window document prompt confirm */
 /* eslint-disable no-alert */
 
 import {default as FormInput} from '../form-input/model.vue';
@@ -9,7 +9,8 @@ export default {
   data() {
     return {
       form: {
-        name: ''
+        name: '',
+        resetFavoritesEachWeek: false
       },
       menuIsOpen: false
     };
@@ -21,7 +22,7 @@ export default {
   },
   mounted() {
     this.$store.load();
-    console.log(this.$store);
+    this.form.resetFavoritesEachWeek = this.$store.options.resetFavoritesEachWeek;
   },
   methods: {
     openMenu() {
@@ -88,6 +89,11 @@ export default {
       this.form.enabled = true;
 
       return false;
+    }
+  },
+  watch: {
+    'form.resetFavoritesEachWeek': function(newValue, oldValue) {
+      this.$store.options.resetFavoritesEachWeek = newValue;
     }
   },
   components: {

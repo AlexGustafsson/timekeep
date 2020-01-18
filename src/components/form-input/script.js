@@ -7,7 +7,10 @@ export default {
   },
   methods: {
     updateValue(event) {
-      this.$emit('input', event.target.value);
+      if (this.type === 'checkbox')
+        this.$emit('input', event.target.checked);
+      else
+        this.$emit('input', event.target.value);
     },
     focused() {
       if (this.type === 'button')
@@ -43,11 +46,9 @@ export default {
       type: String
     },
     disabled: {
-      type: Boolean
+      type: Boolean,
+      default: false
     },
-    value: {
-      type: String,
-      default: ''
-    }
+    value: [String, Boolean]
   }
 };

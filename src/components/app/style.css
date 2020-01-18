@@ -89,6 +89,16 @@
   padding: 10px 0;
 }
 
+.app > nav.side li.options {
+  display: flex;
+  flex-direction: row;
+  padding: 10px 0;
+}
+
+.app > nav.side li.options .form-input {
+  width: 100%;
+}
+
 .app > nav.side li.github {
   display: flex;
   justify-content: center;
