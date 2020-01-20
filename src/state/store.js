@@ -4,7 +4,7 @@ import {reactive, watch} from '@vue/composition-api';
 import Timekeep from './timekeep';
 import Group from './group';
 
-const STORAGE_NAME = 'timekeeper';
+const STORAGE_NAME = 'timekeep';
 
 const VERSION = {
   '0.0.1': 1
