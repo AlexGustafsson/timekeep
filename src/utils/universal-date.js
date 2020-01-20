@@ -59,17 +59,6 @@ export default class UniversalDate {
     return this.date.getTime();
   }
 
-  // The UTC timestamp corresponding to the start of the day
-  getStartOfDay() {
-    const date = new Date(this.date);
-    date.setUTCHours(0);
-    date.setUTCMinutes(0);
-    date.setUTCSeconds(0);
-    date.setUTCMilliseconds(0);
-
-    return date.getTime();
-  }
-
   // Compare the year of two dates
   isSameYear(date) {
     const universalDate = new UniversalDate(date);
@@ -86,5 +75,27 @@ export default class UniversalDate {
   isSameDay(date) {
     const universalDate = new UniversalDate(date);
     return universalDate.year === this.year && universalDate.week === this.week && universalDate.dayOfWeek === this.dayOfWeek;
+  }
+
+  // Returns a UniversalDate corresponding to the last millisecond of the day
+  getEndOfDay() {
+    const endOfDay = new UniversalDate(this.date);
+    endOfDay.date.setUTCHours(23);
+    endOfDay.date.setUTCMinutes(59);
+    endOfDay.date.setUTCSeconds(59);
+    endOfDay.date.setUTCMilliseconds(999);
+
+    return endOfDay;
+  }
+
+  // Returns a UniversalDate corresponding to the first millisecond of the day
+  getStartOfDay() {
+    const startOfDay = new UniversalDate(this.date);
+    startOfDay.date.setUTCHours(0);
+    startOfDay.date.setUTCMinutes(0);
+    startOfDay.date.setUTCSeconds(0);
+    startOfDay.date.setUTCMilliseconds(0);
+
+    return startOfDay;
   }
 }

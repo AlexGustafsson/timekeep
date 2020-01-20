@@ -91,9 +91,3 @@ test('can compare days', t => {
   t.true(universalDate.isSameDay(positive));
   t.false(universalDate.isSameDay(negative));
 });
-
-test('can get start of day', t => {
-  const universalDate = UniversalDate.fromUTC({year: 2020, month: 6, date: 24, hours: 12, minutes: 12});
-
-  t.is(1595548800000, universalDate.getStartOfDay());
-});

@@ -18,6 +18,8 @@ export default class TimekeepDay {
     day.checkpoints = state.checkpoints.map(x => new UniversalDate(x));
     day.offset = state.offset;
 
+    day.patch();
+
     return day;
   }
 
@@ -27,6 +29,18 @@ export default class TimekeepDay {
       checkpoints: day.checkpoints.map(x => x.timestamp),
       offset: day.offset
     };
+  }
+
+  // Patch the day by ensuring that if the day has past,
+  // it is no longer counting (that is, stop counting by midnight automatically)
+  patch(today = new UniversalDate()) {
+    // If it's the same day, it doesn't matter whether or not it's counting
+    if (this.date.isSameDay(today))
+      return;
+
+    // If the day is still counting, stop counting at the end of the day
+    if (this.checkpoints.length % 2 === 1)
+      this.checkpoints.push(this.date.getEndOfDay());
   }
 
   get isCounting() {
