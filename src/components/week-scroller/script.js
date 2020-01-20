@@ -23,10 +23,10 @@ export default {
       const days = [];
       for (let i = -2; i <= 2; i++) {
         let {day} = this.value;
-        if (day + i > 7)
-          day = (day + i) % 7;
-        else if (day + i < 1)
-          day = 8 + i;
+        if (day + i > 6)
+          day = (day + i) % 6;
+        else if (day + i < 0)
+          day = 7 + i;
         else
           day += i;
 
@@ -67,9 +67,9 @@ export default {
     },
     nextDay() {
       let {year, week, day} = this.value;
-      if (day + 1 > 7) {
+      if (day + 1 > 6) {
         week++;
-        day = 1;
+        day = 0;
       } else {
         day++;
       }
@@ -83,9 +83,9 @@ export default {
     },
     previousDay() {
       let {year, week, day} = this.value;
-      if (day - 1 < 1) {
+      if (day - 1 < 0) {
         week--;
-        day = 7;
+        day = 6;
       } else {
         day--;
       }
@@ -99,7 +99,7 @@ export default {
     },
     dayLabel(day) {
       const labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-      return labels[day - 1];
+      return labels[day];
     }
   },
   props: {

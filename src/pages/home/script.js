@@ -10,7 +10,7 @@ export default {
       week: {
         year: today.year,
         week: today.week,
-        day: today.day
+        day: today.dayOfWeek
       },
       activeTimekeep: null
     };
