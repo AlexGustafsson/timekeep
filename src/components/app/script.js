@@ -1,8 +1,11 @@
-/* globals window document prompt confirm */
+/* globals window document confirm */
 /* eslint-disable no-alert */
 
-import {default as FormInput} from '../form-input/model.vue';
 import {exportToExcel} from '../../utils';
+
+import {default as FormInput} from '../form-input/model.vue';
+import {default as Modal} from '../modal/model.vue';
+import {default as ModalTimekeep} from '../modal-timekeep/model.vue';
 
 export default {
   name: 'app',
@@ -23,6 +26,7 @@ export default {
   mounted() {
     this.$store.load();
     this.form.resetFavoritesEachWeek = this.$store.options.resetFavoritesEachWeek;
+    this.$modal.initialize(this.$refs.modal);
   },
   methods: {
     openMenu() {
@@ -43,7 +47,7 @@ export default {
       const {clientX} = event;
       const {offsetLeft} = this.$refs.menu;
 
-      if (clientX < offsetLeft)
+      if (clientX < offsetLeft && !this.$modal.showing)
         this.hideMenu();
     },
     toggleFavorite(timekeep) {
@@ -63,9 +67,7 @@ export default {
         this.$store.removeTimekeep(timekeep);
     },
     changeName(timekeep) {
-      const name = prompt(`New name for '${timekeep.name}'`);
-      if (name)
-        timekeep.name = name;
+      this.$modal.show(ModalTimekeep, {timekeep});
     },
     reset() {
       const confirmed = confirm('Are you sure you want to reset the application? Any state will be permanently lost.');
@@ -97,6 +99,8 @@ export default {
     }
   },
   components: {
-    FormInput
+    FormInput,
+    Modal,
+    ModalTimekeep
   }
 };

@@ -22,7 +22,7 @@
   background-color: #485073;
   line-height: 48px;
 
-  z-index: 1000;
+  z-index: 10;
 
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
@@ -46,14 +46,14 @@
   right: -300px;
   bottom: 0;
   width: 250px;
-  background-color: white;
+  background-color: rgba(72, 80, 115, 0.6);
 
   padding: 25px;
 
   display: flex;
   flex-direction: column;
 
-  z-index: 900;
+  z-index: 100;
 
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 

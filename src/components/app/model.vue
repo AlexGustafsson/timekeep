@@ -1,5 +1,7 @@
 <template>
   <div class="app">
+    <modal ref="modal">
+    </modal>
     <nav class="top">
       <i></i>
       <router-link to="/">Timekeep</router-link>
