@@ -9,5 +9,5 @@
 
 .modal-timekeep > .form-input.button {
   width: 60px;
-  justify-self: flex-end;
+  align-self: flex-end;
 }
