@@ -90,11 +90,25 @@ export default class Store {
   }
 
   addTimekeep(name) {
+    // TODO: Make sure names are unique
     this.timekeeps.push(new Timekeep(name));
   }
 
+  addGroup(name) {
+    // TODO: Make sure names are unique
+    this.groups.push(new Group(name));
+  }
+
   removeTimekeep(timekeep) {
+    // Stop the timekeep from counting if it is active
+    if (this.activeTimekeep.id === timekeep.id)
+      this.activeTimekeep = null;
+    // TODO: Remove the timekeep from any groups
     this.timekeeps.splice(this.timekeeps.findIndex(x => x.id === timekeep.id), 1);
+  }
+
+  removeGroup(group) {
+    this.groups.splice(this.groups.findIndex(x => x.name === group.name), 1);
   }
 
   nuke() {

@@ -11,21 +11,29 @@ export default {
   name: 'app',
   data() {
     return {
-      form: {
-        name: '',
+      timekeepForm: {
+        name: ''
+      },
+      groupForm: {
+        name: ''
+      },
+      optionsForm: {
         resetFavoritesEachWeek: false
       },
       menuIsOpen: false
     };
   },
   computed: {
-    formDisabled() {
-      return this.form.name === '';
+    timekeepFormDisabled() {
+      return this.timekeepForm.name === '';
+    },
+    groupFormDisabled() {
+      return this.groupForm.name === '';
     }
   },
   mounted() {
     this.$store.load();
-    this.form.resetFavoritesEachWeek = this.$store.options.resetFavoritesEachWeek;
+    this.optionsForm.resetFavoritesEachWeek = this.$store.options.resetFavoritesEachWeek;
     this.$modal.initialize(this.$refs.modal);
   },
   methods: {
@@ -61,15 +69,15 @@ export default {
       element.download = 'timekeep.xlsx';
       element.click();
     },
-    remove(timekeep) {
+    removeTimekeep(timekeep) {
       const result = confirm(`Are you sure you want to remove '${timekeep.name}' permanently?`);
-      if (result) {
-        // Stop the timekeep from counting if it is active
-        if (this.$store.activeTimekeep.id === timekeep.id)
-          this.$store.activeTimekeep = null;
-
+      if (result)
         this.$store.removeTimekeep(timekeep);
-      }
+    },
+    removeGroup(group) {
+      const result = confirm(`Are you sure you want to remove '${group.name}' permanently?`);
+      if (result)
+        this.$store.removeGroup(group);
     },
     changeName(timekeep) {
       this.$modal.show(ModalTimekeep, {timekeep});
@@ -84,22 +92,35 @@ export default {
         window.location.replace('/');
       }
     },
-    submit(event) {
+    addTimekeep(event) {
       if (event)
         event.preventDefault(true);
 
-      this.form.enabled = false;
+      this.timekeepForm.enabled = false;
 
-      this.$store.addTimekeep(this.form.name);
+      this.$store.addTimekeep(this.timekeepForm.name);
 
-      this.form.name = '';
-      this.form.enabled = true;
+      this.timekeepForm.name = '';
+      this.timekeepForm.enabled = true;
+
+      return false;
+    },
+    addGroup(event) {
+      if (event)
+        event.preventDefault(true);
+
+      this.groupForm.enabled = false;
+
+      this.$store.addGroup(this.groupForm.name);
+
+      this.groupForm.name = '';
+      this.groupForm.enabled = true;
 
       return false;
     }
   },
   watch: {
-    'form.resetFavoritesEachWeek': function(newValue, oldValue) {
+    'optionsForm.resetFavoritesEachWeek': function(newValue, oldValue) {
       this.$store.options.resetFavoritesEachWeek = newValue;
     }
   },
