@@ -1,4 +1,4 @@
-import {UniversalDate} from '../utils';
+import {UniversalDate, unique} from '../utils';
 import TimekeepDay from './timekeep-day';
 
 export default class Timekeep {
@@ -89,6 +89,19 @@ export default class Timekeep {
     const days = this.getDays(year, week);
     const sum = days.reduce((sum, x) => sum + x.getTime(), 0);
     return sum;
+  }
+
+  // Get an array of years tracked by this timekeep
+  getTrackedYears() {
+    const years = this.days.reduce((years, day) => [...years, day.date.year], []);
+    return unique(years);
+  }
+
+  // Get an array of weeks tracked by this timekeep during the given year
+  getTrackedWeeks(year) {
+    const days = this.getDays(year);
+    const weeks = days.reduce((weeks, day) => [...weeks, day.date.week], []);
+    return unique(weeks);
   }
 
   toggleFavorite() {

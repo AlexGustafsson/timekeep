@@ -1,25 +1,28 @@
 import XlsxPopulate from '../../node_modules/xlsx-populate/browser/xlsx-populate.min';
 
+import {unique} from './collections';
+
 function addWeek(workbook, year, week, timekeeps) {
   const rows = [];
   for (const timekeep of timekeeps) {
-    const weeks = timekeep.years[year];
-    // The timekeep does not have any entries during that year
-    if (!weeks || weeks.length === 0)
+    const days = timekeep.getDays(year, week);
+
+    // The timekeep does not have any entries during that year and week
+    if (days.length === 0)
       continue;
 
-    const days = weeks[week];
-    // The timekeep does not have any entries during that year and week
-    if (!days || days.length === 0)
-      continue;
+    const totals = timekeep.getDays(year, week).reduce((totals, day) => {
+      totals[day.date.dayOfWeek] = day.getTime();
+
+      return totals;
+    }, new Array(7).fill(0));
 
     const row = [{type: 'text', value: timekeep.name}];
-    // Add the total of all checkpoints that day
-    for (let i = 1; i <= 7; i++)
-      row.push({type: 'time', value: Math.round(timekeep.getTime(year, week, i) / 1000) / 86400});
+    for (const total of totals)
+      row.push({type: 'time', value: Math.round(total / 1000) / 86400});
     row.push({type: 'time', formula: `SUM(B${rows.length + 2}:H${rows.length + 2})`});
 
-    const total = timekeep.getTotalTime(year, week);
+    const total = timekeep.getTime(year, week);
     // Only add rows that actually have time tracked
     if (total !== 0)
       rows.push(row);
@@ -91,41 +94,18 @@ function addWeek(workbook, year, week, timekeeps) {
   }
 }
 
-// Return a map of years with respective weeks where a timekeep has a measurement
-function getWeeks(timekeeps) {
-  const years = {};
-  for (const timekeep of timekeeps) {
-    for (const year of Object.keys(timekeep.years))
-      years[year] = [];
-  }
-
-  for (const year of Object.keys(years)) {
-    for (const timekeep of timekeeps) {
-      // The year is not in the timekeep
-      if (!timekeep.years[year])
-        continue;
-
-      for (const week of Object.keys(timekeep.years[year])) {
-        if (!years[year].includes(week))
-          years[year].push(week);
-      }
-    }
-  }
-
-  return years;
-}
-
 export async function exportToExcel(timekeeps) {
   const workbook = await XlsxPopulate.fromBlankAsync();
 
-  const years = getWeeks(timekeeps);
-  for (const year of Object.keys(years)) {
-    for (const week of years[year])
+  const years = unique([...timekeeps.map(x => x.getTrackedYears()).flat()]);
+  for (const year of years) {
+    const weeks = unique([...timekeeps.map(x => x.getTrackedWeeks(year)).flat()]);
+    for (const week of weeks)
       addWeek(workbook, year, week, timekeeps);
   }
 
   // Remove the default sheet
-  if (workbook.sheets().length > 0)
+  if (workbook.sheets().length > 1)
     workbook.deleteSheet(0);
 
   const blob = await workbook.outputAsync();

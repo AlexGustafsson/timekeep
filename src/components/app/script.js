@@ -54,7 +54,7 @@ export default {
       timekeep.toggleFavorite();
     },
     async exportToExcel() {
-      const blob = await exportToExcel(this.$store.state.timekeeps);
+      const blob = await exportToExcel(this.$store.timekeeps);
 
       const element = document.createElement('a');
       element.href = URL.createObjectURL(blob);
