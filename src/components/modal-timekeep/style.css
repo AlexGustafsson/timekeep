@@ -1,0 +1,13 @@
+.modal-timekeep {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-timekeep > :not(:first-child) {
+  margin-top: 15px;
+}
+
+.modal-timekeep > .form-input.button {
+  width: 60px;
+  justify-self: flex-end;
+}
