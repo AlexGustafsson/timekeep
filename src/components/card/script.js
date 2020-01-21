@@ -29,6 +29,11 @@ export default {
       this.prettyPrevious = humanizeDuration(Math.round(this.timekeep.getTime(this.week.year, this.week.week) / 1000) * 1000, {largest: 2});
     }
   },
+  watch: {
+    'week': function () {
+      this.update();
+    }
+  },
   props: {
     timekeep: {
       type: Object,
