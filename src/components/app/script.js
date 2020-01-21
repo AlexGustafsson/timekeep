@@ -63,8 +63,13 @@ export default {
     },
     remove(timekeep) {
       const result = confirm(`Are you sure you want to remove '${timekeep.name}' permanently?`);
-      if (result)
+      if (result) {
+        // Stop the timekeep from counting if it is active
+        if (this.$store.activeTimekeep.id === timekeep.id)
+          this.$store.activeTimekeep = null;
+
         this.$store.removeTimekeep(timekeep);
+      }
     },
     changeName(timekeep) {
       this.$modal.show(ModalTimekeep, {timekeep});

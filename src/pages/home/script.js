@@ -17,13 +17,7 @@ export default {
   },
   methods: {
     cardClicked(timekeep) {
-      if (this.activeTimekeep)
-        this.activeTimekeep.addCheckpoint();
-
-      if (timekeep !== this.activeTimekeep) {
-        timekeep.addCheckpoint();
-        this.activeTimekeep = timekeep;
-      }
+      this.$store.toggleCounting(timekeep);
     }
   },
   components: {

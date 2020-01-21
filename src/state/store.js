@@ -23,6 +23,7 @@ export default class Store {
       resetFavoritesEachWeek: false
     };
     this.lastVisited = new UniversalDate();
+    this.activeTimekeep = null;
   }
 
   static install(vue) {
@@ -47,6 +48,7 @@ export default class Store {
       this.version = state.version;
       this.options = state.options;
       this.lastVisited = new UniversalDate(state.lastVisited);
+      this.activeTimekeep = state.activeTimekeep ? this.timekeeps.find(x => x.id === state.activeTimekeep) : null;
     } else {
       throw new Error(`Unsupported store version '${state.version}'`);
     }
@@ -65,10 +67,26 @@ export default class Store {
       groups: this.groups.map(Group.serialize),
       version: this.version,
       options: this.options,
-      lastVisited: new UniversalDate().timestamp
+      lastVisited: new UniversalDate().timestamp,
+      activeTimekeep: this.activeTimekeep ? this.activeTimekeep.id : null
     };
 
     localStorage.setItem(STORAGE_NAME, JSON.stringify(serialized));
+  }
+
+  toggleCounting(timekeep) {
+    if (timekeep === this.activeTimekeep) {
+      this.activeTimekeep.addCheckpoint();
+      this.activeTimekeep = null;
+    } else {
+      if (this.activeTimekeep) {
+        this.activeTimekeep.addCheckpoint();
+        this.activeTimekeep = null;
+      }
+
+      timekeep.addCheckpoint();
+      this.activeTimekeep = timekeep;
+    }
   }
 
   addTimekeep(name) {
