@@ -17,7 +17,7 @@
         <li v-for="timekeep in $store.timekeeps">
           <p>{{timekeep.name}}</p>
           <i class="material-icons" @click.stop="toggleFavorite(timekeep)">{{timekeep.favorite ? 'favorite' : 'favorite_border'}}</i>
-          <i class="material-icons" @click.stop="changeName(timekeep)">edit</i>
+          <i class="material-icons" @click.stop="editTimekeep(timekeep)">edit</i>
           <i class="material-icons" @click.stop="removeTimekeep(timekeep)">delete_forever</i>
         </li>
 
@@ -30,7 +30,7 @@
         <li v-for="group in $store.groups">
           <p>{{group.name}}</p>
           <i></i>
-          <i></i>
+          <i class="material-icons" @click.stop="editGroup(group)">edit</i>
           <i class="material-icons" @click.stop="removeGroup(group)">delete_forever</i>
         </li>
 

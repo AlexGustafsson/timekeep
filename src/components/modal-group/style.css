@@ -1,0 +1,13 @@
+.modal-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-group > :not(:first-child) {
+  margin-top: 15px;
+}
+
+.modal-group > .form-input.button {
+  width: 60px;
+  align-self: flex-end;
+}

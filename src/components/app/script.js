@@ -6,6 +6,7 @@ import {exportToExcel} from '../../utils';
 import {default as FormInput} from '../form-input/model.vue';
 import {default as Modal} from '../modal/model.vue';
 import {default as ModalTimekeep} from '../modal-timekeep/model.vue';
+import {default as ModalGroup} from '../modal-group/model.vue';
 
 export default {
   name: 'app',
@@ -79,8 +80,11 @@ export default {
       if (result)
         this.$store.removeGroup(group);
     },
-    changeName(timekeep) {
+    editTimekeep(timekeep) {
       this.$modal.show(ModalTimekeep, {timekeep});
+    },
+    editGroup(group) {
+      this.$modal.show(ModalGroup, {group});
     },
     reset() {
       const confirmed = confirm('Are you sure you want to reset the application? Any state will be permanently lost.');
