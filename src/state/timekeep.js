@@ -79,7 +79,7 @@ export default class Timekeep {
   // Get the total time of a given day or days
   // Either supply all three, just year and week or just year
   getTime(year, week, dayOfWeek) {
-    if (year && week && dayOfWeek) {
+    if (typeof dayOfWeek !== 'undefined') {
       const day = this.getDay(year, week, dayOfWeek);
       if (!day)
         return 0;

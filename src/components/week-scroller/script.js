@@ -24,7 +24,7 @@ export default {
       for (let i = -2; i <= 2; i++) {
         let {day} = this.value;
         if (day + i > 6)
-          day = (day + i) % 6;
+          day = (day + i) % 7;
         else if (day + i < 0)
           day = 7 + i;
         else
