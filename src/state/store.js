@@ -1,6 +1,8 @@
 /* globals localStorage */
 import {reactive, watch} from '@vue/composition-api';
 
+import {UniversalDate} from '../utils';
+
 import Timekeep from './timekeep';
 import Group from './group';
 
@@ -20,6 +22,7 @@ export default class Store {
     this.options = {
       resetFavoritesEachWeek: false
     };
+    this.lastVisited = new UniversalDate();
   }
 
   static install(vue) {
@@ -43,8 +46,16 @@ export default class Store {
       this.groups = state.groups;
       this.version = state.version;
       this.options = state.options;
+      this.lastVisited = new UniversalDate(state.lastVisited);
     } else {
       throw new Error(`Unsupported store version '${state.version}'`);
+    }
+
+    // Reset favorites if it's a new week and the option is enabled
+    const today = new UniversalDate();
+    if (this.options.resetFavoritesEachWeek && !this.lastVisited.isSameWeek(today)) {
+      for (const timekeep of this.timekeeps)
+        timekeep.favorite = false;
     }
   }
 
@@ -53,7 +64,8 @@ export default class Store {
       timekeeps: this.timekeeps.map(Timekeep.serialize),
       groups: this.groups.map(Group.serialize),
       version: this.version,
-      options: this.options
+      options: this.options,
+      lastVisited: new UniversalDate().timestamp
     };
 
     localStorage.setItem(STORAGE_NAME, JSON.stringify(serialized));
