@@ -90,12 +90,18 @@ export default class Store {
   }
 
   addTimekeep(name) {
-    // TODO: Make sure names are unique
+    const duplicate = this.timekeeps.find(x => x.name === name);
+    if (duplicate)
+      throw new Error('A timekeep by that name already exists');
+
     this.timekeeps.push(new Timekeep(name));
   }
 
   addGroup(name) {
-    // TODO: Make sure names are unique
+    const duplicate = this.groups.find(x => x.name === name);
+    if (duplicate)
+      throw new Error('A group by that name already exists');
+
     this.groups.push(new Group(name));
   }
 
@@ -103,7 +109,17 @@ export default class Store {
     // Stop the timekeep from counting if it is active
     if (this.activeTimekeep.id === timekeep.id)
       this.activeTimekeep = null;
-    // TODO: Remove the timekeep from any groups
+
+    // Remove the timekeep from any group it may exist in
+    for (const group of this.groups) {
+      const index = group.findIndex(x => x.id === timekeep.id);
+      if (index !== -1) {
+        group.slice(index, 1);
+        console.log(`removed from group ${index}`);
+      }
+    }
+
+    // Remove the timekeep
     this.timekeeps.splice(this.timekeeps.findIndex(x => x.id === timekeep.id), 1);
   }
 

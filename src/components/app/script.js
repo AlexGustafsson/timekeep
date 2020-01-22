@@ -1,4 +1,4 @@
-/* globals window document confirm */
+/* globals window document confirm alert */
 /* eslint-disable no-alert */
 
 import {exportToExcel} from '../../utils';
@@ -71,14 +71,26 @@ export default {
       element.click();
     },
     removeTimekeep(timekeep) {
-      const result = confirm(`Are you sure you want to remove '${timekeep.name}' permanently?`);
-      if (result)
+      const confirmed = confirm(`Are you sure you want to remove '${timekeep.name}' permanently?`);
+      if (!confirmed)
+        return;
+
+      try {
         this.$store.removeTimekeep(timekeep);
+      } catch (error) {
+        alert(error);
+      }
     },
     removeGroup(group) {
-      const result = confirm(`Are you sure you want to remove '${group.name}' permanently?`);
-      if (result)
+      const confirmed = confirm(`Are you sure you want to remove '${group.name}' permanently?`);
+      if (!confirmed)
+        return;
+
+      try {
         this.$store.removeGroup(group);
+      } catch (error) {
+        alert(error);
+      }
     },
     editTimekeep(timekeep) {
       this.$modal.show(ModalTimekeep, {timekeep});
@@ -102,9 +114,14 @@ export default {
 
       this.timekeepForm.enabled = false;
 
-      this.$store.addTimekeep(this.timekeepForm.name);
+      try {
+        this.$store.addTimekeep(this.timekeepForm.name);
 
-      this.timekeepForm.name = '';
+        this.timekeepForm.name = '';
+      } catch (error) {
+        alert(error);
+      }
+
       this.timekeepForm.enabled = true;
 
       return false;
@@ -115,7 +132,13 @@ export default {
 
       this.groupForm.enabled = false;
 
-      this.$store.addGroup(this.groupForm.name);
+      try {
+        this.$store.addGroup(this.groupForm.name);
+
+        this.groupForm.name = '';
+      } catch (error) {
+        alert(error);
+      }
 
       this.groupForm.name = '';
       this.groupForm.enabled = true;
