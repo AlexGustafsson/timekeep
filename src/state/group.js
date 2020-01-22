@@ -19,4 +19,18 @@ export default class TimekeepGroup {
       timekeeps: group.timekeeps.map(x => x.id)
     };
   }
+
+  includes(timekeep) {
+    return this.timekeeps.findIndex(x => x.id === timekeep.id) !== -1;
+  }
+
+  remove(timekeep) {
+    if (this.includes(timekeep))
+      this.timekeeps.splice(this.timekeeps.findIndex(x => x.id === timekeep.id), 1);
+  }
+
+  add(timekeep) {
+    if (!this.includes(timekeep))
+      this.timekeeps.push(timekeep);
+  }
 }

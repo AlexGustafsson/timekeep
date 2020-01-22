@@ -11,3 +11,12 @@
   width: 60px;
   align-self: flex-end;
 }
+
+.modal-group > ul {
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+.modal-group > ul > li:not(:first-child) {
+  margin-top: 5px;
+}

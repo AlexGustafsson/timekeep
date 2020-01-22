@@ -4,7 +4,7 @@ import {reactive, watch} from '@vue/composition-api';
 import {UniversalDate} from '../utils';
 
 import Timekeep from './timekeep';
-import Group from './group';
+import TimekeepGroup from './group';
 
 const STORAGE_NAME = 'timekeep';
 
@@ -44,7 +44,7 @@ export default class Store {
     const state = JSON.parse(store);
     if (state.version === VERSION['0.0.1']) {
       this.timekeeps = state.timekeeps.map(Timekeep.parse);
-      this.groups = state.groups;
+      this.groups = state.groups.map(x => TimekeepGroup.parse(x, this.timekeeps));
       this.version = state.version;
       this.options = state.options;
       this.lastVisited = new UniversalDate(state.lastVisited);
@@ -64,7 +64,7 @@ export default class Store {
   save() {
     const serialized = {
       timekeeps: this.timekeeps.map(Timekeep.serialize),
-      groups: this.groups.map(Group.serialize),
+      groups: this.groups.map(TimekeepGroup.serialize),
       version: this.version,
       options: this.options,
       lastVisited: new UniversalDate().timestamp,
@@ -102,22 +102,17 @@ export default class Store {
     if (duplicate)
       throw new Error('A group by that name already exists');
 
-    this.groups.push(new Group(name));
+    this.groups.push(new TimekeepGroup(name));
   }
 
   removeTimekeep(timekeep) {
     // Stop the timekeep from counting if it is active
-    if (this.activeTimekeep.id === timekeep.id)
+    if (this.activeTimekeep && this.activeTimekeep.id === timekeep.id)
       this.activeTimekeep = null;
 
     // Remove the timekeep from any group it may exist in
-    for (const group of this.groups) {
-      const index = group.findIndex(x => x.id === timekeep.id);
-      if (index !== -1) {
-        group.slice(index, 1);
-        console.log(`removed from group ${index}`);
-      }
-    }
+    for (const group of this.groups)
+      group.remove(timekeep);
 
     // Remove the timekeep
     this.timekeeps.splice(this.timekeeps.findIndex(x => x.id === timekeep.id), 1);
