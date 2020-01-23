@@ -1,6 +1,9 @@
 export default class TimekeepGroup {
   constructor(name) {
+    // The group's name
     this.name = name;
+    // A pseudo-random ID likely containing enough entropy to be globally unique
+    this.id = String(Math.random() * 1E17);
     this.timekeeps = [];
   }
 
@@ -8,6 +11,7 @@ export default class TimekeepGroup {
     const group = new TimekeepGroup();
 
     group.name = state.name;
+    group.id = state.id;
     group.timekeeps = timekeeps.filter(x => state.timekeeps.includes(x.id));
 
     return group;
@@ -16,6 +20,7 @@ export default class TimekeepGroup {
   static serialize(group) {
     return {
       name: group.name,
+      id: group.id,
       timekeeps: group.timekeeps.map(x => x.id)
     };
   }

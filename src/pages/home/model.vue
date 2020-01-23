@@ -5,7 +5,7 @@
     </div>
     <main>
       <ul>
-        <card v-for="timekeep in $store.timekeeps.filter(x => x.favorite)" :key="timekeep.id" :timekeep="timekeep" :focused="timekeep.isCounting" :week="week" @click.native="cardClicked(timekeep)"></card>
+        <card v-for="timekeep in ($store.activeGroup ? $store.activeGroup.timekeeps : $store.timekeeps).filter(x => x.favorite)" :key="timekeep.id" :timekeep="timekeep" :focused="timekeep.isCounting" :week="week" @click.native="cardClicked(timekeep)"></card>
       </ul>
     </main>
   </div>

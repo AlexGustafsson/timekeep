@@ -49,6 +49,7 @@ export default {
       type: Boolean,
       default: false
     },
-    value: [String, Boolean]
+    value: [String, Boolean],
+    options: Array
   }
 };

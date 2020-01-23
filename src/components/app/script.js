@@ -16,7 +16,8 @@ export default {
         name: ''
       },
       groupForm: {
-        name: ''
+        name: '',
+        activeGroup: null
       },
       optionsForm: {
         resetFavoritesEachWeek: false
@@ -30,11 +31,15 @@ export default {
     },
     groupFormDisabled() {
       return this.groupForm.name === '';
+    },
+    groupOptions() {
+      return [{label: 'All', value: null}, ...this.$store.groups.map(x => ({label: x.name, value: x.id}))];
     }
   },
   mounted() {
     this.$store.load();
     this.optionsForm.resetFavoritesEachWeek = this.$store.options.resetFavoritesEachWeek;
+    this.groupForm.activeGroup = this.$store.activeGroup ? this.$store.activeGroup.id : null;
     this.$modal.initialize(this.$refs.modal);
   },
   methods: {
@@ -147,8 +152,14 @@ export default {
     }
   },
   watch: {
-    'optionsForm.resetFavoritesEachWeek': function(newValue, oldValue) {
-      this.$store.options.resetFavoritesEachWeek = newValue;
+    'optionsForm.resetFavoritesEachWeek': function(reset) {
+      this.$store.options.resetFavoritesEachWeek = reset;
+    },
+    'groupForm.activeGroup': function(id) {
+      if (id)
+        this.$store.activeGroup = this.$store.groups.find(x => x.id === id);
+      else
+        this.$store.activeGroup = null;
     }
   },
   components: {

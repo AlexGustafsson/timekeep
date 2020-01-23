@@ -24,6 +24,7 @@ export default class Store {
     };
     this.lastVisited = new UniversalDate();
     this.activeTimekeep = null;
+    this.activeGroup = null;
   }
 
   static install(vue) {
@@ -49,6 +50,7 @@ export default class Store {
       this.options = state.options;
       this.lastVisited = new UniversalDate(state.lastVisited);
       this.activeTimekeep = state.activeTimekeep ? this.timekeeps.find(x => x.id === state.activeTimekeep) : null;
+      this.activeGroup = state.activeGroup ? this.groups.find(x => x.id === state.activeGroup) : null;
     } else {
       throw new Error(`Unsupported store version '${state.version}'`);
     }
@@ -68,7 +70,8 @@ export default class Store {
       version: this.version,
       options: this.options,
       lastVisited: new UniversalDate().timestamp,
-      activeTimekeep: this.activeTimekeep ? this.activeTimekeep.id : null
+      activeTimekeep: this.activeTimekeep ? this.activeTimekeep.id : null,
+      activeGroup: this.activeGroup ? this.activeGroup.id : null
     };
 
     localStorage.setItem(STORAGE_NAME, JSON.stringify(serialized));
@@ -119,6 +122,10 @@ export default class Store {
   }
 
   removeGroup(group) {
+    // Remove the group as active if it was
+    if (this.activeGroup && this.activeGroup.id === group.id)
+      this.activeGroup = null;
+
     this.groups.splice(this.groups.findIndex(x => x.name === group.name), 1);
   }
 

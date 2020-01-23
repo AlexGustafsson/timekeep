@@ -8,7 +8,7 @@ export default class Timekeep {
     // The days tracked by the object
     this.days = [];
     // A pseudo-random ID likely containing enough entropy to be globally unique
-    this.id = Math.random() * 1E17;
+    this.id = String(Math.random() * 1E17);
     // Whether or not the timekeep should be shown on the homepage
     this.favorite = true;
   }

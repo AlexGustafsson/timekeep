@@ -9,6 +9,12 @@
     </nav>
     <nav class="side" ref="menu" v-bind:class="{open: menuIsOpen}">
       <ul>
+        <li><p>Active group</p></li>
+        <li class="form">
+          <form-input name="group" label="Group" type="select" :options="groupOptions" v-model="groupForm.activeGroup" />
+        </li>
+
+        <li class="spacer"></li>
         <li><p>Timekeeps</p></li>
         <li class="form">
           <form-input name="name" type="text" label="Add a project" v-model="timekeepForm.name" @keyup.native.enter="addTimekeep"></form-input>
