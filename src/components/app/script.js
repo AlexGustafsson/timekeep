@@ -7,6 +7,7 @@ import {default as FormInput} from '../form-input/model.vue';
 import {default as Modal} from '../modal/model.vue';
 import {default as ModalTimekeep} from '../modal-timekeep/model.vue';
 import {default as ModalGroup} from '../modal-group/model.vue';
+import {default as ModalAbout} from '../modal-about/model.vue';
 
 export default {
   name: 'app',
@@ -162,6 +163,9 @@ export default {
       this.groupForm.enabled = true;
 
       return false;
+    },
+    about() {
+      this.$modal.show(ModalAbout);
     }
   },
   watch: {

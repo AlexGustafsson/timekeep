@@ -23,7 +23,9 @@
   padding: 15px;
   border-radius: 20px;
   box-sizing: border-box;
-  width: 320px;
+  min-width: 300px;
+  max-width: 450px;
+  width: 80%;
   min-height: 150px;
   max-height: 320px;
 

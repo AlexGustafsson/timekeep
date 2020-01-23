@@ -6,3 +6,4 @@ export {default as Modal} from './modal/model.vue';
 export {default as ModalPlugin} from './modal/plugin';
 export {default as ModalTimekeep} from './modal-timekeep/model.vue';
 export {default as ModalGroup} from './modal-group/model.vue';
+export {default as ModalAbout} from './modal-about/model.vue';

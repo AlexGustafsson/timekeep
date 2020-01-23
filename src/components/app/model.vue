@@ -53,6 +53,9 @@
         <li @click.stop="reset" class="menu-button">
           <p>Reset</p>
         </li>
+        <li @click.stop="about" class="menu-button">
+          <p>About</p>
+        </li>
 
         <li class="github">
           <a href="https://github.com/AlexGustafsson/timekeep">
