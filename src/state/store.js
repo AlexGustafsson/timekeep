@@ -1,4 +1,4 @@
-/* globals localStorage */
+/* globals localStorage Blob */
 import {reactive, watch} from '@vue/composition-api';
 
 import {UniversalDate} from '../utils';
@@ -7,6 +7,7 @@ import Timekeep from './timekeep';
 import TimekeepGroup from './group';
 
 const STORAGE_NAME = 'timekeep';
+const BACKUP_STORAGE_NAME = 'timekeep_backup';
 
 const VERSION = {
   '0.0.1': 1
@@ -52,6 +53,9 @@ export default class Store {
       this.activeTimekeep = state.activeTimekeep ? this.timekeeps.find(x => x.id === state.activeTimekeep) : null;
       this.activeGroup = state.activeGroup ? this.groups.find(x => x.id === state.activeGroup) : null;
     } else {
+      const today = new UniversalDate();
+      // Backup the stored value in its raw form
+      localStorage.setItem(`${BACKUP_STORAGE_NAME}_${today.year}_${today.week}_${today.day}`, store);
       throw new Error(`Unsupported store version '${state.version}'`);
     }
 
@@ -61,6 +65,16 @@ export default class Store {
       for (const timekeep of this.timekeeps)
         timekeep.favorite = false;
     }
+  }
+
+  export() {
+    let plaintext = '';
+    for (const [key, value] of Object.entries(localStorage))
+      plaintext += `${key}:${value}\n`;
+
+    const blob = new Blob([plaintext], {type: 'text/plain'});
+
+    return blob;
   }
 
   save() {

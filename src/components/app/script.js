@@ -37,7 +37,20 @@ export default {
     }
   },
   mounted() {
-    this.$store.load();
+    try {
+      this.$store.load();
+    } catch (error) {
+      alert(`Unable to load saved state. Try to reset the application. The error was: "${error}"`);
+      const backup = confirm('Do you want to export the data backup?');
+      const backupStorage = this.$store.export();
+      if (backup) {
+        const element = document.createElement('a');
+        element.href = URL.createObjectURL(backupStorage);
+        element.download = 'timekeep-backup.txt';
+        element.click();
+      }
+    }
+
     this.optionsForm.resetFavoritesEachWeek = this.$store.options.resetFavoritesEachWeek;
     this.groupForm.activeGroup = this.$store.activeGroup ? this.$store.activeGroup.id : null;
     this.$modal.initialize(this.$refs.modal);
