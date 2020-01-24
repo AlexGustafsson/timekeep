@@ -110,6 +110,14 @@
   fill: #BEC3DC;
 }
 
+.app > nav.side li.full-width {
+  grid-template-columns: 1fr;
+}
+
+.app > nav.side li.title {
+  margin-bottom: 5px;
+}
+
 .app > nav.side li > .material-icons {
   text-align: right;
 
