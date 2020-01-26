@@ -1,13 +1,12 @@
 /* globals window document confirm alert */
 /* eslint-disable no-alert */
 
-import {exportToExcel} from '../../utils';
-
 import {default as FormInput} from '../form-input/model.vue';
 import {default as Modal} from '../modal/model.vue';
 import {default as ModalTimekeep} from '../modal-timekeep/model.vue';
 import {default as ModalGroup} from '../modal-group/model.vue';
 import {default as ModalAbout} from '../modal-about/model.vue';
+import {default as ModalExport} from '../modal-export/model.vue';
 
 export default {
   name: 'app',
@@ -82,12 +81,7 @@ export default {
       timekeep.toggleFavorite();
     },
     async exportToExcel() {
-      const blob = await exportToExcel(this.$store.timekeeps);
-
-      const element = document.createElement('a');
-      element.href = URL.createObjectURL(blob);
-      element.download = 'timekeep.xlsx';
-      element.click();
+      this.$modal.show(ModalExport);
     },
     removeTimekeep(timekeep) {
       const confirmed = confirm(`Are you sure you want to remove '${timekeep.name}' permanently?`);
@@ -181,7 +175,6 @@ export default {
   },
   components: {
     FormInput,
-    Modal,
-    ModalTimekeep
+    Modal
   }
 };

@@ -1,0 +1,13 @@
+.modal-export {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-export > h1 {
+  color: #BEC3DC;
+  word-break: break-word;
+}
+
+.modal-export > :not(:first-child) {
+  margin-top: 15px;
+}

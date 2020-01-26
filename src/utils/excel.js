@@ -2,7 +2,17 @@ import XlsxPopulate from '../../node_modules/xlsx-populate/browser/xlsx-populate
 
 import {unique} from './collections';
 
-function addWeek(workbook, year, week, timekeeps) {
+function convertTime(milliseconds, options) {
+  if (options.format === 'hh:mm:ss')
+    return Math.round(milliseconds / 1000) / 86400;
+
+  if (options.format === 'hh')
+    return Math.round((milliseconds / 1000 / 60 / 60) * 100) / 100;
+
+  return milliseconds;
+}
+
+function addWeek(workbook, year, week, timekeeps, options) {
   const rows = [];
   for (const timekeep of timekeeps) {
     const days = timekeep.getDays(year, week);
@@ -19,7 +29,7 @@ function addWeek(workbook, year, week, timekeeps) {
 
     const row = [{type: 'text', value: timekeep.name}];
     for (const total of totals)
-      row.push({type: 'time', value: Math.round(total / 1000) / 86400});
+      row.push({type: 'time', value: convertTime(total, options)});
     row.push({type: 'time', formula: `SUM(B${rows.length + 2}:H${rows.length + 2})`});
 
     const total = timekeep.getTime(year, week);
@@ -71,7 +81,7 @@ function addWeek(workbook, year, week, timekeeps) {
       cell.value(column.value);
       cell.style('horizontalAlignment', 'center');
       cell.style('verticalAlignment', 'center');
-      if (column.type === 'time')
+      if (column.type === 'time' && options.format === 'hh:mm:ss')
         cell.style('numberFormat', 'hh:mm:ss');
       if (column.formula)
         cell.formula(column.formula);
@@ -89,19 +99,20 @@ function addWeek(workbook, year, week, timekeeps) {
   const columnLabels = ['B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
   for (const [i, label] of columnLabels.entries()) {
     const cell = footer.cell(i + 2);
-    cell.style('numberFormat', 'hh:mm:ss');
+    if (options.format === 'hh:mm:ss')
+      cell.style('numberFormat', 'hh:mm:ss');
     cell.formula(`SUM(${label}2:${label}${rows.length + 1})`);
   }
 }
 
-export async function exportToExcel(timekeeps) {
+export async function exportToExcel(timekeeps, options) {
   const workbook = await XlsxPopulate.fromBlankAsync();
 
   const years = unique([...timekeeps.map(x => x.getTrackedYears()).flat()]);
   for (const year of years) {
     const weeks = unique([...timekeeps.map(x => x.getTrackedWeeks(year)).flat()]);
     for (const week of weeks)
-      addWeek(workbook, year, week, timekeeps);
+      addWeek(workbook, year, week, timekeeps, options);
   }
 
   // Remove the default sheet
