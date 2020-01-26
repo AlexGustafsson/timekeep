@@ -43,7 +43,16 @@ export default class Store {
     if (!store)
       return;
 
-    const state = JSON.parse(store);
+    let state = null;
+    try {
+      state = JSON.parse(store);
+    } catch {
+      const today = new UniversalDate();
+      // Backup the stored value in its raw form
+      localStorage.setItem(`${BACKUP_STORAGE_NAME}_${today.year}_${today.week}_${today.day}`, store);
+      throw new Error('Corrupt state store');
+    }
+
     if (state.version === VERSION['0.0.1']) {
       this.timekeeps = state.timekeeps.map(Timekeep.parse);
       this.groups = state.groups.map(x => TimekeepGroup.parse(x, this.timekeeps));
