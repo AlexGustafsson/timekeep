@@ -4,6 +4,13 @@
   align-items: center;
 }
 
+.week-scroller p {
+  padding: 10px 0;
+  color: #BEC3DC;
+  /* Align with the list items */
+  transform: translateY(-1px);
+}
+
 .week-scroller li {
   width: 100%;
   text-align: center;

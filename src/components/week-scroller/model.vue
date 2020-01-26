@@ -1,5 +1,6 @@
 <template>
   <div class="week-scroller">
+    <p>w</p>
     <ul>
       <li @click="previousWeek()"><i class="material-icons up">chevron_right</i></li>
       <li v-for="week in weeks" :key="week.year.toString() + week.week.toString()" :class="{selected: value.week === week.week}" @click="weekChanged(week)">{{week.week}}</li>
