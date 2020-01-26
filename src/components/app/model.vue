@@ -9,13 +9,13 @@
     </nav>
     <nav class="side" ref="menu" v-bind:class="{open: menuIsOpen}">
       <ul>
-        <li class="title"><span>Active group</span></li>
+        <li class="title"><p>Active group</p></li>
         <li class="full-width">
           <form-input name="group" label="Group" type="select" :options="groupOptions" v-model="groupForm.activeGroup" />
         </li>
 
         <li class="spacer"></li>
-        <li class="title"><span>Timekeeps</span></li>
+        <li class="title"><p>Timekeeps</p></li>
         <li class="form">
           <form-input name="name" type="text" label="Add a project" v-model="timekeepForm.name" @keyup.native.enter="addTimekeep"></form-input>
           <form-input :disabled="timekeepFormDisabled" name="submit" type="button" label="Add" @click="addTimekeep"></form-input>
@@ -28,7 +28,7 @@
         </li>
 
         <li class="spacer"></li>
-        <li class="title"><span>Groups</span></li>
+        <li class="title"><p>Groups</p></li>
         <li class="form">
           <form-input name="name" type="text" label="Add a group" v-model="groupForm.name" @keyup.native.enter="addGroup"></form-input>
           <form-input :disabled="groupFormDisabled" name="submit" type="button" label="Add" @click="addGroup"></form-input>
@@ -41,7 +41,7 @@
         </li>
 
         <li class="spacer"></li>
-        <li class="title"><span>Options</span></li>
+        <li class="title"><p>Options</p></li>
         <li class="options">
           <form-input name="resetFavoritesEachWeek" type="checkbox" label="Reset favorites each week" v-model="optionsForm.resetFavoritesEachWeek"></form-input>
         </li>

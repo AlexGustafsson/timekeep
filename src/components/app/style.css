@@ -127,6 +127,7 @@
 }
 
 .app > nav.side li > p {
+  height: 110%;
   overflow: hidden;
   text-overflow: ellipsis;
 }
