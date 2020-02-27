@@ -1,6 +1,7 @@
 .modal-timekeep {
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
 }
 
 .modal-timekeep > :not(:first-child) {

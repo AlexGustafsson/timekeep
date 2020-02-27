@@ -19,7 +19,6 @@
 
 .modal > main {
   display: flex;
-  flex-direction: column;
   padding: 15px;
   border-radius: 20px;
   box-sizing: border-box;

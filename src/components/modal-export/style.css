@@ -1,6 +1,7 @@
 .modal-export {
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
 }
 
 .modal-export > h1 {
