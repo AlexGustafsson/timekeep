@@ -53,6 +53,9 @@
         <li v-if="$store.timekeeps.length > 0" @click.stop="backup" class="menu-button">
           <p>Backup</p>
         </li>
+        <li @click.stop="importBackup" class="menu-button">
+          <p>Import from backup</p>
+        </li>
         <li @click.stop="reset" class="menu-button">
           <p>Reset</p>
         </li>

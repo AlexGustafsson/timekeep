@@ -90,6 +90,33 @@ export default {
       element.download = 'timekeep-backup.txt';
       element.click();
     },
+    async importBackup() {
+      const confirmed = confirm(`Are you sure you want to import the backup? This will overwrite any existing data.`);
+      if (!confirmed)
+        return;
+
+      const element = document.createElement('input');
+      element.type = 'file';
+      element.addEventListener('change', () => {
+        if (element.files.length === 0)
+          return;
+
+        const file = element.files[0];
+        const reader = new FileReader();
+        reader.onload = event => {
+          const body = event.target.result;
+          const pairs = body.split('\n');
+          for (const pair of pairs) {
+            const key = pair.split(':')[0];
+            const value = pair.split(':').slice(1).join(':');
+
+            localStorage.setItem(key, value);
+          }
+        };
+        reader.readAsText(file);
+      });
+      element.click();
+    },
     removeTimekeep(timekeep) {
       const confirmed = confirm(`Are you sure you want to remove '${timekeep.name}' permanently?`);
       if (!confirmed)
