@@ -112,6 +112,9 @@ export default {
 
             localStorage.setItem(key, value);
           }
+
+          // Reload page
+          window.location.replace('/');
         };
         reader.readAsText(file);
       });
