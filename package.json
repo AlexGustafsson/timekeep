@@ -1,6 +1,6 @@
 {
   "name": "timekeeper",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "A timekeeper",
   "main": "src/index.js",
   "scripts": {
