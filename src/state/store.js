@@ -74,6 +74,19 @@ export default class Store {
       for (const timekeep of this.timekeeps)
         timekeep.favorite = false;
     }
+
+    // Ensure that if there are no timekeeps counting, the active timekeep is unset
+    const countingTimekeeps = this.timekeeps.filter(timekeep => timekeep.isCounting);
+    if (countingTimekeeps.length === 0) {
+      if (this.activeTimekeep)
+        console.log('Corrupt state store: active timekeep set when no timekeep was counting - fixing');
+      this.activeTimekeep = null;
+    } else if (countingTimekeeps.length === 1) {
+      this.activeTimekeep = countingTimekeeps[0];
+      console.log()
+    } else {
+      console.log(`Corrupt state store: ${countingTimekeeps.map(x => x.name).join(', ')}`);
+    }
   }
 
   export() {
