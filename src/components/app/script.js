@@ -83,6 +83,13 @@ export default {
     async exportToExcel() {
       this.$modal.show(ModalExport);
     },
+    async backup() {
+      const backupStorage = this.$store.export();
+      const element = document.createElement('a');
+      element.href = URL.createObjectURL(backupStorage);
+      element.download = 'timekeep-backup.txt';
+      element.click();
+    },
     removeTimekeep(timekeep) {
       const confirmed = confirm(`Are you sure you want to remove '${timekeep.name}' permanently?`);
       if (!confirmed)

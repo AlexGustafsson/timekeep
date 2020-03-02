@@ -50,6 +50,9 @@
         <li v-if="$store.timekeeps.length > 0" @click.stop="exportToExcel" class="menu-button">
           <p>Export to Excel</p>
         </li>
+        <li v-if="$store.timekeeps.length > 0" @click.stop="backup" class="menu-button">
+          <p>Backup</p>
+        </li>
         <li @click.stop="reset" class="menu-button">
           <p>Reset</p>
         </li>
