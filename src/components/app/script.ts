@@ -1,13 +1,12 @@
 /* globals window document confirm alert */
 /* eslint-disable no-alert */
 
-import {default as FormInput} from '../form-input/model.vue';
-import {default as Modal} from '../modal/model.vue';
-import {default as ModalTimekeep} from '../modal-timekeep/model.vue';
-import {default as ModalGroup} from '../modal-group/model.vue';
-import {default as ModalAbout} from '../modal-about/model.vue';
-import {default as ModalExport} from '../modal-export/model.vue';
+import {Vue} from 'vue-class-component'
 
+export default class App extends Vue {
+
+}
+/*
 export default {
   name: 'app',
   data() {
@@ -215,3 +214,4 @@ export default {
     Modal
   }
 };
+*/

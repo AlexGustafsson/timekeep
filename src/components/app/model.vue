@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <modal ref="modal">
+    <!--<modal ref="modal">
     </modal>
     <nav class="top">
       <i></i>
@@ -69,12 +69,12 @@
           </a>
         </li>
       </ul>
-    </nav>
+    </nav>-->
     <main>
       <router-view></router-view>
     </main>
   </div>
 </template>
 
-<script src="./script.js"></script>
+<script src="./script.ts"></script>
 <style src="./style.css"></style>

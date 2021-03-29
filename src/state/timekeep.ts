@@ -1,47 +1,51 @@
-import {UniversalDate, unique} from '../utils';
-import TimekeepDay from './timekeep-day';
+import {UniversalDate, unique} from "../utils";
+import TimekeepDay from "./timekeep-day";
 
 export default class Timekeep {
-  constructor(name) {
-    // The project's name
+  // The project"s name
+  public name: string;
+  // The days tracked by the object
+  public days: TimekeepDay[];
+  public id: string;
+  // Whether or not the timekeep should be shown on the homepage
+  public isFavorite: boolean;
+
+  constructor(name: string) {
     this.name = name;
-    // The days tracked by the object
     this.days = [];
     // A pseudo-random ID likely containing enough entropy to be globally unique
     this.id = String(Math.random() * 1E17);
-    // Whether or not the timekeep should be shown on the homepage
-    this.favorite = true;
+    this.isFavorite = true;
   }
 
-  static parse(state) {
-    const timekeep = new Timekeep();
+  // static parse(state) {
+  //   const timekeep = new Timekeep(state.name);
 
-    timekeep.name = state.name;
-    timekeep.days = state.days.map(TimekeepDay.parse);
-    timekeep.id = state.id;
-    timekeep.favorite = state.favorite;
+  //   timekeep.days = state.days.map(TimekeepDay.parse);
+  //   timekeep.id = state.id;
+  //   timekeep.isFavorite = state.isFavorite;
 
-    return timekeep;
-  }
+  //   return timekeep;
+  // }
 
-  static serialize(timekeep) {
-    return {
-      name: timekeep.name,
-      days: timekeep.days.map(TimekeepDay.serialize),
-      id: timekeep.id,
-      favorite: timekeep.favorite
-    };
-  }
+  // static serialize(timekeep) {
+  //   return {
+  //     name: timekeep.name,
+  //     days: timekeep.days.map(TimekeepDay.serialize),
+  //     id: timekeep.id,
+  //     favorite: timekeep.favorite
+  //   };
+  // }
 
   // Get the timekeep day of today if it exists, null otherwise
-  getToday() {
+  getToday(): TimekeepDay | null {
     const today = new UniversalDate();
-    const days = this.days.find(x => x.date.isSameDay(today));
+    const day = this.days.find(x => x.date.isSameDay(today));
 
-    return days || null;
+    return day || null;
   }
 
-  get isCounting() {
+  get isCounting(): boolean {
     const today = this.getToday();
     if (today === null)
       return false;
@@ -60,26 +64,26 @@ export default class Timekeep {
     today.addCheckpoint();
   }
 
-  getDay(year, week, dayOfWeek) {
+  getDay(year: number, week: number, dayOfWeek: number): TimekeepDay | null {
     const day = this.days.find(x => x.date.year === year && x.date.dayOfWeek === dayOfWeek && x.date.week === week);
     return day || null;
   }
 
   // Get days for either the year and week or just the year
-  getDays(year, week) {
-    if (year && week)
+  getDays(year: number): TimekeepDay[]
+  getDays(year: number, week: number): TimekeepDay[]
+  getDays(year: number, week?: number): TimekeepDay[] {
+    if (typeof(week) !== "undefined")
       return this.days.filter(x => x.date.year === year && x.date.week === week);
 
-    if (year)
-      return this.days.filter(x => x.date.year === year);
-
-    return [];
+    return this.days.filter(x => x.date.year === year);
   }
 
   // Get the total time of a given day or days
-  // Either supply all three, just year and week or just year
-  getTime(year, week, dayOfWeek) {
-    if (typeof dayOfWeek !== 'undefined') {
+  getTime(year: number, week: number): number
+  getTime(year: number, week: number, dayOfWeek: number): number
+  getTime(year: number, week: number, dayOfWeek?: number) {
+    if (typeof dayOfWeek !== "undefined") {
       const day = this.getDay(year, week, dayOfWeek);
       if (!day)
         return 0;
@@ -92,19 +96,19 @@ export default class Timekeep {
   }
 
   // Get an array of years tracked by this timekeep
-  getTrackedYears() {
+  getTrackedYears(): number[] {
     const years = this.days.reduce((years, day) => [...years, day.date.year], []);
     return unique(years);
   }
 
   // Get an array of weeks tracked by this timekeep during the given year
-  getTrackedWeeks(year) {
+  getTrackedWeeks(year: number): number[] {
     const days = this.getDays(year);
     const weeks = days.reduce((weeks, day) => [...weeks, day.date.week], []);
     return unique(weeks);
   }
 
   toggleFavorite() {
-    this.favorite = !this.favorite;
+    this.isFavorite = !this.isFavorite;
   }
 }

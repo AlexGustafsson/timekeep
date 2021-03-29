@@ -1,5 +1,9 @@
 export default class TimekeepGroup {
-  constructor(name) {
+  public name: string;
+  public id: string;
+  public timekeeps: any[];
+
+  constructor(name: string) {
     // The group's name
     this.name = name;
     // A pseudo-random ID likely containing enough entropy to be globally unique
@@ -8,9 +12,7 @@ export default class TimekeepGroup {
   }
 
   static parse(state, timekeeps) {
-    const group = new TimekeepGroup();
-
-    group.name = state.name;
+    const group = new TimekeepGroup(state.name);
     group.id = state.id;
     group.timekeeps = timekeeps.filter(x => state.timekeeps.includes(x.id));
 
@@ -25,7 +27,7 @@ export default class TimekeepGroup {
     };
   }
 
-  includes(timekeep) {
+  includes(timekeep): boolean {
     return this.timekeeps.findIndex(x => x.id === timekeep.id) !== -1;
   }
 

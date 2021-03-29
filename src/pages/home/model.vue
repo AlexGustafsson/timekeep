@@ -4,12 +4,12 @@
       <week-scroller v-model="week" />
     </div>
     <main>
-      <ul>
+      <!--<ul>
         <card v-for="timekeep in ($store.activeGroup ? $store.activeGroup.timekeeps : $store.timekeeps).filter(x => x.favorite)" :key="timekeep.id" :timekeep="timekeep" :focused="timekeep.isCounting" :week="week" @click.native="cardClicked(timekeep)"></card>
-      </ul>
+      </ul>-->
     </main>
   </div>
 </template>
 
-<script src="./script.js"></script>
+<script src="./script.ts"></script>
 <style src="./style.css"></style>

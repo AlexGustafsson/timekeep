@@ -1,12 +1,21 @@
-import XlsxPopulate from '../../node_modules/xlsx-populate/browser/xlsx-populate.min';
+import XlsxPopulate from 'xlsx-populate';
 
 import {unique} from './collections';
 
-function convertTime(milliseconds, options) {
-  if (options.format === 'hh:mm:ss')
+enum ExcelTimeFormat {
+  Full = 1,
+  Decimal
+}
+
+type ExcelOptions = {
+  format: ExcelTimeFormat
+}
+
+function convertTime(milliseconds: number, options: ExcelOptions): number {
+  if (options.format === ExcelTimeFormat.Full)
     return Math.round(milliseconds / 1000) / 86400;
 
-  if (options.format === 'hh')
+  if (options.format === ExcelTimeFormat.Decimal)
     return Math.round((milliseconds / 1000 / 60 / 60) * 100) / 100;
 
   return milliseconds;
