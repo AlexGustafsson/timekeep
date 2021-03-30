@@ -7,7 +7,9 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "stylelint": "stylelint src/**/**/*.css src/**/*.css",
-    "check-duplicate-code": "jsinspect -t 20 src"
+    "check-duplicate-code": "jsinspect -t 20 src",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
     "pouchdb": "^7.2.2",
@@ -18,6 +20,11 @@
     "xlsx-populate": "^1.21.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.13.14",
+    "@storybook/addon-actions": "^6.2.0",
+    "@storybook/addon-essentials": "^6.2.0",
+    "@storybook/addon-links": "^6.2.0",
+    "@storybook/vue3": "^6.2.0",
     "@types/pouchdb": "^6.4.0",
     "@typescript-eslint/eslint-plugin": "^4.18.0",
     "@typescript-eslint/parser": "^4.18.0",
@@ -29,6 +36,7 @@
     "@vue/compiler-sfc": "^3.0.0",
     "@vue/eslint-config-prettier": "^6.0.0",
     "@vue/eslint-config-typescript": "^7.0.0",
+    "babel-loader": "^8.2.2",
     "eslint": "^6.7.2",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-vue": "^6.2.2",
@@ -36,6 +44,7 @@
     "prettier": "^2.2.1",
     "stylelint": "^13.12.0",
     "stylelint-config-standard": "^21.0.0",
-    "typescript": "~4.1.5"
+    "typescript": "~4.1.5",
+    "vue-loader": "^16.2.0"
   }
 }

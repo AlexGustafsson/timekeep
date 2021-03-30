@@ -86,6 +86,10 @@ npm run test
 npm run coverage
 npm run check-duplicate-code
 
+# Run storybook
+npm run storybook
+yarn storybook
+
 # Build for production
 npm run build
 ```
