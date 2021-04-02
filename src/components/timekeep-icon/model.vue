@@ -1,17 +1,17 @@
 <template>
   <div class="timekeep-icon">
     <slot></slot>
-    <circles :active="active" class="circles" />
+    <timekeep-icon-circles :active="active" class="circles" />
   </div>
 </template>
 
 <script lang="ts">
 import StopwatchIcon from '../icons/stopwatch.vue';
-import Circles from './circles.vue';
+import TimekeepIconCircles from './circles.vue';
 
 export default {
-  components: { StopwatchIcon, Circles },
-  name: 'TimekeepIcon',
+  components: { StopwatchIcon, TimekeepIconCircles },
+  name: 'timekeep-icon',
   props: {
     active: Boolean,
   }

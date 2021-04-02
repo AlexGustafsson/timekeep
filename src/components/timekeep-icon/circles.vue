@@ -9,7 +9,7 @@
 
 <script lang="ts">
 export default {
-  name: 'favorite-icon',
+  name: 'timekeep-icon-circles',
   props: {
     active: Boolean
   }

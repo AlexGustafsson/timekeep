@@ -9,7 +9,7 @@ import AddIcon from './icons/add.vue';
 
 export default {
   components: { AddIcon },
-  name: 'TimekeepIcon',
+  name: 'timekeep-fab',
 };
 </script>
 
