@@ -5,16 +5,12 @@ export default {
   component: FavoriteIcon
 };
 
-type IconArguments = {
-  color: string
-};
-
-const FavoriteTemplate = (args: IconArguments) => ({
+const Template = () => ({
   components: { FavoriteIcon },
-  template: '<favorite-icon v-bind="args" />',
+  template: '<favorite-icon />',
   setup() {
-    return { args };
+    return {};
   }
 });
 
-export const Favorite = FavoriteTemplate.bind({ color: "blue" });
+export const Favorite = Template;

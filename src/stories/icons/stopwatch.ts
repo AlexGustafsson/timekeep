@@ -5,16 +5,12 @@ export default {
   component: StopwatchIcon
 };
 
-type IconArguments = {
-  color: string
-};
-
-const StopwatchTemplate = (args: IconArguments) => ({
+const Template = () => ({
   components: { StopwatchIcon },
-  template: '<stopwatch-icon v-bind="args" />',
+  template: '<stopwatch-icon />',
   setup() {
-    return { args };
+    return { };
   }
 });
 
-export const Stopwatch = StopwatchTemplate.bind({color: "blue"});
+export const Stopwatch = Template;
