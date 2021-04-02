@@ -19,7 +19,8 @@ html::before {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(120deg, #4D5579 0%, #2D324B 100%);
+  background-color: #F7F9FC;
+  z-index: -1000;
 }
 
 a {
