@@ -1,8 +1,8 @@
 <template>
   <article class="timekeep-time-card">
-    <more-icon class="top-right" />
+    <ion-more class="top-right" />
     <header>
-      <timekeep-icon class="icon"><stopwatch-icon /></timekeep-icon>
+      <timekeep-icon class="icon"><ion-stopwatch /></timekeep-icon>
       <!--TODO: Don't have paragraphs in paragraphs-->
       <p>
         <p>{{group}}</p>
@@ -17,13 +17,13 @@
 </template>
 
 <script lang="ts">
-import MoreIcon from './icons/more.vue';
-import StopwatchIcon from './icons/stopwatch.vue';
+import IonMore from './ion-icons/more.vue';
+import IonStopwatch from './ion-icons/stopwatch.vue';
 import TimekeepIcon from './timekeep-icon/model.vue';
 import {humanReadableTime} from '../utils/time';
 
 export default {
-  components: { MoreIcon, TimekeepIcon, StopwatchIcon },
+  components: { IonMore, TimekeepIcon, IonStopwatch },
   name: 'timekeep-time-card',
   computed: {
     readableTimeToday(): string {

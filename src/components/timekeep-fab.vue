@@ -1,14 +1,14 @@
 <template>
   <div class="timekeep-fab">
-    <add-icon />
+    <ion-add />
   </div>
 </template>
 
 <script lang="ts">
-import AddIcon from './icons/add.vue';
+import IonAdd from './ion-icons/add.vue';
 
 export default {
-  components: { AddIcon },
+  components: { IonAdd },
   name: 'timekeep-fab',
 };
 </script>

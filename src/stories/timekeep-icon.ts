@@ -1,7 +1,7 @@
 import { Story } from "@storybook/vue3/types-6-0";
 
 import TimekeepIcon from '../components/timekeep-icon/model.vue';
-import StopwatchIcon from '../components/icons/stopwatch.vue';
+import StopwatchIcon from '../components/ion-icons/stopwatch.vue';
 
 export default {
   title: 'Components/Timekeep Icon',

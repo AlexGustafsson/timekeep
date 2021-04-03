@@ -6,11 +6,11 @@
 </template>
 
 <script lang="ts">
-import StopwatchIcon from '../icons/stopwatch.vue';
+import IonStopwatch from '../ion-icons/stopwatch.vue';
 import TimekeepIconCircles from './circles.vue';
 
 export default {
-  components: { StopwatchIcon, TimekeepIconCircles },
+  components: { IonStopwatch, TimekeepIconCircles },
   name: 'timekeep-icon',
   props: {
     active: Boolean,
