@@ -5,34 +5,34 @@
 </template>
 
 <script lang="ts">
-import IonAdd from './ion-icons/add.vue';
+import IonAdd from "./ion-icons/add.vue";
 
 export default {
   components: { IonAdd },
-  name: 'timekeep-fab',
+  name: "timekeep-fab",
 };
 </script>
 
 <style scoped>
-  .timekeep-fab {
-    width: 48px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: white;
-    border-radius: 50%;
-    cursor: pointer;
-    user-select: none;
-    transition: 0.1s box-shadow;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-  }
+.timekeep-fab {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border-radius: 50%;
+  cursor: pointer;
+  user-select: none;
+  transition: 0.1s box-shadow;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
 
-  .timekeep-fab:hover {
-    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-  }
+.timekeep-fab:hover {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
 
-  .timekeep-fab:active {
-    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-  }
+.timekeep-fab:active {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
 </style>

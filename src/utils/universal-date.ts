@@ -1,26 +1,23 @@
 export type UTCValues = {
-  year?: number,
-  month?: number,
-  date?: number,
-  hours?: number,
-  minutes?: number,
-  seconds?: number,
-  milliseconds?: number
+  year?: number;
+  month?: number;
+  date?: number;
+  hours?: number;
+  minutes?: number;
+  seconds?: number;
+  milliseconds?: number;
 };
 
-type DateLike = (Date|UniversalDate|string|number);
+type DateLike = Date | UniversalDate | string | number;
 
 // A wrapper around Date to provide simple-to-use, all-UTC methods
 export default class UniversalDate {
   public date: Date;
 
   constructor(date?: DateLike) {
-    if (date instanceof UniversalDate)
-      this.date = date.date;
-    else if (date instanceof Date || typeof date === 'number' || typeof date === 'string')
-      this.date = new Date(date);
-    else
-      this.date = new Date();
+    if (date instanceof UniversalDate) this.date = date.date;
+    else if (date instanceof Date || typeof date === "number" || typeof date === "string") this.date = new Date(date);
+    else this.date = new Date();
   }
 
   static fromUTC(values: UTCValues) {
@@ -32,7 +29,7 @@ export default class UniversalDate {
       minutes: 0,
       seconds: 0,
       milliseconds: 0,
-      ...values
+      ...values,
     };
 
     return new UniversalDate(new Date(Date.UTC(values.year, values.month, values.date, values.hours, values.minutes, values.seconds, values.milliseconds)));
@@ -54,7 +51,7 @@ export default class UniversalDate {
     const firstDayOfYear = new Date(Date.UTC(nearestThursday.getUTCFullYear(), 0, 1));
 
     // The number of full weeks to today's date
-    const week = Math.ceil((((nearestThursday.getTime() - firstDayOfYear.getTime()) / 86400000) + 1) / 7);
+    const week = Math.ceil(((nearestThursday.getTime() - firstDayOfYear.getTime()) / 86400000 + 1) / 7);
 
     return week;
   }
@@ -65,7 +62,7 @@ export default class UniversalDate {
 
   // The zero-based day of week where weeks start with a monday
   get dayOfWeek(): number {
-    return ((this.date.getUTCDay() + 6) % 7);
+    return (this.date.getUTCDay() + 6) % 7;
   }
 
   // The UTC timestamp (milliseconds since start of epoch)

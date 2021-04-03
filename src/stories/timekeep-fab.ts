@@ -1,22 +1,22 @@
 import { Story } from "@storybook/vue3/types-6-0";
 
-import TimekeepFab from '../components/timekeep-fab.vue';
+import TimekeepFab from "../components/timekeep-fab.vue";
 
 export default {
-  title: 'Components/Timekeep Fab',
-  component: TimekeepFab
+  title: "Components/Timekeep Fab",
+  component: TimekeepFab,
 };
 
 type TemplateArguments = {
-  active: boolean
-}
+  active: boolean;
+};
 
-const Template: Story<TemplateArguments> = args => ({
+const Template: Story<TemplateArguments> = (args) => ({
   components: { TimekeepFab },
-  template: '<timekeep-fab />',
+  template: "<timekeep-fab />",
   setup() {
     return { args };
-  }
+  },
 });
 
 export const FAB = Template.bind({});

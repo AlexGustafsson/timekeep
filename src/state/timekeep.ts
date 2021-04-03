@@ -1,4 +1,4 @@
-import {UniversalDate, unique} from "../utils";
+import { UniversalDate, unique } from "../utils";
 import TimekeepDay from "./timekeep-day";
 
 export default class Timekeep {
@@ -14,7 +14,7 @@ export default class Timekeep {
     this.name = name;
     this.days = [];
     // A pseudo-random ID likely containing enough entropy to be globally unique
-    this.id = String(Math.random() * 1E17);
+    this.id = String(Math.random() * 1e17);
     this.isFavorite = true;
   }
 
@@ -40,15 +40,14 @@ export default class Timekeep {
   // Get the timekeep day of today if it exists, null otherwise
   getToday(): TimekeepDay | null {
     const today = new UniversalDate();
-    const day = this.days.find(x => x.date.isSameDay(today));
+    const day = this.days.find((x) => x.date.isSameDay(today));
 
     return day || null;
   }
 
   get isCounting(): boolean {
     const today = this.getToday();
-    if (today === null)
-      return false;
+    if (today === null) return false;
 
     return today.isCounting;
   }
@@ -65,28 +64,26 @@ export default class Timekeep {
   }
 
   getDay(year: number, week: number, dayOfWeek: number): TimekeepDay | null {
-    const day = this.days.find(x => x.date.year === year && x.date.dayOfWeek === dayOfWeek && x.date.week === week);
+    const day = this.days.find((x) => x.date.year === year && x.date.dayOfWeek === dayOfWeek && x.date.week === week);
     return day || null;
   }
 
   // Get days for either the year and week or just the year
-  getDays(year: number): TimekeepDay[]
-  getDays(year: number, week: number): TimekeepDay[]
+  getDays(year: number): TimekeepDay[];
+  getDays(year: number, week: number): TimekeepDay[];
   getDays(year: number, week?: number): TimekeepDay[] {
-    if (typeof(week) !== "undefined")
-      return this.days.filter(x => x.date.year === year && x.date.week === week);
+    if (typeof week !== "undefined") return this.days.filter((x) => x.date.year === year && x.date.week === week);
 
-    return this.days.filter(x => x.date.year === year);
+    return this.days.filter((x) => x.date.year === year);
   }
 
   // Get the total time of a given day or days
-  getTime(year: number, week: number): number
-  getTime(year: number, week: number, dayOfWeek: number): number
+  getTime(year: number, week: number): number;
+  getTime(year: number, week: number, dayOfWeek: number): number;
   getTime(year: number, week: number, dayOfWeek?: number) {
     if (typeof dayOfWeek !== "undefined") {
       const day = this.getDay(year, week, dayOfWeek);
-      if (!day)
-        return 0;
+      if (!day) return 0;
       return day.getTime();
     }
 

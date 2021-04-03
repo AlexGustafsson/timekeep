@@ -1,5 +1,5 @@
 <template>
-  <aside :class="{open}">
+  <aside :class="{ open }">
     <ul class="top">
       <li @click="open = !open">
         <ion-close v-if="open" />
@@ -61,7 +61,7 @@ import IonCog from "./ion-icons/cog.vue";
 export default {
   data() {
     return {
-      open: false
+      open: false,
     };
   },
   components: {
@@ -73,78 +73,84 @@ export default {
     IonFlask,
     IonTag,
     IonReceipt,
-    IonCog
-  }
+    IonCog,
+  },
 };
 </script>
 
 <style scoped>
-  aside {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 48px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    background-color: white;
-    transition: 0.1s ease-in-out width;
-    padding: 15px 0;
-  }
+aside {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 48px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  transition: 0.1s ease-in-out width;
+  padding: 15px 0;
+}
 
-  aside.open {
-    width: 220px;
-  }
+aside.open {
+  width: 220px;
+}
 
-  ul {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
+ul {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
 
-  ul p {
-    display: none;
-  }
+ul p {
+  display: none;
+}
 
-  li {
-    display: grid;
-    grid-template-columns: 48px;
-    align-items: center;
-    user-select: none;
-    cursor: pointer;
-    padding: 5px 10px;
-    margin: 5px 0;
-  }
+li {
+  display: grid;
+  grid-template-columns: 48px;
+  align-items: center;
+  user-select: none;
+  cursor: pointer;
+  padding: 5px 10px;
+  margin: 5px 0;
+}
 
-  li svg {
-    transition: 0.1s transform;
-    transform-origin: 50% 50%;
-  }
+li svg {
+  transition: 0.1s transform;
+  transform-origin: 50% 50%;
+}
 
-  li:hover svg {
-    transform: scale(1.1);
-  }
+li:hover svg {
+  transform: scale(1.1);
+}
 
-  .open li:hover {
-    transform: none;
-  }
+.open li:hover {
+  transform: none;
+}
 
-  .open li {
-    grid-template-columns: 48px 1fr;
-  }
+.open li {
+  grid-template-columns: 48px 1fr;
+}
 
-  .open li p {
-    display: inherit;
-    animation: fly-into 0.2s ease-in forwards;
-  }
+.open li p {
+  display: inherit;
+  animation: fly-into 0.2s ease-in forwards;
+}
 
-  ul.middle {
-    flex-grow: 1;
-  }
+ul.middle {
+  flex-grow: 1;
+}
 
-  @keyframes fly-into {
-    0% { transform: translate(-10px, 0); opacity: 0; }
-    100% { transform: translate(0, 0); opacity: 1; }
+@keyframes fly-into {
+  0% {
+    transform: translate(-10px, 0);
+    opacity: 0;
   }
+  100% {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+}
 </style>

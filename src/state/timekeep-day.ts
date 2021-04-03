@@ -1,4 +1,4 @@
-import {UniversalDate} from '../utils';
+import { UniversalDate } from "../utils";
 
 export default class TimekeepDay {
   // The UTC date of the day, the time is undefined
@@ -62,7 +62,7 @@ export default class TimekeepDay {
     let sum = 0;
     for (let i = 0; i < Math.floor(checkpoints.length / 2); i++) {
       const a = checkpoints[i * 2];
-      const b = checkpoints[(i * 2) + 1];
+      const b = checkpoints[i * 2 + 1];
 
       sum += b.timestamp - a.timestamp;
     }

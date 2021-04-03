@@ -15,46 +15,44 @@ export default {
         projects: [
           {
             name: "backend",
-            time: 10
+            time: 10,
           },
           {
             name: "frontend",
-            time: 20
+            time: 20,
           },
           {
             name: "design",
             time: 15,
-          }
+          },
         ],
         color: "blue",
-        time: 10+20+15
+        time: 10 + 20 + 15,
       },
       {
         name: "other",
         projects: [
           {
             name: "other",
-            time: 15
+            time: 15,
           },
           {
             name: "other",
-            time: 32
-          }
+            time: 32,
+          },
         ],
         color: "green",
-        time: 15+32
-      }
+        time: 15 + 32,
+      },
     ];
 
     const times = [10, 20, 15, 15, 32];
 
     onMounted(() => {
-      if (!canvas.value)
-        return;
+      if (!canvas.value) return;
 
       const ctx = canvas.value.getContext("2d");
-      if (!ctx)
-        return;
+      if (!ctx) return;
 
       ctx.fillStyle = "red";
       ctx.fillRect(0, 0, 100, 100);
@@ -106,14 +104,14 @@ export default {
       ctx.restore();
     });
 
-    return {canvas};
-  }
-}
+    return { canvas };
+  },
+};
 </script>
 
 <style scoped>
-  canvas {
-    width: 100px;
-    height: 100px;
-  }
+canvas {
+  width: 100px;
+  height: 100px;
+}
 </style>

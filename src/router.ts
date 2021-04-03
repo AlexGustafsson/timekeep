@@ -3,9 +3,7 @@ import type { RouterScrollBehavior, RouteRecordRaw } from "vue-router";
 
 import { HomePage } from "./pages";
 
-export const routes: RouteRecordRaw[] = [
-  { path: "/", name: "home", component: HomePage },
-];
+export const routes: RouteRecordRaw[] = [{ path: "/", name: "home", component: HomePage }];
 
 const scrollBehavior: RouterScrollBehavior = (to, from, savedPosition) => {
   if (to.hash) return { el: to.hash };

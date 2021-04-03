@@ -14,11 +14,8 @@ export function humanReadableTime(totalSeconds: number): string {
 
   const seconds = totalSeconds;
 
-  if (days > 0)
-    return `${days} days ${hours} hours`;
-  if (hours > 0)
-    return `${hours} hours ${minutes} minutes`;
-  if (minutes > 0)
-    return `${minutes} minutes ${seconds} seconds`;
+  if (days > 0) return `${days} days ${hours} hours`;
+  if (hours > 0) return `${hours} hours ${minutes} minutes`;
+  if (minutes > 0) return `${minutes} minutes ${seconds} seconds`;
   return `${seconds} seconds`;
 }

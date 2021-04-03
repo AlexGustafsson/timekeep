@@ -1,22 +1,22 @@
 import { Story } from "@storybook/vue3/types-6-0";
 
-import TimekeepMenu from '../components/timekeep-menu.vue';
+import TimekeepMenu from "../components/timekeep-menu.vue";
 
 export default {
-  title: 'Components/Timekeep Menu',
-  component: TimekeepMenu
+  title: "Components/Timekeep Menu",
+  component: TimekeepMenu,
 };
 
 type TemplateArguments = {
-  active: boolean
-}
+  active: boolean;
+};
 
-const Template: Story<TemplateArguments> = args => ({
+const Template: Story<TemplateArguments> = (args) => ({
   components: { TimekeepMenu },
-  template: '<timekeep-menu />',
+  template: "<timekeep-menu />",
   setup() {
     return { args };
-  }
+  },
 });
 
 export const Menu = Template.bind({});

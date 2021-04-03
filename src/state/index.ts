@@ -1,2 +1,2 @@
 // export {default as Timekeep} from './timekeep';
-export {default as Store} from './store';
+export { default as Store } from "./store";

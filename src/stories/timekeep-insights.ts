@@ -1,16 +1,16 @@
-import TimekeepInsights from '../components/timekeep-insights.vue';
+import TimekeepInsights from "../components/timekeep-insights.vue";
 
 export default {
-  title: 'Components/Timekeep Insights',
-  component: TimekeepInsights
+  title: "Components/Timekeep Insights",
+  component: TimekeepInsights,
 };
 
 const Template = () => ({
   components: { TimekeepInsights },
-  template: '<timekeep-insights />',
+  template: "<timekeep-insights />",
   setup() {
-    return { };
-  }
+    return {};
+  },
 });
 
 export const Primary = Template.bind({});

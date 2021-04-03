@@ -4,6 +4,6 @@ module.exports = {
     "color-hex-case": "upper",
     "declaration-empty-line-before": null,
     "comment-empty-line-before": null,
-    "declaration-bang-space-before": null
-  }
-}
+    "declaration-bang-space-before": null,
+  },
+};
