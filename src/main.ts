@@ -1,7 +1,7 @@
 import { createApp } from "vue";
 
 // Import global style (contains reset-css which needs to be loaded first)
-// import "./style/main.css";
+import "./style/main.css";
 
 import App from "./app.vue";
 
