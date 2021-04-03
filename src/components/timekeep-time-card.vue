@@ -2,12 +2,12 @@
   <article class="timekeep-time-card">
     <ion-more class="top-right" />
     <header>
-      <timekeep-icon class="icon"><ion-stopwatch /></timekeep-icon>
+      <timekeep-icon class="icon" :active="active" ><ion-stopwatch /></timekeep-icon>
       <!--TODO: Don't have paragraphs in paragraphs-->
-      <!-- <p>
+      <p>
         <p>{{group}}</p>
         <p>{{readableTimeToday}} today</p>
-      </p> -->
+      </p>
     </header>
     <footer>
       <p>{{name}} </p>
@@ -27,19 +27,18 @@ export default {
   name: 'timekeep-time-card',
   computed: {
     readableTimeToday(): string {
-      return "hello";
-      // return humanReadableTime(this.$props.timeToday);
+      return humanReadableTime(this.$props.timeToday);
     },
     readableTimeThisWeek(): string {
-      return "hello";
-      // return humanReadableTime(this.$props.timeThisWeek);
+      return humanReadableTime(this.$props.timeThisWeek);
     }
   },
   props: {
     group: {type: String, required: true},
     timeToday: {type: Number, required: true},
     name: {type: String, required: true},
-    timeThisWeek: {type: Number, required: true}
+    timeThisWeek: {type: Number, required: true},
+    active: {type: Boolean, default: false}
   }
 };
 </script>

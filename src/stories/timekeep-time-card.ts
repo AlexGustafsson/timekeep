@@ -11,7 +11,8 @@ type TemplateArguments = {
   name: string,
   group: string,
   timeToday: number,
-  timeThisWeek: number
+  timeThisWeek: number,
+  active: boolean
 }
 
 const Template: Story<TemplateArguments> = args => ({
@@ -22,11 +23,20 @@ const Template: Story<TemplateArguments> = args => ({
   }
 });
 
-export const Primary = Template.bind({});
-
-Primary.args = {
+export const Inactive = Template.bind({});
+Inactive.args = {
   name: "Frontend Development",
   group: "Timekeep",
   timeToday: 10 * 60 * 60 + 42 * 60 + 15,
-  timeThisWeek: 25 * 60 * 60 + 12 * 60 + 12
+  timeThisWeek: 25 * 60 * 60 + 12 * 60 + 12,
+  active: false
+};
+
+export const Active = Template.bind({});
+Active.args = {
+  name: "Frontend Development",
+  group: "Timekeep",
+  timeToday: 10 * 60 * 60 + 42 * 60 + 15,
+  timeThisWeek: 25 * 60 * 60 + 12 * 60 + 12,
+  active: true
 };
