@@ -1,7 +1,7 @@
 import { Story } from "@storybook/vue3/types-6-0";
 
 import TimekeepIcon from '../components/timekeep-icon/model.vue';
-import StopwatchIcon from '../components/ion-icons/stopwatch.vue';
+import IonStopwatch from '../components/ion-icons/stopwatch.vue';
 
 export default {
   title: 'Components/Timekeep Icon',
@@ -13,8 +13,8 @@ type TemplateArguments = {
 }
 
 const Template: Story<TemplateArguments> = args => ({
-  components: { TimekeepIcon, StopwatchIcon },
-  template: '<timekeep-icon v-bind="args"><stopwatch-icon /></timekeep-icon>',
+  components: { TimekeepIcon, IonStopwatch },
+  template: '<timekeep-icon v-bind="args"><ion-stopwatch /></timekeep-icon>',
   setup() {
     return { args };
   }

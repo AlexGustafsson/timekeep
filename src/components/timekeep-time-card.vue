@@ -4,10 +4,10 @@
     <header>
       <timekeep-icon class="icon"><ion-stopwatch /></timekeep-icon>
       <!--TODO: Don't have paragraphs in paragraphs-->
-      <p>
+      <!-- <p>
         <p>{{group}}</p>
         <p>{{readableTimeToday}} today</p>
-      </p>
+      </p> -->
     </header>
     <footer>
       <p>{{name}} </p>
@@ -27,10 +27,12 @@ export default {
   name: 'timekeep-time-card',
   computed: {
     readableTimeToday(): string {
-      return humanReadableTime(this.$props.timeToday);
+      return "hello";
+      // return humanReadableTime(this.$props.timeToday);
     },
     readableTimeThisWeek(): string {
-      return humanReadableTime(this.$props.timeThisWeek);
+      return "hello";
+      // return humanReadableTime(this.$props.timeThisWeek);
     }
   },
   props: {

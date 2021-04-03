@@ -1,10 +1,10 @@
 import { Story } from "@storybook/vue3/types-6-0";
 
-import TimeCard from '../components/timekeep-time-card.vue';
+import TimekeepTimeCard from '../components/timekeep-time-card.vue';
 
 export default {
   title: 'Components/Timekeep Time Card',
-  component: TimeCard
+  component: TimekeepTimeCard
 };
 
 type TemplateArguments = {
@@ -15,7 +15,7 @@ type TemplateArguments = {
 }
 
 const Template: Story<TemplateArguments> = args => ({
-  components: { TimeCard },
+  components: { TimekeepTimeCard },
   template: '<timekeep-time-card v-bind="args" />',
   setup() {
     return { args };
