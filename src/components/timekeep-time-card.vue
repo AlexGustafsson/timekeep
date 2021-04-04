@@ -3,11 +3,10 @@
     <ion-more class="top-right" />
     <header>
       <timekeep-icon class="icon" :active="active" ><ion-stopwatch /></timekeep-icon>
-      <!--TODO: Don't have paragraphs in paragraphs-->
-      <p>
+      <div>
         <p>{{group}}</p>
         <p>{{readableTimeToday}} today</p>
-      </p>
+      </div>
     </header>
     <footer>
       <p>{{name}} </p>
@@ -17,20 +16,21 @@
 </template>
 
 <script lang="ts">
+import {defineComponent} from "vue";
 import IonMore from './ion-icons/more.vue';
 import IonStopwatch from './ion-icons/stopwatch.vue';
 import TimekeepIcon from './timekeep-icon/model.vue';
 import {humanReadableTime} from '../utils/time';
 
-export default {
+export default defineComponent({
   components: { IonMore, TimekeepIcon, IonStopwatch },
   name: 'timekeep-time-card',
   computed: {
     readableTimeToday(): string {
-      return humanReadableTime(this.$props.timeToday);
+      return humanReadableTime(this.timeToday);
     },
     readableTimeThisWeek(): string {
-      return humanReadableTime(this.$props.timeThisWeek);
+      return humanReadableTime(this.timeThisWeek);
     }
   },
   props: {
@@ -40,7 +40,7 @@ export default {
     timeThisWeek: {type: Number, required: true},
     active: {type: Boolean, default: false}
   }
-};
+});
 </script>
 
 <style scoped>
@@ -68,7 +68,7 @@ export default {
     color: #95B8C0;
   }
 
-  header > p {
+  header > div {
     display: flex;
     align-items: left;
     flex-direction: column;
@@ -76,7 +76,7 @@ export default {
     margin-left: 10px;
   }
 
-  header > p p {
+  header > div p {
     margin: 2px 0;
   }
 
