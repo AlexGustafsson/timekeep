@@ -4,7 +4,7 @@ const { app } = require("@storybook/vue3");
 import "../src/style/main.css";
 
 // Add mockup for the Vue router link element
-app.component("router-link", {template: '<li><slot /></li>'});
+app.component("router-link", {template: '<a><slot /></a>'});
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },

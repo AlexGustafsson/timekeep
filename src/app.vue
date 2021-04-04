@@ -1,13 +1,20 @@
 <template>
-  <div>
-    <ion-add />
+  <div class="app">
+    <timekeep-menu />
+    <router-view></router-view>
   </div>
 </template>
 
 <script lang="ts">
-import IonAdd from "./components/ion-icons/add.vue";
+import TimekeepMenu from "./components/timekeep-menu.vue";
 
 export default {
-  components: { IonAdd },
+  components: { TimekeepMenu },
 };
 </script>
+
+<style scoped>
+  .app {
+    padding-left: 48px;
+  }
+</style>

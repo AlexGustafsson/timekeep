@@ -6,9 +6,9 @@ import "./style/main.css";
 import App from "./app.vue";
 
 // import { Store } from "./state";
-// import router from "./router";
+import router from "./router";
 
 const app = createApp(App);
 // app.use(Store);
-// app.use(router);
+app.use(router);
 app.mount("#app");

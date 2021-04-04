@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import type { RouterScrollBehavior, RouteRecordRaw } from "vue-router";
 
-import { HomePage } from "./pages";
+import HomePage from "./pages/home.vue";
 
 export const routes: RouteRecordRaw[] = [{ path: "/", name: "home", component: HomePage }];
 
