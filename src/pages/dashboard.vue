@@ -1,5 +1,90 @@
 <template>
-  <div class="page-dashboard">
-    <h1>Dashboard</h1>
+  <div class="page page-dashboard">
+    <header>
+      <ion-dashboard />
+      <h1>Dashboard</h1>
+      <timekeep-fab />
+    </header>
+    <timekeep-showcase>
+      <timekeep-showcase-item primary="Active" secondary="1">
+        <timekeep-icon>
+          <ion-stopwatch />
+        </timekeep-icon>
+      </timekeep-showcase-item>
+
+      <timekeep-showcase-item primary="Favorites" secondary="4">
+        <timekeep-icon>
+          <ion-favorite />
+        </timekeep-icon>
+      </timekeep-showcase-item>
+
+      <timekeep-showcase-item primary="Popular" secondary="5">
+        <timekeep-icon>
+          <ion-trending />
+        </timekeep-icon>
+      </timekeep-showcase-item>
+
+      <timekeep-showcase-item primary="Recent" secondary="10">
+        <timekeep-icon>
+          <ion-repeat />
+        </timekeep-icon>
+      </timekeep-showcase-item>
+    </timekeep-showcase>
+    <main>
+      <timekeep-time-card v-for="timekeep in timekeeps" @click="timekeep.active = !timekeep.active" :key="timekeep.id" :active="timekeep.active" :group="timekeep.group" :name="timekeep.name" :timeToday="timekeep.timeToday" :timeThisWeek="timekeep.timeThisWeek" />
+    </main>
   </div>
 </template>
+
+<script lang="ts">
+  import IonDashboard from "../components/ion-icons/dashboard.vue";
+  import IonStopwatch from "../components/ion-icons/stopwatch.vue";
+  import IonFavorite from "../components/ion-icons/favorite.vue";
+  import IonRepeat from "../components/ion-icons/repeat.vue";
+  import IonTrending from "../components/ion-icons/trending.vue";
+  import TimekeepFab from "../components/timekeep-fab.vue";
+  import TimekeepIcon from "../components/timekeep-icon/model.vue";
+  import TimekeepShowcase from "../components/timekeep-showcase.vue";
+  import TimekeepShowcaseItem from "../components/timekeep-showcase-item.vue";
+  import TimekeepTimeCard from "../components/timekeep-time-card.vue";
+
+  export default {
+    data() {
+      return {
+        timekeeps: [
+          {id: 0, group: "Timekeep", name: "Frontend Development", timeToday: 4561, timeThisWeek: 3456789, active: false},
+          {id: 1, group: "Timekeep", name: "Backend Development", timeToday: 4561, timeThisWeek: 3456789, active: false},
+          {id: 2, group: "Timekeep", name: "Design", timeToday: 4561, timeThisWeek: 3456789, active: false},
+          {id: 3, group: "Timekeep", name: "Documentation", timeToday: 4561, timeThisWeek: 3456789, active: false},
+        ]
+      }
+    },
+    components: {
+      IonDashboard,
+      IonStopwatch,
+      IonFavorite,
+      IonRepeat,
+      IonTrending,
+      TimekeepFab,
+      TimekeepIcon,
+      TimekeepShowcase,
+      TimekeepShowcaseItem,
+      TimekeepTimeCard
+    }
+  }
+</script>
+
+<style scoped>
+  @import "../style/page.css";
+
+  .page > main {
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    align-content: space-between;
+    justify-content: space-between;
+  }
+
+  .page .timekeep-time-card {
+    cursor: pointer;
+  }
+</style>
