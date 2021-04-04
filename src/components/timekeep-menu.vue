@@ -1,5 +1,5 @@
 <template>
-  <aside :class="{ open }">
+  <menu :class="{ open }">
     <ul class="top">
       <li @click="open = !open">
         <ion-close v-if="open" />
@@ -44,7 +44,7 @@
         <p>Settings</p>
       </router-link>
     </ul>
-  </aside>
+  </menu>
 </template>
 
 <script lang="ts">
@@ -79,7 +79,7 @@ export default {
 </script>
 
 <style scoped>
-aside {
+menu {
   position: fixed;
   top: 0;
   left: 0;
@@ -93,7 +93,7 @@ aside {
   padding: 15px 0;
 }
 
-aside.open {
+menu.open {
   width: 220px;
 }
 
