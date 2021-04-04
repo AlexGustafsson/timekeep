@@ -8,40 +8,54 @@
       </li>
     </ul>
     <ul class="middle">
-      <router-link tag="li" to="/">
-        <ion-dashboard />
-        <p>Dashboard</p>
+      <router-link to="/">
+        <li>
+          <ion-dashboard />
+          <p>Dashboard</p>
+        </li>
       </router-link>
 
-      <router-link tag="li" to="/favorites">
-        <ion-favorite />
-        <p>Favorites</p>
+      <router-link to="/favorites">
+        <li>
+          <ion-favorite />
+          <p>Favorites</p>
+        </li>
       </router-link>
 
-      <router-link tag="li" to="/date">
-        <ion-calendar />
-        <p>Date</p>
+      <router-link to="/date">
+        <li>
+          <ion-calendar />
+          <p>Date</p>
+        </li>
       </router-link>
 
-      <router-link tag="li" to="/insights">
-        <ion-flask />
-        <p>Insights</p>
+      <router-link to="/insights">
+        <li>
+          <ion-flask />
+          <p>Insights</p>
+        </li>
       </router-link>
 
-      <router-link tag="li" to="/tags">
-        <ion-tag />
-        <p>Tags</p>
+      <router-link to="/tags">
+        <li>
+          <ion-tag />
+          <p>Tags</p>
+        </li>
       </router-link>
     </ul>
     <ul class="bottom">
-      <router-link tag="li" to="/export">
-        <ion-receipt />
-        <p>Export</p>
+      <router-link to="/export">
+        <li>
+          <ion-receipt />
+          <p>Export</p>
+        </li>
       </router-link>
 
-      <router-link tag="li" to="/settings">
-        <ion-cog />
-        <p>Settings</p>
+      <router-link to="/settings">
+        <li>
+          <ion-cog />
+          <p>Settings</p>
+        </li>
       </router-link>
     </ul>
   </menu>
