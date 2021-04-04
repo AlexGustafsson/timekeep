@@ -1,5 +1,5 @@
 <template>
-  <article>
+  <div class="timekeep-notebook">
     <ion-note class="top-left" />
     <main>
       <ul>
@@ -15,7 +15,7 @@
         </li>
       </ul>
     </main>
-  </article>
+  </div>
 </template>
 
 <script lang="ts">
@@ -70,7 +70,7 @@ export default {
 </script>
 
 <style scoped>
-  article {
+  .timekeep-notebook {
     position: relative;
     padding: 15px;
     padding-top: 64px;
@@ -78,26 +78,26 @@ export default {
     border-radius: 10px;
   }
 
-  .top-left {
+  .timekeep-notebook .top-left {
     position: absolute;
     top: 15px;
     left: 15px;
   }
 
-  main {
+  .timekeep-notebook main {
     max-height: 500px;
     overflow: hidden;
     overflow-y: scroll;
   }
 
-  li {
+  .timekeep-notebook li {
     display: flex;
     flex-direction: row;
     padding: 10px 0;
     margin: 5px 0;
   }
 
-  li textarea {
+  .timekeep-notebook li textarea {
     flex-grow: 1;
     border: none;
     outline: none;
@@ -107,13 +107,13 @@ export default {
     resize: vertical;
   }
 
-  li p {
+  .timekeep-notebook li p {
     color: #808080;
     text-align: center;
     width: 120px;
   }
 
-  li svg {
+  .timekeep-notebook li svg {
     cursor: pointer;
   }
 </style>

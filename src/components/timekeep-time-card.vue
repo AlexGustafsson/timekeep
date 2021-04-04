@@ -1,5 +1,5 @@
 <template>
-  <article class="timekeep-time-card">
+  <div class="timekeep-time-card">
     <ion-more class="top-right" />
     <header>
       <timekeep-icon class="icon" :active="active" ><ion-stopwatch /></timekeep-icon>
@@ -12,7 +12,7 @@
       <p>{{name}} </p>
       <p>{{readableTimeThisWeek}} this week</p>
     </footer>
-  </article>
+  </div>
 </template>
 
 <script lang="ts">
@@ -44,7 +44,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-  article {
+  .timekeep-time-card {
     box-sizing: border-box;
     padding: 15px;
     background-color: white;
@@ -57,18 +57,18 @@ export default defineComponent({
     justify-content: space-between;
   }
 
-  header {
+  .timekeep-time-card header {
     display: flex;
     height: 48px;
     flex-direction: row;
     margin-bottom: 25px;
   }
 
-  header > .icon {
+  .timekeep-time-card header > .icon {
     color: #95B8C0;
   }
 
-  header > div {
+  .timekeep-time-card header > div {
     display: flex;
     align-items: left;
     flex-direction: column;
@@ -76,16 +76,16 @@ export default defineComponent({
     margin-left: 10px;
   }
 
-  header > div p {
+  .timekeep-time-card header > div p {
     margin: 2px 0;
   }
 
-  footer p {
+  .timekeep-time-card footer p {
     color: #808080;
     margin: 5px 0;
   }
 
-  .top-right {
+  .timekeep-time-card .top-right {
     position: absolute;
     top: 5px;
     right: 5px;

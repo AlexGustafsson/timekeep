@@ -1,11 +1,11 @@
 <template>
-  <main>
+  <div class="timekeep-showcase">
     <slot></slot>
-  </main>
+  </div>
 </template>
 
 <style scoped>
-  main {
+  .timekeep-showcase {
     display: flex;
     padding: 15px;
     background-color: white;
@@ -14,5 +14,6 @@
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
+    margin: 15px 0;
   }
 </style>

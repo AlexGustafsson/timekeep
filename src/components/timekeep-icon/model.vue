@@ -28,7 +28,7 @@ export default {
   color: #398f47;
 }
 
-.circles {
+.timekeep-icon .circles {
   position: absolute;
   top: 0;
   left: 0;

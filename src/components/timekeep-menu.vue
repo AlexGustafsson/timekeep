@@ -1,5 +1,5 @@
 <template>
-  <menu :class="{ open }">
+  <menu class="timekeep-menu" :class="{ open }">
     <ul class="top">
       <li @click="open = !open">
         <ion-close v-if="open" />
@@ -93,7 +93,7 @@ export default {
 </script>
 
 <style scoped>
-menu {
+.timekeep-menu {
   position: fixed;
   top: 0;
   left: 0;
@@ -108,21 +108,21 @@ menu {
   z-index: 1000;
 }
 
-menu.open {
+.timekeep-menu.open {
   width: 220px;
 }
 
-ul {
+.timekeep-menu ul {
   display: flex;
   flex-direction: column;
   width: 100%;
 }
 
-ul p {
+.timekeep-menu ul p {
   display: none;
 }
 
-li {
+.timekeep-menu li {
   display: grid;
   grid-template-columns: 48px;
   align-items: center;
@@ -132,29 +132,29 @@ li {
   margin: 5px 0;
 }
 
-li svg {
+.timekeep-menu li svg {
   transition: 0.1s transform;
   transform-origin: 50% 50%;
 }
 
-li:hover svg {
+.timekeep-menu li:hover svg {
   transform: scale(1.1);
 }
 
-.open li:hover {
+.timekeep-menu.open li:hover {
   transform: none;
 }
 
-.open li {
+.timekeep-menu.open li {
   grid-template-columns: 48px 1fr;
 }
 
-.open li p {
+.timekeep-menu.open li p {
   display: inherit;
   animation: fly-into 0.2s ease-in forwards;
 }
 
-ul.middle {
+.timekeep-menu ul.middle {
   flex-grow: 1;
 }
 
@@ -170,7 +170,7 @@ ul.middle {
 }
 
 @supports (backdrop-filter: blur(4px)) {
-  menu {
+  .timekeep-menu menu {
     background-color: rgba(255, 255, 255, 0.8)!important;
     backdrop-filter: blur(4px);
   }

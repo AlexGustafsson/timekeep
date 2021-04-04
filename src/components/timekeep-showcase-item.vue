@@ -1,9 +1,9 @@
 <template>
-  <article>
+  <div class="timekeep-showcase-item">
     <slot></slot>
     <p class="primary">{{primary}}</p>
     <p class="secondary">{{secondary}}</p>
-  </article>
+  </div>
 </template>
 
 <script lang="ts">
@@ -16,7 +16,7 @@ export default {
 </script>
 
 <style scoped>
-  article {
+  .timekeep-showcase-item {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -25,11 +25,11 @@ export default {
     margin: 0 10px;
   }
 
-  p {
+  .timekeep-showcase-item p {
     margin: 5px 0;
   }
 
-  p.secondary {
+  .timekeep-showcase-item p.secondary {
     color: #808080;
   }
 </style>
