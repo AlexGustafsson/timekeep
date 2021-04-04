@@ -167,4 +167,11 @@ ul.middle {
     opacity: 1;
   }
 }
+
+@supports (backdrop-filter: blur(4px)) {
+  menu {
+    background-color: rgba(255, 255, 255, 0.8)!important;
+    backdrop-filter: blur(4px);
+  }
+}
 </style>
