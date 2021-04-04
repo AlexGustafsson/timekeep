@@ -1,9 +1,23 @@
 import { createRouter, createWebHistory } from "vue-router";
 import type { RouterScrollBehavior, RouteRecordRaw } from "vue-router";
 
-import HomePage from "./pages/home.vue";
+import DashboardPage from "./pages/dashboard.vue";
+import FavoritesPage from "./pages/favorites.vue";
+import DatePage from "./pages/date.vue";
+import InsightsPage from "./pages/insights.vue";
+import TagsPage from "./pages/tags.vue";
+import ExportPage from "./pages/export.vue";
+import SettingsPage from "./pages/settings.vue";
 
-export const routes: RouteRecordRaw[] = [{ path: "/", name: "home", component: HomePage }];
+export const routes: RouteRecordRaw[] = [
+  { path: "/", name: "dashboard", component: DashboardPage },
+  { path: "/favorites", name: "favorites", component: FavoritesPage },
+  { path: "/date", name: "date", component: DatePage },
+  { path: "/insights", name: "insights", component: InsightsPage },
+  { path: "/tags", name: "tags", component: TagsPage },
+  { path: "/export", name: "export", component: ExportPage },
+  { path: "/settings", name: "settings", component: SettingsPage },
+];
 
 const scrollBehavior: RouterScrollBehavior = (to, from, savedPosition) => {
   if (to.hash) return { el: to.hash };
