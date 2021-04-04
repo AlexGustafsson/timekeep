@@ -105,6 +105,7 @@ menu {
   background-color: white;
   transition: 0.1s ease-in-out width;
   padding: 15px 0;
+  z-index: 1000;
 }
 
 menu.open {
