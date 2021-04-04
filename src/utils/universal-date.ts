@@ -15,6 +15,7 @@ export default class UniversalDate {
   public date: Date;
 
   constructor(date?: DateLike) {
+    // TODO: Deep copy instead? this.date = new Date(date.date)?
     if (date instanceof UniversalDate) this.date = date.date;
     else if (date instanceof Date || typeof date === "number" || typeof date === "string") this.date = new Date(date);
     else this.date = new Date();
@@ -65,6 +66,10 @@ export default class UniversalDate {
     return (this.date.getUTCDay() + 6) % 7;
   }
 
+  get dayOfWeekString(): string {
+    return ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"][this.dayOfWeek];
+  }
+
   // The UTC timestamp (milliseconds since start of epoch)
   get timestamp(): number {
     return this.date.getTime();
@@ -85,7 +90,12 @@ export default class UniversalDate {
   // Compare the days (and implicitly week and year) of two dates
   isSameDay(date: DateLike): boolean {
     const universalDate = new UniversalDate(date);
-    return universalDate.year === this.year && universalDate.week === this.week && universalDate.dayOfWeek === this.dayOfWeek;
+    return universalDate.year === this.year && universalDate.month === this.month && universalDate.day === this.day;
+  }
+
+  // Whether or not the date represents today's date
+  isToday(): boolean {
+    return this.isSameDay(new UniversalDate());
   }
 
   // Returns a UniversalDate corresponding to the last millisecond of the day
