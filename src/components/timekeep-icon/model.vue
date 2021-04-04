@@ -30,9 +30,10 @@ export default {
 
 .timekeep-icon .circles {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 50%;
+  left: 50%;
+  width: 48px;
+  height: 48px;
+  transform: translate(-50%, -50%);
 }
 </style>
