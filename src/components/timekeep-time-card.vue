@@ -89,5 +89,6 @@ export default defineComponent({
     position: absolute;
     top: 5px;
     right: 5px;
+    color: #B7B7B7;
   }
 </style>
