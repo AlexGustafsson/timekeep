@@ -1,13 +1,19 @@
-import * as PouchDB from "pouchdb";
+import PouchDB from "pouchdb";
 import {App, reactive} from "vue";
 
-import Project, {ProjectEvent} from "./project";
+import Project, { ProjectEvent, ProjectData } from "./project";
 
 export default class Store {
-  private database: PouchDB.Database;
+  public readonly database: PouchDB.Database;
+
+  private projectUpdates: ProjectEvent[];
+  private isSyncing: boolean;
 
   constructor(database: PouchDB.Database) {
     this.database = database;
+
+    this.projectUpdates = [];
+    this.isSyncing = false;
   }
 
   public async getProject(id: string): Promise<Project> {
@@ -17,8 +23,24 @@ export default class Store {
     return project;
   }
 
-  private onProjectUpdate(data: ProjectEvent) {
-    const {project, property, newValue, oldValue} = data;
+  public async createProject(data: ProjectData): Promise<Project> {
+    const response = await this.database.post<ProjectData>(data);
+    return new Project({...data, _rev: response.rev, _id: response.id});
+  }
+
+  public async sync(): Promise<void> {
+    if (this.isSyncing)
+      return await this.waitForSync();
+
+
+  }
+
+  public async waitForSync(): Promise<void> {
+
+  }
+
+  private async onProjectUpdate(data: ProjectEvent) {
+    const {project, oldValue, newValue, property} = data;
     console.log(`Project ${project.id} updated '${property}' from ${oldValue} to ${newValue}`);
   }
 

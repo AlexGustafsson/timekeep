@@ -20,20 +20,15 @@ export type ProjectData = {
 export type ProjectDocument = ProjectData & PouchDB.Core.IdMeta & PouchDB.Core.GetMeta;
 
 export default class Project extends EventEmitter<ProjectEvent> {
-  private data: ProjectDocument;
-
-  constructor(data: ProjectDocument) {
-    super();
-    this.data = data;
-  }
-
   // The project's globally unique identifier
-  get id(): string {
-    return this.data._id;
-  }
+  public readonly id: string;
+  // The raw document
+  public readonly data: ProjectDocument;
 
-  get revision(): string {
-    return this.data._rev;
+  constructor(id: string, data: ProjectDocument) {
+    super();
+    this.id = id;
+    this.data = data;
   }
 
   get name(): string {
