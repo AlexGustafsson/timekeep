@@ -4,14 +4,14 @@ import Project, {ProjectEvent} from "../../src/state/project";
 
 describe("project", () => {
   it("wraps data", () => {
-    const project = new Project("id", {name: "Name", group: "Group"});
+    const project = new Project({_id: "id", _rev: "rev", name: "Name", group: "Group"});
     expect(project.id).equals("id");
     expect(project.name).equals("Name");
     expect(project.group).equals("Group");
   });
 
   it("emits changes", async () => {
-    const project = new Project("id", { name: "Name", group: "Group" });
+    const project = new Project({ _id: "id", _rev: "rev", name: "Name", group: "Group" });
     const changes: ProjectEvent[] = [];
     project.on("change", data => {
       changes.push(data);

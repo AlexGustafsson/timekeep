@@ -1,37 +1,30 @@
-/* globals localStorage Blob */
-import type { App } from "vue";
+import * as PouchDB from "pouchdb";
+import {App, reactive} from "vue";
 
-import { reactive, watch } from "vue";
-import PouchDB from "pouchdb";
-
-// import type Timekeep from "./timekeep"
+import Project, {ProjectEvent} from "./project";
 
 export default class Store {
-  database: PouchDB.Database;
-  // timekeeps: Timekeep[]
-  timekeeps: number[];
+  private database: PouchDB.Database;
 
-  constructor() {
-    this.database = new PouchDB("timekeep");
-    this.timekeeps = [];
+  constructor(database: PouchDB.Database) {
+    this.database = database;
   }
 
-  save() {
-    // TODO
-    console.log("save");
+  public async getProject(id: string): Promise<Project> {
+    const data = await this.database.get<Project>(id);
+    const project = new Project(data);
+    project.on("change", this.onProjectUpdate);
+    return project;
   }
 
-  static install(app: App) {
-    const store = new Store();
+  private onProjectUpdate(data: ProjectEvent) {
+    const {project, property, newValue, oldValue} = data;
+    console.log(`Project ${project.id} updated '${property}' from ${oldValue} to ${newValue}`);
+  }
+
+  static install(app: App, options: { database: PouchDB.Database }) {
+    const store = new Store(options.database);
     const instance = reactive(store) as Store;
-
-    // Watch for changes and save the database accordingly
-    watch(
-      () => instance.timekeeps,
-      () => {
-        instance.save();
-      }
-    );
 
     app.config.globalProperties.$store = instance;
   }

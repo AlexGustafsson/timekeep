@@ -1,5 +1,8 @@
+import PouchDB from "pouchdb";
+
 import EventEmitter from "./event-emitter";
 
+// An event raised on a property change
 export type ProjectEvent = {
   property: string,
   newValue: any,
@@ -7,20 +10,30 @@ export type ProjectEvent = {
   project: Project
 }
 
+// The data represented by the project
 export type ProjectData = {
   name: string,
   group: string | null;
 }
 
-export default class Project extends EventEmitter<ProjectEvent> {
-  // The project's globally unique identifier
-  public readonly id: string;
-  private data: ProjectData;
+// The document as stored in the database
+export type ProjectDocument = ProjectData & PouchDB.Core.IdMeta & PouchDB.Core.GetMeta;
 
-  constructor(id: string, data: ProjectData) {
+export default class Project extends EventEmitter<ProjectEvent> {
+  private data: ProjectDocument;
+
+  constructor(data: ProjectDocument) {
     super();
-    this.id = id;
     this.data = data;
+  }
+
+  // The project's globally unique identifier
+  get id(): string {
+    return this.data._id;
+  }
+
+  get revision(): string {
+    return this.data._rev;
   }
 
   get name(): string {
