@@ -5,6 +5,8 @@
       <h1>Dashboard</h1>
       <timekeep-fab />
     </header>
+
+    <!-- Filter -->
     <timekeep-showcase>
       <timekeep-showcase-item primary="Favorites" secondary="4">
         <timekeep-icon>
@@ -24,6 +26,14 @@
         </timekeep-icon>
       </timekeep-showcase-item>
     </timekeep-showcase>
+
+    <!-- Search -->
+    <timekeep-input placeholder="Filter by project, group and tags">
+      <template v-slot:icon>
+        <ion-search />
+      </template>
+    </timekeep-input>
+
     <main>
       <timekeep-time-card v-for="timekeep in timekeeps" @click="timekeep.active = !timekeep.active" :key="timekeep.id" :active="timekeep.active" :group="timekeep.group" :name="timekeep.name" :timeToday="timekeep.timeToday" :timeThisWeek="timekeep.timeThisWeek" />
     </main>
@@ -35,11 +45,13 @@
   import IonFavorite from "../components/ion-icons/favorite.vue";
   import IonRepeat from "../components/ion-icons/repeat.vue";
   import IonTrending from "../components/ion-icons/trending.vue";
+  import IonSearch from "../components/ion-icons/search.vue";
   import TimekeepFab from "../components/timekeep-fab.vue";
   import TimekeepIcon from "../components/timekeep-icon/model.vue";
   import TimekeepShowcase from "../components/timekeep-showcase.vue";
   import TimekeepShowcaseItem from "../components/timekeep-showcase-item.vue";
   import TimekeepTimeCard from "../components/timekeep-time-card.vue";
+  import TimekeepInput from "../components/timekeep-input.vue";
 
   export default {
     data() {
@@ -57,11 +69,13 @@
       IonFavorite,
       IonRepeat,
       IonTrending,
+      IonSearch,
       TimekeepFab,
       TimekeepIcon,
       TimekeepShowcase,
       TimekeepShowcaseItem,
-      TimekeepTimeCard
+      TimekeepTimeCard,
+      TimekeepInput
     }
   }
 </script>
@@ -78,5 +92,9 @@
 
   .page .timekeep-time-card {
     cursor: pointer;
+  }
+
+  .page .timekeep-input {
+    margin-bottom: 25px;
   }
 </style>
