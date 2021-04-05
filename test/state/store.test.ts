@@ -86,4 +86,22 @@ describe('store', () => {
     const project = hits[0].data as Project;
     expect(project.name).to.equal("Test Project 2");
   })
+
+  it('queries project and fetches documents', async () => {
+    const store = await getNewStore(testDocuments);
+    const hits = await store.query({
+      selector: { "data.group": { "$regex": "2" } },
+      fields: ["data.name"]
+    }, true);
+    expect(hits.length).to.equal(1);
+    const project = hits[0].data as Project;
+    // Test a field that was not specified in the request
+    expect(project.group).to.equal("Group 2");
+  })
+
+  it('fetches all documents of a type', async () => {
+    const store = await getNewStore(testDocuments);
+    const documents = await store.getAll("project");
+    expect(documents.length).to.equal(2);
+  });
 });

@@ -41,6 +41,8 @@
 </template>
 
 <script lang="ts">
+  import {defineComponent} from "vue";
+
   import IonDashboard from "../components/ion-icons/dashboard.vue";
   import IonFavorite from "../components/ion-icons/favorite.vue";
   import IonRepeat from "../components/ion-icons/repeat.vue";
@@ -53,7 +55,7 @@
   import TimekeepTimeCard from "../components/timekeep-time-card.vue";
   import TimekeepInput from "../components/timekeep-input.vue";
 
-  export default {
+  export default defineComponent({
     data() {
       return {
         timekeeps: [
@@ -63,6 +65,10 @@
           {id: 3, group: "Timekeep", name: "Documentation", timeToday: 4561, timeThisWeek: 3456789, active: false},
         ]
       }
+    },
+    async mounted() {
+      const projects = await this.$store.getAllProjects();
+      console.log(projects);
     },
     components: {
       IonDashboard,
@@ -77,7 +83,7 @@
       TimekeepTimeCard,
       TimekeepInput
     }
-  }
+  });
 </script>
 
 <style scoped>

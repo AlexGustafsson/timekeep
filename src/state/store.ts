@@ -5,7 +5,7 @@ PouchDB.plugin(FindPlugin);
 import { App } from "vue";
 
 // Base store data type
-export interface DocumentData {}
+export type DocumentData = Record<string, unknown>;
 
 // Base document type
 export interface Document<T extends DocumentData> extends PouchDB.Core.IdMeta, PouchDB.Core.RevisionIdMeta {
@@ -43,9 +43,25 @@ export default class Store {
     });
   }
 
-  public async query(request: PouchDB.Find.FindRequest<{}>): Promise<DocumentHit[]> {
-    const results = await this.database.find({ ...request, fields: [...(request.fields || []), "type", "version", "_id", "_rev"]});
+  public async query(request: PouchDB.Find.FindRequest<{}>, fetchDocuments = false): Promise<DocumentHit[]> { // eslint-disable-line @typescript-eslint/ban-types
+    // Shallow copy
+    const preparedRequest = Object.assign({}, request);
+
+    // If the entire document is to be fetched, exclude the field filter completely
+    delete preparedRequest.fields;
+    if (!fetchDocuments)
+      preparedRequest.fields = [...(request.fields || []), "type", "version", "_id", "_rev"]
+
+    const results = await this.database.find(preparedRequest);
     return results.docs as DocumentHit[];
+  }
+
+  public async getAll<T extends DocumentData>(type: string): Promise<Document<T>[]> {
+    return await this.query({ selector: { type } }, true) as Document<T>[];
+  }
+
+  public getAllProjects(): Promise<Document<Project>[]> {
+    return this.getAll<Project>("project");
   }
 
   public async get<T extends DocumentData>(id: string): Promise<Document<T>> {
@@ -59,7 +75,7 @@ export default class Store {
     return { ...entry, _rev: response.rev, _id: response.id};
   }
 
-  public async createProject(data: Project): Promise<Document<Project>> {
+  public createProject(data: Project): Promise<Document<Project>> {
     return this.create<Project>(data, "project");
   }
 
@@ -67,9 +83,12 @@ export default class Store {
     const response = await this.database.put<Document<T>>(document);
     document._rev = response.rev;
   }
+}
 
-  static install(app: App, options: { database: PouchDB.Database }) {
-    const store = new Store(options.database);
+export function createStore(database: PouchDB.Database): (app: App) => void {
+  const store = new Store(database);
+  store.createIndex();
+  return app => {
     app.config.globalProperties.$store = store;
-  }
+  };
 }
