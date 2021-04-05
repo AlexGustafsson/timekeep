@@ -6,12 +6,6 @@
       <timekeep-fab />
     </header>
     <timekeep-showcase>
-      <timekeep-showcase-item primary="Active" secondary="1">
-        <timekeep-icon>
-          <ion-stopwatch />
-        </timekeep-icon>
-      </timekeep-showcase-item>
-
       <timekeep-showcase-item primary="Favorites" secondary="4">
         <timekeep-icon>
           <ion-favorite />
@@ -38,7 +32,6 @@
 
 <script lang="ts">
   import IonDashboard from "../components/ion-icons/dashboard.vue";
-  import IonStopwatch from "../components/ion-icons/stopwatch.vue";
   import IonFavorite from "../components/ion-icons/favorite.vue";
   import IonRepeat from "../components/ion-icons/repeat.vue";
   import IonTrending from "../components/ion-icons/trending.vue";
@@ -61,7 +54,6 @@
     },
     components: {
       IonDashboard,
-      IonStopwatch,
       IonFavorite,
       IonRepeat,
       IonTrending,
