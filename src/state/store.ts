@@ -1,53 +1,75 @@
 import PouchDB from "pouchdb";
-import {App, reactive} from "vue";
+import FindPlugin from "pouchdb-find";
+PouchDB.plugin(FindPlugin);
 
-import Project, { ProjectEvent, ProjectData } from "./project";
+import { App } from "vue";
+
+// Base store data type
+export interface DocumentData {}
+
+// Base document type
+export interface Document<T extends DocumentData> extends PouchDB.Core.IdMeta, PouchDB.Core.RevisionIdMeta {
+  type: string,
+  version: string,
+  data: T
+}
+
+export interface DocumentHit extends PouchDB.Core.IdMeta, PouchDB.Core.RevisionIdMeta {
+  type: string,
+  version: string,
+  data?: DocumentData
+}
+
+// The data stored by a project
+export interface Project extends DocumentData {
+  name: string,
+  group: string | null;
+}
+
+export const STORE_CURRENT_VERSION = "2.0.0";
 
 export default class Store {
   public readonly database: PouchDB.Database;
 
-  private projectUpdates: ProjectEvent[];
-  private isSyncing: boolean;
-
   constructor(database: PouchDB.Database) {
     this.database = database;
-
-    this.projectUpdates = [];
-    this.isSyncing = false;
   }
 
-  public async getProject(id: string): Promise<Project> {
-    const data = await this.database.get<Project>(id);
-    const project = new Project(data);
-    project.on("change", this.onProjectUpdate);
-    return project;
+  public async createIndex() {
+    await this.database.createIndex({
+      index: {
+        fields: ["type", "version", "data.name", "data.group"]
+      }
+    });
   }
 
-  public async createProject(data: ProjectData): Promise<Project> {
-    const response = await this.database.post<ProjectData>(data);
-    return new Project({...data, _rev: response.rev, _id: response.id});
+  public async query(request: PouchDB.Find.FindRequest<{}>): Promise<DocumentHit[]> {
+    const results = await this.database.find({ ...request, fields: [...(request.fields || []), "type", "version", "_id", "_rev"]});
+    return results.docs as DocumentHit[];
   }
 
-  public async sync(): Promise<void> {
-    if (this.isSyncing)
-      return await this.waitForSync();
-
-
+  public async get<T extends DocumentData>(id: string): Promise<Document<T>> {
+    const document = await this.database.get<Document<T>>(id);
+    return document;
   }
 
-  public async waitForSync(): Promise<void> {
-
+  public async create<T extends DocumentData>(data: T, type: string): Promise<Document<T>> {
+    const entry = {data, type, version: STORE_CURRENT_VERSION};
+    const response = await this.database.post(entry);
+    return { ...entry, _rev: response.rev, _id: response.id};
   }
 
-  private async onProjectUpdate(data: ProjectEvent) {
-    const {project, oldValue, newValue, property} = data;
-    console.log(`Project ${project.id} updated '${property}' from ${oldValue} to ${newValue}`);
+  public async createProject(data: Project): Promise<Document<Project>> {
+    return this.create<Project>(data, "project");
+  }
+
+  public async update<T extends DocumentData>(document: Document<T>): Promise<void> {
+    const response = await this.database.put<Document<T>>(document);
+    document._rev = response.rev;
   }
 
   static install(app: App, options: { database: PouchDB.Database }) {
     const store = new Store(options.database);
-    const instance = reactive(store) as Store;
-
-    app.config.globalProperties.$store = instance;
+    app.config.globalProperties.$store = store;
   }
 }
