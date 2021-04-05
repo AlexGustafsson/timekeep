@@ -10,8 +10,8 @@
     "check-duplicate-code": "jsinspect -t 20 src",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "test": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' mocha --extension ts --require ts-node/register test/**/*.spec.ts",
-    "coverage": "nyc --report3er lcov --extension .ts --exclude \"*.spec.ts\" npm run test"
+    "test": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' mocha --extension ts --require ts-node/register test/**/*.test.ts",
+    "coverage": "nyc --report3er lcov --extension .ts npm run test"
   },
   "dependencies": {
     "pouchdb": "^7.2.2",
