@@ -14,7 +14,7 @@ export default {
 </script>
 
 <style scoped>
-  .app {
-    padding-left: 48px;
-  }
+.app {
+  padding-left: 48px;
+}
 </style>

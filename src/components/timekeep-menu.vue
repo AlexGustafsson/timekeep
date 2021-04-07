@@ -171,7 +171,7 @@ export default {
 
 @supports (backdrop-filter: blur(4px)) {
   .timekeep-menu menu {
-    background-color: rgba(255, 255, 255, 0.8)!important;
+    background-color: rgba(255, 255, 255, 0.8) !important;
     backdrop-filter: blur(4px);
   }
 }

@@ -20,27 +20,27 @@ export type DocumentData = Record<string, unknown>;
 
 // Base document type
 export interface Document<T extends DocumentData> extends PouchDB.Core.IdMeta, PouchDB.Core.RevisionIdMeta {
-  type: DocumentType,
-  version: string,
-  data: T
+  type: DocumentType;
+  version: string;
+  data: T;
 }
 
 export interface DocumentHit extends PouchDB.Core.IdMeta, PouchDB.Core.RevisionIdMeta {
-  type: string,
-  version: string,
-  data?: DocumentData
+  type: string;
+  version: string;
+  data?: DocumentData;
 }
 
 // The data stored by a project
 export interface Project extends DocumentData {
-  name: string,
+  name: string;
   group: string | null;
 }
 
 export interface Interval extends DocumentData {
-  projectId: string,
-  start: number,
-  end: number | null
+  projectId: string;
+  start: number;
+  end: number | null;
 }
 
 export const STORE_CURRENT_VERSION = "2.0.0";
@@ -62,21 +62,18 @@ export default class Store {
     // NOTE: PouchDB does not support indexes where a document does not have
     // a certain field
     // See: https://stackoverflow.com/questions/47470345/couchdb-mango-queries-and-indexes
-
     // Create a generic index for all documents
     // await this.database.createIndex({
     //   index: {
     //     fields: ["type", "version"]
     //   }
     // });
-
     // // Create an index for projects
     // await this.database.createIndex({
     //   index: {
     //     fields: ["data.name", "data.group"]
     //   }
     // });
-
     // // Create an index for intervals
     // await this.database.createIndex({
     //   index: {
@@ -85,7 +82,8 @@ export default class Store {
     // });
   }
 
-  public async query(request: PouchDB.Find.FindRequest<{}>, fetchDocuments = false): Promise<DocumentHit[]> { // eslint-disable-line @typescript-eslint/ban-types
+  public async query(request: PouchDB.Find.FindRequest<{}>, fetchDocuments = false): Promise<DocumentHit[]> {
+    // eslint-disable-line @typescript-eslint/ban-types
     // Shallow copy
     const preparedRequest = Object.assign({}, request);
 
@@ -104,11 +102,13 @@ export default class Store {
 
   public async getAll<T extends DocumentData>(type = DocumentType.Any): Promise<Document<T>[]> {
     if (type === DocumentType.Any) {
-      const response = await this.database.allDocs({include_docs: true});
+      const response = await this.database.allDocs({ include_docs: true });
       // TODO: Replace filter with a TypeScript type assertion?
-      return response.rows.map(x => x.doc!).filter(x => x.hasOwnProperty("type") && x.hasOwnProperty("version") && x.hasOwnProperty("data")) as Document<T>[];
+      return response.rows
+        .map((x) => x.doc!)
+        .filter((x) => x.hasOwnProperty("type") && x.hasOwnProperty("version") && x.hasOwnProperty("data")) as Document<T>[];
     } else {
-      return await this.query({ selector: { type } }, true) as Document<T>[];
+      return (await this.query({ selector: { type } }, true)) as Document<T>[];
     }
   }
 
@@ -122,9 +122,9 @@ export default class Store {
   }
 
   public async create<T extends DocumentData>(data: T, type: DocumentType): Promise<Document<T>> {
-    const entry = {data, type, version: STORE_CURRENT_VERSION};
+    const entry = { data, type, version: STORE_CURRENT_VERSION };
     const response = await this.database.post(entry);
-    return { ...entry, _rev: response.rev, _id: response.id};
+    return { ...entry, _rev: response.rev, _id: response.id };
   }
 
   public createProject(data: Project): Promise<Document<Project>> {
@@ -133,7 +133,7 @@ export default class Store {
 
   // Note: does not validate that projectId refers to valid project
   public async toggleInterval(projectId: string, timestamp = Date.now()) {
-    const hits = await this.query({selector: {type: DocumentType.Interval, "data.projectId": projectId, "data.end": null}}, true);
+    const hits = await this.query({ selector: { type: DocumentType.Interval, "data.projectId": projectId, "data.end": null } }, true);
     if (hits.length == 0) {
       const data = { projectId, start: timestamp, end: null };
       await this.create<Interval>(data, DocumentType.Interval);
@@ -153,7 +153,7 @@ export default class Store {
 export function createStore(database: PouchDB.Database): (app: App) => void {
   const store = new Store(database);
   store.createIndex();
-  return app => {
+  return (app) => {
     app.config.globalProperties.$store = store;
   };
 }

@@ -1,6 +1,6 @@
 import TimekeepInput from "../components/timekeep-input.vue";
 import IonSearch from "../components/ion-icons/search.vue";
-import {ref} from "vue";
+import { ref } from "vue";
 
 export default {
   title: "Components/Timekeep Input",

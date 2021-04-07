@@ -11,7 +11,7 @@ export default {
 };
 
 type TemplateArguments = {
-  items: { props: {primary: string, secondary: string}, slot: any }[]
+  items: { props: { primary: string; secondary: string }; slot: any }[];
 };
 
 const Template: Story<TemplateArguments> = (args) => ({
@@ -28,32 +28,32 @@ WithIcon.args = {
     {
       props: {
         primary: "Active",
-        secondary: "1"
+        secondary: "1",
       },
-      slot: "ion-stopwatch"
+      slot: "ion-stopwatch",
     },
     {
       props: {
         primary: "Favorites",
-        secondary: "4"
+        secondary: "4",
       },
-      slot: "ion-stopwatch"
+      slot: "ion-stopwatch",
     },
     {
       props: {
         primary: "Popular",
-        secondary: "5"
+        secondary: "5",
       },
-      slot: "ion-stopwatch"
+      slot: "ion-stopwatch",
     },
     {
       props: {
         primary: "Recent",
-        secondary: "10"
+        secondary: "10",
       },
-      slot: "ion-stopwatch"
-    }
-  ]
+      slot: "ion-stopwatch",
+    },
+  ],
 };
 
 export const WithoutIcon = Template.bind({});
@@ -62,9 +62,9 @@ WithoutIcon.args = {
     {
       props: {
         primary: "Active",
-        secondary: "1"
+        secondary: "1",
       },
-      slot: null
-    }
-  ]
+      slot: null,
+    },
+  ],
 };

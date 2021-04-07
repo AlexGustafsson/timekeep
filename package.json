@@ -6,6 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
+    "format": "vue-cli-service lint --fix",
     "stylelint": "stylelint src/**/**/*.css src/**/*.css",
     "check-duplicate-code": "jsinspect -t 20 src",
     "storybook": "start-storybook -p 6006",
