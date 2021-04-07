@@ -1,7 +1,7 @@
 <template>
   <div class="timekeep-icon">
     <slot></slot>
-    <timekeep-icon-circles :active="active" class="circles" />
+    <timekeep-icon-circles class="circles" :class="{active}" />
   </div>
 </template>
 
@@ -32,8 +32,8 @@ export default {
   color: #e28884;
 }
 
-.timekeep-icon.clickable {
-  cursor: pointer;
+.timekeep-icon.primary {
+  color: #64B7DD;
 }
 
 .timekeep-icon.clickable {
