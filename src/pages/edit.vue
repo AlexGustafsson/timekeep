@@ -6,26 +6,26 @@
       <h2>- {{ name }}</h2>
     </header>
 
-    <header class="right">
+    <header v-if="projectId" class="right">
       <timekeep-icon class="clickable"><ion-stopwatch /></timekeep-icon>
       <timekeep-icon class="clickable negative"><ion-delete /></timekeep-icon>
     </header>
 
-    <timekeep-showcase>
+    <timekeep-showcase v-if="projectId">
       <timekeep-showcase-item primary="42m 32s" secondary="Today" />
       <timekeep-showcase-item primary="12h 41m" secondary="This Week" />
       <timekeep-showcase-item primary="1d 11h 51m" secondary="Total" />
     </timekeep-showcase>
 
     <!-- Project name -->
-    <timekeep-input v-model="name">
+    <timekeep-input v-model="name" placeholder="The project's name">
       <template v-slot:icon>
         <p>Name</p>
       </template>
     </timekeep-input>
 
     <!-- Project group -->
-    <timekeep-input v-model="group">
+    <timekeep-input v-model="group" placeholder="The project's optional group">
       <template v-slot:icon>
         <p>Group</p>
       </template>
@@ -40,6 +40,10 @@
 
     <!-- Notes -->
     <timekeep-notebook v-model:notes="notes" />
+
+    <footer class="right">
+      <timekeep-icon @click="save" :active="saving" :class="{clickable: !saving, primary: !saving, inactive: saving}"><ion-save /></timekeep-icon>
+    </footer>
   </div>
 </template>
 
@@ -49,6 +53,7 @@ import { defineComponent } from "vue";
 import IonStopwatch from "../components/ion-icons/stopwatch.vue";
 import IonDelete from "../components/ion-icons/delete.vue";
 import IonTag from "../components/ion-icons/tag.vue";
+import IonSave from "../components/ion-icons/save.vue";
 import TimekeepIcon from "../components/timekeep-icon/model.vue";
 import TimekeepShowcase from "../components/timekeep-showcase.vue";
 import TimekeepShowcaseItem from "../components/timekeep-showcase-item.vue";
@@ -62,21 +67,48 @@ export default defineComponent({
   data() {
     return {
       notes: [],
-      name: "Frontend Development",
-      group: "Timekeep",
+      name: this.createNew ? "" : "Frontend Development",
+      group: this.createNew ? "" : "Timekeep",
       tags: [],
+      saving: false,
     };
+  },
+  methods: {
+    async save() {
+      if (this.saving) return;
+
+      this.saving = true;
+
+      if (this.createNew) {
+        try {
+          const project = await this.$store.createProject({name: this.name, group: this.group});
+          console.log(project);
+          this.$router.replace({name: "edit", params: {projectId: project._id}});
+          this.saving = false;
+        } catch (error) {
+          console.log(error);
+          this.saving = false;
+        }
+      } else {
+        // TODO: Update
+      }
+    }
   },
   props: {
     projectId: {
       type: String,
-      required: true,
+      default: null,
+    },
+    createNew: {
+      type: Boolean,
+      default: false,
     },
   },
   components: {
     IonStopwatch,
     IonDelete,
     IonTag,
+    IonSave,
     TimekeepIcon,
     TimekeepShowcase,
     TimekeepShowcaseItem,

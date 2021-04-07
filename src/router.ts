@@ -19,6 +19,7 @@ export const routes: RouteRecordRaw[] = [
   { path: "/export", name: "export", component: ExportPage },
   { path: "/settings", name: "settings", component: SettingsPage },
   { path: "/edit/:projectId", name: "edit", component: EditPage, props: true },
+  { path: "/create/", name: "create", component: EditPage, props: {createNew: true}},
 ];
 
 const scrollBehavior: RouterScrollBehavior = (to, from, savedPosition) => {

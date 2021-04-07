@@ -2,18 +2,18 @@
   padding: 48px;
 }
 
-.page > header {
+.page > header, .page > footer {
   display: flex;
   flex-direction: row;
   align-items: center;
   margin-bottom: 25px;
 }
 
-.page > header.right {
+.page > header.right, .page > footer.right {
   justify-content: end;
 }
 
-.page > header.center {
+.page > header.center, .page > footer.center {
   justify-content: center;
 }
 
@@ -34,5 +34,9 @@
 }
 
 .page .timekeep-showcase {
+  margin: 15px 0;
+}
+
+.page .timekeep-notebook {
   margin: 15px 0;
 }

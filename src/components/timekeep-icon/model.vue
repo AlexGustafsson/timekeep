@@ -36,6 +36,10 @@ export default {
   color: #64B7DD;
 }
 
+.timekeep-icon.inactive {
+  color: #95B8C0;
+}
+
 .timekeep-icon.clickable {
   cursor: pointer;
 }
