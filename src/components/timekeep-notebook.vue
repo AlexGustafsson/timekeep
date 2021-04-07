@@ -27,6 +27,8 @@
 </template>
 
 <script lang="ts">
+import {defineComponent} from "vue";
+
 import IonNote from "./ion-icons/note.vue";
 import IonRemove from "./ion-icons/remove.vue";
 import IonAdd from "./ion-icons/add.vue";
@@ -40,7 +42,7 @@ interface Note {
   date: UniversalDate;
 }
 
-export default {
+export default defineComponent({
   components: { IonNote, IonRemove, IonAdd },
   methods: {
     add() {
@@ -73,7 +75,7 @@ export default {
     const input = ref<HTMLTextAreaElement>();
     return { input };
   },
-};
+});
 </script>
 
 <style scoped>

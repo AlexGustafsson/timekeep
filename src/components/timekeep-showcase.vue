@@ -14,6 +14,5 @@
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  margin: 15px 0;
 }
 </style>

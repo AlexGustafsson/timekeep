@@ -46,18 +46,16 @@ export default defineComponent({
 }
 
 .timekeep-input > header > .icon {
-  position: absolute;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  user-select: none;
+  display: flex;
+  align-items: center;
+  font-size: 22px;
 }
 
 .timekeep-input > header > input {
   border: none;
   outline: none;
   font-size: 22px;
-  padding-left: 48px;
+  margin-left: 15px;
   flex-grow: 1;
 }
 </style>

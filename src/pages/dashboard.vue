@@ -1,6 +1,6 @@
 <template>
   <div class="page page-dashboard">
-    <header>
+    <header class="split">
       <ion-dashboard />
       <h1>Dashboard</h1>
       <timekeep-fab />
@@ -107,9 +107,5 @@ export default defineComponent({
 
 .page .timekeep-time-card {
   cursor: pointer;
-}
-
-.page .timekeep-input {
-  margin-bottom: 25px;
 }
 </style>

@@ -28,6 +28,18 @@ export default {
   color: #398f47;
 }
 
+.timekeep-icon.negative {
+  color: #E28884;
+}
+
+.timekeep-icon.clickable {
+  cursor: pointer;
+}
+
+.timekeep-icon.clickable {
+  cursor: pointer;
+}
+
 .timekeep-icon .circles {
   position: absolute;
   top: 50%;
