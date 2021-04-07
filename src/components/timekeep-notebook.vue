@@ -54,7 +54,7 @@ export default defineComponent({
       this.$emit("update:notes", notes);
     },
     remove(note: Note) {
-      const notes = this.notes.filter(x => x.id !== note.id);
+      const notes = this.notes.filter((x) => x.id !== note.id);
       this.$emit("update:notes", notes);
     },
     change(note: Note) {

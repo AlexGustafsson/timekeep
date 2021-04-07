@@ -29,7 +29,7 @@ export default {
 }
 
 .timekeep-icon.negative {
-  color: #E28884;
+  color: #e28884;
 }
 
 .timekeep-icon.clickable {

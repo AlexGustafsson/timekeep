@@ -18,7 +18,7 @@ export const routes: RouteRecordRaw[] = [
   { path: "/tags", name: "tags", component: TagsPage },
   { path: "/export", name: "export", component: ExportPage },
   { path: "/settings", name: "settings", component: SettingsPage },
-  { path: "/edit/:projectId", name: "edit", component: EditPage, props: true},
+  { path: "/edit/:projectId", name: "edit", component: EditPage, props: true },
 ];
 
 const scrollBehavior: RouterScrollBehavior = (to, from, savedPosition) => {

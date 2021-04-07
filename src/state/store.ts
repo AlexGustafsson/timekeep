@@ -106,7 +106,7 @@ export default class Store {
       // TODO: Replace filter with a TypeScript type assertion?
       const isDocument = (potentialDocument: PouchDB.Core.ExistingDocument<PouchDB.Core.AllDocsMeta>) => {
         const requiredFields = ["type", "version", "data"];
-        const existingFields = requiredFields.filter(x => Object.prototype.hasOwnProperty.call(potentialDocument, x));
+        const existingFields = requiredFields.filter((x) => Object.prototype.hasOwnProperty.call(potentialDocument, x));
         return existingFields.length === requiredFields.length;
       };
 
