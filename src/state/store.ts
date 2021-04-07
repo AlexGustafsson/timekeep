@@ -5,6 +5,17 @@ PouchDB.plugin(FindPlugin);
 
 import { App } from "vue";
 
+// TODO: Use the changes API to make the database reactive?
+// All instances have read observability, on write use database to save the instance
+// which will update observed instances via change...
+// https://pouchdb.com/api.html#changes
+
+// Debug in dev mode
+// PouchDB.debug.enable('*');
+
+// Write a plugin for reactivity?
+// https://pouchdb.com/api.html#plugins
+
 // Base store data type
 export type DocumentData = Record<string, unknown>;
 
