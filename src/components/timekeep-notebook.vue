@@ -27,7 +27,7 @@
 </template>
 
 <script lang="ts">
-import {defineComponent} from "vue";
+import { defineComponent } from "vue";
 
 import IonNote from "./ion-icons/note.vue";
 import IonRemove from "./ion-icons/remove.vue";
@@ -46,17 +46,16 @@ export default defineComponent({
   components: { IonNote, IonRemove, IonAdd },
   methods: {
     add() {
-      const note: Note = { id: this.notes.length.toString(), text: this.input!.value, date: new UniversalDate() };
-      this.notes.unshift(note);
+      if (!this.input) return;
+
+      const note: Note = { id: this.notes.length.toString(), text: this.input.value, date: new UniversalDate() };
+      const notes = [note, ...this.notes];
       if (this.input) this.input.value = "";
-      this.$emit("update:notes", this.notes);
+      this.$emit("update:notes", notes);
     },
     remove(note: Note) {
-      let index = this.notes.findIndex((x) => x.id === note.id);
-      if (index != -1) {
-        this.notes.splice(index, 1);
-        this.$emit("update:notes", this.notes);
-      }
+      const notes = this.notes.filter(x => x.id !== note.id);
+      this.$emit("update:notes", notes);
     },
     change(note: Note) {
       console.log(note.id);
