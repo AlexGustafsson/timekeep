@@ -58,7 +58,7 @@ export default class Store {
     this.database = database;
   }
 
-  public async createIndex() {
+  public async createIndex(): Promise<void> {
     // NOTE: PouchDB does not support indexes where a document does not have
     // a certain field
     // See: https://stackoverflow.com/questions/47470345/couchdb-mango-queries-and-indexes
@@ -82,8 +82,8 @@ export default class Store {
     // });
   }
 
+  // eslint-disable-next-line @typescript-eslint/ban-types
   public async query(request: PouchDB.Find.FindRequest<{}>, fetchDocuments = false): Promise<DocumentHit[]> {
-    // eslint-disable-line @typescript-eslint/ban-types
     // Shallow copy
     const preparedRequest = Object.assign({}, request);
 
@@ -104,9 +104,16 @@ export default class Store {
     if (type === DocumentType.Any) {
       const response = await this.database.allDocs({ include_docs: true });
       // TODO: Replace filter with a TypeScript type assertion?
+      const isDocument = (potentialDocument: PouchDB.Core.ExistingDocument<PouchDB.Core.AllDocsMeta>) => {
+        const requiredFields = ["type", "version", "data"];
+        const existingFields = requiredFields.filter(x => Object.prototype.hasOwnProperty.call(potentialDocument, x));
+        return existingFields.length === requiredFields.length;
+      };
+
       return response.rows
-        .map((x) => x.doc!)
-        .filter((x) => x.hasOwnProperty("type") && x.hasOwnProperty("version") && x.hasOwnProperty("data")) as Document<T>[];
+        .filter((x) => x.doc)
+        .map((x) => x.doc as PouchDB.Core.ExistingDocument<PouchDB.Core.AllDocsMeta>)
+        .filter(isDocument) as Document<T>[];
     } else {
       return (await this.query({ selector: { type } }, true)) as Document<T>[];
     }
