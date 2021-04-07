@@ -64,20 +64,31 @@ import TimekeepShowcaseItem from "../components/timekeep-showcase-item.vue";
 import TimekeepTimeCard from "../components/timekeep-time-card.vue";
 import TimekeepInput from "../components/timekeep-input.vue";
 
+interface ProjectView {
+  id: string,
+  group: string,
+  name: string,
+  timeToday: number,
+  timeThisWeek: number,
+  active: boolean
+};
+
 export default defineComponent({
   data() {
     return {
-      timekeeps: [
-        { id: 0, group: "Timekeep", name: "Frontend Development", timeToday: 4561, timeThisWeek: 3456789, active: false },
-        { id: 1, group: "Timekeep", name: "Backend Development", timeToday: 4561, timeThisWeek: 3456789, active: false },
-        { id: 2, group: "Timekeep", name: "Design", timeToday: 4561, timeThisWeek: 3456789, active: false },
-        { id: 3, group: "Timekeep", name: "Documentation", timeToday: 4561, timeThisWeek: 3456789, active: false },
-      ],
+      timekeeps: [] as ProjectView[],
     };
   },
   async mounted() {
     const projects = await this.$store.getAllProjects();
-    console.log(projects);
+    this.timekeeps = projects.map(project => ({
+      id: project._id,
+      name: project.data.name,
+      group: project.data.group,
+      timeToday: 0,
+      timeThisWeek: 0,
+      active: false
+    })) as ProjectView[];
   },
   components: {
     IonDashboard,
