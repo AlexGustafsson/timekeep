@@ -2,9 +2,15 @@ import { App } from "vue";
 
 import "./tooltip.css";
 
+enum TooltipPlacement {
+  Under,
+  Above
+}
+
 type TooltipTarget = {
   element: HTMLElement;
   tooltip: string;
+  placement: TooltipPlacement;
 };
 
 export default class ContextMenuManager {
@@ -26,7 +32,11 @@ export default class ContextMenuManager {
 
     const tooltip = element.getAttribute("tooltip");
     if (tooltip) {
-      this.setTarget({ element, tooltip });
+      let placement = TooltipPlacement.Under;
+      if (element.hasAttribute("tooltip-above"))
+        placement = TooltipPlacement.Above;
+
+      this.setTarget({ element, tooltip, placement });
     } else if (this.target && element !== this.target.element) {
       this.clearTarget();
     }
@@ -42,11 +52,25 @@ export default class ContextMenuManager {
     this.target = target;
 
     this.element.innerHTML = target.tooltip;
+
+    this.element.classList.remove("placement-under");
+    this.element.classList.remove("placement-above");
+    if (target.placement == TooltipPlacement.Above)
+      this.element.classList.add("placement-above");
+    else if (target.placement == TooltipPlacement.Under)
+      this.element.classList.add("placement-under");
+
+    console.log(target.placement);
     // Trick to make the text render before using the element's offsetWidth
     setTimeout(() => {
       const bounds = target.element.getBoundingClientRect();
       this.element.style.left = `${bounds.left + bounds.width / 2 - this.element.offsetWidth / 2}px`;
-      this.element.style.top = `${bounds.top + bounds.height}px`;
+
+      if (target.placement == TooltipPlacement.Above)
+        this.element.style.top = `${bounds.top - this.element.offsetHeight - 5}px`;
+      else if (target.placement == TooltipPlacement.Under)
+        this.element.style.top = `${bounds.top + bounds.height + 5}px`;
+
       this.element.classList.add("visible");
     }, 1);
   }

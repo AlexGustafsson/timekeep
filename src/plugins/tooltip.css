@@ -5,9 +5,16 @@
   color: white;
   pointer-events: none;
   border-radius: 5px;
-  margin-top: 15px;
   opacity: 0;
   font-size: 12px;
+}
+
+#tooltip.placement-under {
+  margin-top: 5px;
+}
+
+#tooltip.placement-above {
+  margin-top: -5px;
 }
 
 #tooltip.visible {
@@ -15,7 +22,7 @@
   animation-fill-mode: forwards;
 }
 
-#tooltip::before {
+#tooltip.placement-under::before {
   content: '';
   display: block;
   width: 0;
@@ -25,6 +32,20 @@
   border-bottom: 5px solid black;
   position: absolute;
   top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#tooltip.placement-above::before {
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid black;
+  position: absolute;
+  bottom: -5px;
   left: 50%;
   transform: translateX(-50%);
 }

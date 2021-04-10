@@ -9,19 +9,19 @@
     <!-- Filter -->
     <timekeep-showcase>
       <timekeep-showcase-item primary="Favorites" secondary="4">
-        <timekeep-icon>
+        <timekeep-icon tooltip="Toggle Favorites" tooltip-above>
           <ion-favorite />
         </timekeep-icon>
       </timekeep-showcase-item>
 
       <timekeep-showcase-item primary="Popular" secondary="5">
-        <timekeep-icon>
+        <timekeep-icon tooltip="Toggle Popular" tooltip-above>
           <ion-trending />
         </timekeep-icon>
       </timekeep-showcase-item>
 
       <timekeep-showcase-item primary="Recent" secondary="10">
-        <timekeep-icon>
+        <timekeep-icon tooltip="Toggle Recent" tooltip-above>
           <ion-repeat />
         </timekeep-icon>
       </timekeep-showcase-item>
