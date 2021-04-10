@@ -43,6 +43,7 @@
         :name="timekeep.name"
         :timeToday="timekeep.timeToday"
         :timeThisWeek="timekeep.timeThisWeek"
+        :color="timekeep.color"
         @toggled="timekeep.active = !timekeep.active"
       />
     </main>
@@ -63,6 +64,8 @@ import TimekeepShowcase from "../components/timekeep-showcase.vue";
 import TimekeepShowcaseItem from "../components/timekeep-showcase-item.vue";
 import TimekeepTimeCard from "../components/timekeep-time-card.vue";
 import TimekeepInput from "../components/timekeep-input.vue";
+
+import { colorHash } from "../utils/color";
 
 const components = {
   IonDashboard,
@@ -85,6 +88,7 @@ interface ProjectView {
   timeToday: number;
   timeThisWeek: number;
   active: boolean;
+  color: string;
 }
 
 @Options({ components })
@@ -100,6 +104,7 @@ export default class extends Vue {
       timeToday: 0,
       timeThisWeek: 0,
       active: false,
+      color: colorHash(project.data.group ?? project.data.name),
     })) as ProjectView[];
   }
 }

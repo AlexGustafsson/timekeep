@@ -2,7 +2,7 @@
   <div class="timekeep-time-card">
     <ion-more class="top-right" />
     <header>
-      <timekeep-icon class="icon" :active="active" tooltip="Toggle" @click="$emit('toggled')"><ion-stopwatch /></timekeep-icon>
+      <timekeep-icon class="icon" :style="{color}" :active="active" tooltip="Toggle" @click="$emit('toggled')"><ion-stopwatch /></timekeep-icon>
       <div>
         <p>{{ group }}</p>
         <p>{{ readableTimeToday }} today</p>
@@ -34,6 +34,7 @@ class Props {
   name!: string;
   timeThisWeek!: number;
   active = prop<boolean>({ default: false });
+  color!: string;
 }
 
 @Options({ components })
@@ -70,7 +71,6 @@ export default class TimekeepTimeCard extends Vue.with(Props) {
 }
 
 .timekeep-time-card header > .icon {
-  color: #95b8c0;
   cursor: pointer;
 }
 
