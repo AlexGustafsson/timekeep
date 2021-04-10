@@ -113,5 +113,6 @@ export default class extends Vue {
   grid-template-columns: repeat(4, auto);
   align-content: space-between;
   justify-content: space-between;
+  row-gap: 10px;
 }
 </style>
