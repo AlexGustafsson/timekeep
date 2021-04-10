@@ -1,4 +1,5 @@
 <template>
+  <i class="ion-icon">
   <svg
     xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -12,4 +13,5 @@
     <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 368L144 144"></path>
     <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 144L144 368"></path>
   </svg>
+  </i>
 </template>

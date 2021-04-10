@@ -6,7 +6,7 @@
         <li>
           <p>Today</p>
           <textarea ref="input" placeholder="Write a note on today's work..." />
-          <ion-add @click="add" />
+          <ion-add @click="add" tooltip="Add" />
         </li>
         <li v-for="note in notes" :key="note.id">
           <p>
@@ -19,7 +19,7 @@
             }}
           </p>
           <textarea :value="note.text" @change="change(note)" />
-          <ion-remove @click="remove(note)" />
+          <ion-remove @click="remove(note)" tooltip="Remove" />
         </li>
       </ul>
     </main>
@@ -121,7 +121,7 @@ export default class TimekeepNotebook extends Vue.with(Props) {
   width: 120px;
 }
 
-.timekeep-notebook li svg {
+.timekeep-notebook li .ion-icon {
   cursor: pointer;
 }
 </style>

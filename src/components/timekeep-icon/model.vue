@@ -22,7 +22,7 @@ class Props {
 export default class TimekeepIcon extends Vue.with(Props) {}
 </script>
 
-<style scoped>
+<style>
 .timekeep-icon {
   width: 48px;
   height: 48px;
@@ -56,5 +56,10 @@ export default class TimekeepIcon extends Vue.with(Props) {}
   width: 48px;
   height: 48px;
   transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.timekeep-icon .ion-icon {
+  pointer-events: none;
 }
 </style>

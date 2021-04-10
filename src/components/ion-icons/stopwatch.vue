@@ -1,10 +1,10 @@
 <template>
+<i class="ion-icon">
   <svg
     xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink"
     aria-hidden="true"
     role="img"
-    class="iconify iconify--ion"
     width="32"
     height="32"
     preserveAspectRatio="xMidYMid meet"
@@ -16,4 +16,5 @@
     <circle cx="256" cy="272" r="32" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"></circle>
     <path d="M256 96a176 176 0 1 0 176 176A176 176 0 0 0 256 96z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"></path>
   </svg>
+  </i>
 </template>

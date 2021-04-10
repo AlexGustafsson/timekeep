@@ -1,10 +1,10 @@
 <template>
+<i class="ion-icon">
   <svg
     xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink"
     aria-hidden="true"
     role="img"
-    class="iconify iconify--ion"
     width="32"
     height="32"
     preserveAspectRatio="xMidYMid meet"
@@ -20,4 +20,5 @@
     ></path>
     <path d="M464 97.42V208a16 16 0 0 1-16 16H337.42c-14.26 0-21.4-17.23-11.32-27.31L436.69 86.1C446.77 76 464 83.16 464 97.42z" fill="currentColor"></path>
   </svg>
+  </i>
 </template>

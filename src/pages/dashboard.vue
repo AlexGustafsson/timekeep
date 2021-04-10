@@ -3,7 +3,7 @@
     <header class="split">
       <ion-dashboard />
       <h1>Dashboard</h1>
-      <router-link :to="{ name: 'create' }"><timekeep-fab /></router-link>
+      <router-link :to="{ name: 'create' }"><timekeep-fab tooltip="Add Project"/></router-link>
     </header>
 
     <!-- Filter -->

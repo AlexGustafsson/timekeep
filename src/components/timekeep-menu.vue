@@ -140,12 +140,12 @@ export default class TimekeepMenu extends Vue {
   margin: 5px 0;
 }
 
-.timekeep-menu li svg {
+.timekeep-menu li .ion-icon {
   transition: 0.1s transform;
   transform-origin: 50% 50%;
 }
 
-.timekeep-menu li:hover svg {
+.timekeep-menu li:hover .ion-icon {
   transform: scale(1.1);
 }
 

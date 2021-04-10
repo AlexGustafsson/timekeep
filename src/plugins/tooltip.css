@@ -1,0 +1,37 @@
+#tooltip {
+  position: absolute;
+  padding: 5px;
+  background-color: #333333;
+  color: white;
+  pointer-events: none;
+  border-radius: 5px;
+  margin-top: 15px;
+  opacity: 0;
+  font-size: 12px;
+}
+
+#tooltip.visible {
+  animation: 1s tooltip-entry;
+  animation-fill-mode: forwards;
+}
+
+#tooltip::before {
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid black;
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+
+@keyframes tooltip-entry {
+  0% {opacity: 0;}
+  70% {opacity: 0;}
+  100% {opacity: 1;}
+}
