@@ -60,7 +60,6 @@ export default class ContextMenuManager {
     else if (target.placement == TooltipPlacement.Under)
       this.element.classList.add("placement-under");
 
-    console.log(target.placement);
     // Trick to make the text render before using the element's offsetWidth
     setTimeout(() => {
       const bounds = target.element.getBoundingClientRect();
