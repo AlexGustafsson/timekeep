@@ -183,13 +183,14 @@ export default class EditPage extends Vue.with(Props) {
 .page-edit .tag-container {
   display: flex;
   flex-direction: row;
-  margin-top: 5px;
+  flex-wrap: wrap;
 }
 
 .page-edit .tag-container p {
   display: block;
   padding: 5px;
   border-radius: 5px;
+  margin-top: 5px;
   margin-right: 5px;
 }
 </style>
