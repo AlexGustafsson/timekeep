@@ -4,11 +4,11 @@
       <ion-stopwatch />
       <h1>Dashboard</h1>
       <h2>- {{ name }}</h2>
-      <router-link :to="{ name: 'create' }"><timekeep-fab tooltip="Add Project" /></router-link>
+      <router-link :to="{ name: 'create' }" v-if="!createNew"><timekeep-fab tooltip="Add Project" /></router-link>
     </header>
 
     <header v-if="projectId" class="right">
-      <timekeep-icon class="clickable"><ion-stopwatch /></timekeep-icon>
+      <timekeep-icon class="clickable" :style="{color}"><ion-stopwatch /></timekeep-icon>
       <timekeep-icon class="clickable negative"><ion-delete /></timekeep-icon>
     </header>
 
@@ -52,6 +52,7 @@
 
 <script lang="ts">
 import { Vue, Options, prop } from "vue-class-component";
+import { watch } from "vue";
 
 import IonStopwatch from "../components/ion-icons/stopwatch.vue";
 import IonDelete from "../components/ion-icons/delete.vue";
@@ -63,6 +64,9 @@ import TimekeepShowcaseItem from "../components/timekeep-showcase-item.vue";
 import TimekeepInput from "@/components/timekeep-input.vue";
 import TimekeepNotebook from "@/components/timekeep-notebook.vue";
 import TimekeepFab from "@/components/timekeep-fab.vue";
+
+import {Document, Project} from "@/plugins/store";
+import {colorHash} from "@/utils/color";
 
 const components = {
   IonStopwatch,
@@ -88,10 +92,30 @@ export default class EditPage extends Vue.with(Props) {
   name = "";
   group = "";
   tags = [];
+  color = "";
   saving = false;
+  project: Document<Project> | null = null;
 
-  mounted() {
-    console.log(this.projectId);
+  async mounted() {
+    await this.fetchData();
+    watch(() => this.$route.path, this.navigated.bind(this));
+  }
+
+  async navigated(path: any) {
+    await this.fetchData();
+  }
+
+  async fetchData() {
+    if (this.projectId) {
+      try {
+        this.project = await this.$store.get<Project>(this.projectId);
+        this.name = this.project.data.name;
+        this.group = this.project.data.group ?? "";
+        this.color = colorHash(this.project.data.group ?? this.project.data.name);
+      } catch (error) {
+        console.log(error);
+      }
+    }
   }
 
   async save() {
@@ -102,15 +126,33 @@ export default class EditPage extends Vue.with(Props) {
     if (this.createNew) {
       try {
         const project = await this.$store.createProject({ name: this.name, group: this.group });
-        console.log(project);
-        this.$router.replace({ name: "edit", params: { projectId: project._id } });
         this.saving = false;
+        this.$router.replace({ name: "edit", params: { projectId: project._id } });
       } catch (error) {
         console.log(error);
         this.saving = false;
       }
-    } else {
-      // TODO: Update
+    } else if (this.projectId && this.project) {
+      let changed = false;
+      if (this.name !== this.project.data.name) {
+        this.project.data.name = this.name;
+        changed = true;
+      }
+      if (this.group !== this.project.data.group) {
+        this.project.data.group = this.group;
+        changed = true;
+      }
+      if (changed) {
+        try {
+          await this.$store.update<Project>(this.project);
+          this.saving = false;
+        } catch (error) {
+          console.log(error);
+          this.saving = false;
+        }
+      } else {
+        this.saving = false;
+      }
     }
   }
 }
