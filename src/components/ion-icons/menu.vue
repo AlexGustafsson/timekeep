@@ -1,18 +1,18 @@
 <template>
   <i class="ion-icon">
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    xmlns:xlink="http://www.w3.org/1999/xlink"
-    aria-hidden="true"
-    role="img"
-    width="32"
-    height="32"
-    preserveAspectRatio="xMidYMid meet"
-    viewBox="0 0 512 512"
-  >
-    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M80 160h352"></path>
-    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M80 256h352"></path>
-    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M80 352h352"></path>
-  </svg>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      aria-hidden="true"
+      role="img"
+      width="32"
+      height="32"
+      preserveAspectRatio="xMidYMid meet"
+      viewBox="0 0 512 512"
+    >
+      <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M80 160h352"></path>
+      <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M80 256h352"></path>
+      <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M80 352h352"></path>
+    </svg>
   </i>
 </template>

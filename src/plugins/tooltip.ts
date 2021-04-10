@@ -1,11 +1,11 @@
 import { App } from "vue";
 
-import "./tooltip.css"
+import "./tooltip.css";
 
 type TooltipTarget = {
-  element: HTMLElement,
-  tooltip: string,
-}
+  element: HTMLElement;
+  tooltip: string;
+};
 
 export default class ContextMenuManager {
   element: HTMLElement;
@@ -25,7 +25,7 @@ export default class ContextMenuManager {
 
     const tooltip = element.getAttribute("tooltip");
     if (tooltip) {
-      this.setTarget({element, tooltip});
+      this.setTarget({ element, tooltip });
     } else if (this.target && element !== this.target.element) {
       this.clearTarget();
     }

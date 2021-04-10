@@ -42,7 +42,9 @@
     <timekeep-notebook v-model:notes="notes" />
 
     <footer class="right">
-      <timekeep-icon @click="save" tooltip="Save" :active="saving" :class="{ clickable: !saving, primary: !saving, inactive: saving }"><ion-save /></timekeep-icon>
+      <timekeep-icon @click="save" tooltip="Save" :active="saving" :class="{ clickable: !saving, primary: !saving, inactive: saving }"
+        ><ion-save
+      /></timekeep-icon>
     </footer>
   </div>
 </template>
