@@ -31,6 +31,7 @@ export default class TimekeepIcon extends Vue.with(Props) {}
   justify-content: center;
   position: relative;
   color: #398f47;
+  transition: 0.2s color ease-in-out;
 }
 
 .timekeep-icon.negative {
