@@ -4,7 +4,7 @@
       <div class="icon">
         <slot name="icon" />
       </div>
-      <input type="text" :placeholder="placeholder" :value="modelValue" @input="update" />
+      <input type="text" :placeholder="placeholder" :value="modelValue" @input="update" @keyup.enter="$emit('submit')"/>
     </header>
     <footer>
       <slot name="footer" />
@@ -20,7 +20,7 @@ class Props {
   placeholder!: string;
 }
 
-@Options({ emits: ["update:modelValue"] })
+@Options({ emits: ["update:modelValue", "submit"] })
 export default class TimekeepInput extends Vue.with(Props) {
   update(event: InputEvent) {
     const input = event.target as HTMLInputElement;

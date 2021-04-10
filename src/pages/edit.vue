@@ -33,9 +33,14 @@
     </timekeep-input>
 
     <!-- Project tags -->
-    <timekeep-input placeholder="Add a tag">
+    <timekeep-input placeholder="Add a tag" @submit="addTag" v-model="tagInput">
       <template v-slot:icon>
         <ion-tag />
+      </template>
+      <template v-slot:footer>
+        <div class="tag-container">
+          <p v-for="tag in tags" :key="tag.id" :style="{backgroundColor: tag.color}">{{tag.name}}</p>
+        </div>
       </template>
     </timekeep-input>
 
@@ -52,7 +57,7 @@
 
 <script lang="ts">
 import { Vue, Options, prop } from "vue-class-component";
-import { watch } from "vue";
+import { watch, ref } from "vue";
 
 import IonStopwatch from "../components/ion-icons/stopwatch.vue";
 import IonDelete from "../components/ion-icons/delete.vue";
@@ -91,14 +96,14 @@ export default class EditPage extends Vue.with(Props) {
   notes = [];
   name = "";
   group = "";
-  tags = [];
+  tagInput = "";
+  tags = [{id: 0, name: "Development", color: "rgba(20, 20, 100, 0.3)"}];
   color = "";
   saving = false;
   project: Document<Project> | null = null;
 
   async mounted() {
     await this.fetchData();
-    watch(() => this.$route.path, this.navigated.bind(this));
   }
 
   async navigated(path: any) {
@@ -116,6 +121,12 @@ export default class EditPage extends Vue.with(Props) {
         console.log(error);
       }
     }
+  }
+
+  addTag() {
+    const tag = {id: this.tags.length + 1, name: this.tagInput, color: colorHash(this.tagInput)};
+    this.tags.push(tag);
+    this.tagInput = "";
   }
 
   async save() {
@@ -167,5 +178,18 @@ export default class EditPage extends Vue.with(Props) {
 
 .page-edit > header > h2 {
   flex-grow: 1;
+}
+
+.page-edit .tag-container {
+  display: flex;
+  flex-direction: row;
+  margin-top: 5px;
+}
+
+.page-edit .tag-container p {
+  display: block;
+  padding: 5px;
+  border-radius: 5px;
+  margin-right: 5px;
 }
 </style>
