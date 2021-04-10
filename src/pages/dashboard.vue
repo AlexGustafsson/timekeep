@@ -118,7 +118,7 @@ export default class extends Vue {
 <style scoped>
 @import "../style/page.css";
 
-.page > main {
+.page-dashboard > main {
   display: grid;
   grid-template-columns: repeat(4, auto);
   align-content: space-between;
@@ -126,7 +126,7 @@ export default class extends Vue {
   row-gap: 10px;
 }
 
-.page > .timekeep-showcase .timekeep-icon {
+.page-dashboard > .timekeep-showcase .timekeep-icon {
   cursor: pointer;
 }
 </style>
