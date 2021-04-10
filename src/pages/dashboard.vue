@@ -37,13 +37,13 @@
     <main>
       <timekeep-time-card
         v-for="timekeep in timekeeps"
-        @click="timekeep.active = !timekeep.active"
         :key="timekeep.id"
         :active="timekeep.active"
         :group="timekeep.group"
         :name="timekeep.name"
         :timeToday="timekeep.timeToday"
         :timeThisWeek="timekeep.timeThisWeek"
+        @toggled="timekeep.active = !timekeep.active"
       />
     </main>
   </div>
@@ -113,9 +113,5 @@ export default class extends Vue {
   grid-template-columns: repeat(4, auto);
   align-content: space-between;
   justify-content: space-between;
-}
-
-.page .timekeep-time-card {
-  cursor: pointer;
 }
 </style>
