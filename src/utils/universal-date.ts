@@ -21,20 +21,9 @@ export default class UniversalDate {
     else this.date = new Date();
   }
 
-  // static fromUTC(values: UTCValues) {
-  //   values = {
-  //     year: 0,
-  //     month: 0,
-  //     date: 0,
-  //     hours: 0,
-  //     minutes: 0,
-  //     seconds: 0,
-  //     milliseconds: 0,
-  //     ...values,
-  //   };
-
-  //   return new UniversalDate(new Date(Date.UTC(values.year, values.month, values.date, values.hours, values.minutes, values.seconds, values.milliseconds)));
-  // }
+  static fromUTC(values: UTCValues) {
+    return new UniversalDate(new Date(Date.UTC(values.year ?? 0, values.month ?? 0, values.date ?? 0, values.hours ?? 0, values.minutes ?? 0, values.seconds ?? 0, values.milliseconds ?? 0)));
+  }
 
   get year(): number {
     return this.date.getUTCFullYear();
