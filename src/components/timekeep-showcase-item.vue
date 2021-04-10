@@ -7,12 +7,14 @@
 </template>
 
 <script lang="ts">
-export default {
-  props: {
-    primary: String,
-    secondary: String,
-  },
-};
+import { Vue, Options } from "vue-class-component";
+
+class Props {
+  primary!: string;
+  secondary!: string;
+}
+
+export default class TimekeepShowcaseItem extends Vue.with(Props) {}
 </script>
 
 <style scoped>

@@ -1,20 +1,25 @@
 <template>
   <div class="timekeep-icon">
     <slot></slot>
-    <timekeep-icon-circles class="circles" :class="{active}" />
+    <timekeep-icon-circles class="circles" :class="{ active }" />
   </div>
 </template>
 
 <script lang="ts">
 import TimekeepIconCircles from "./circles.vue";
 
-export default {
-  components: { TimekeepIconCircles },
-  name: "timekeep-icon",
-  props: {
-    active: Boolean,
-  },
+import { Vue, Options, prop } from "vue-class-component";
+
+const components = {
+  TimekeepIconCircles,
 };
+
+class Props {
+  active = prop<boolean>({ default: false });
+}
+
+@Options({ components })
+export default class TimekeepIcon extends Vue.with(Props) {}
 </script>
 
 <style scoped>
@@ -33,11 +38,11 @@ export default {
 }
 
 .timekeep-icon.primary {
-  color: #64B7DD;
+  color: #64b7dd;
 }
 
 .timekeep-icon.inactive {
-  color: #95B8C0;
+  color: #95b8c0;
 }
 
 .timekeep-icon.clickable {

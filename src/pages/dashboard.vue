@@ -3,7 +3,7 @@
     <header class="split">
       <ion-dashboard />
       <h1>Dashboard</h1>
-      <router-link :to="{name: 'create'}"><timekeep-fab /></router-link>
+      <router-link :to="{ name: 'create' }"><timekeep-fab /></router-link>
     </header>
 
     <!-- Filter -->
@@ -50,7 +50,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { Vue, Options } from "vue-class-component";
 
 import IonDashboard from "../components/ion-icons/dashboard.vue";
 import IonFavorite from "../components/ion-icons/favorite.vue";
@@ -64,46 +64,45 @@ import TimekeepShowcaseItem from "../components/timekeep-showcase-item.vue";
 import TimekeepTimeCard from "../components/timekeep-time-card.vue";
 import TimekeepInput from "../components/timekeep-input.vue";
 
-interface ProjectView {
-  id: string,
-  group: string,
-  name: string,
-  timeToday: number,
-  timeThisWeek: number,
-  active: boolean
+const components = {
+  IonDashboard,
+  IonFavorite,
+  IonRepeat,
+  IonTrending,
+  IonSearch,
+  TimekeepFab,
+  TimekeepIcon,
+  TimekeepShowcase,
+  TimekeepShowcaseItem,
+  TimekeepTimeCard,
+  TimekeepInput,
 };
 
-export default defineComponent({
-  data() {
-    return {
-      timekeeps: [] as ProjectView[],
-    };
-  },
+interface ProjectView {
+  id: string;
+  group: string;
+  name: string;
+  timeToday: number;
+  timeThisWeek: number;
+  active: boolean;
+}
+
+@Options({ components })
+export default class extends Vue {
+  timekeeps: ProjectView[] = [];
+
   async mounted() {
     const projects = await this.$store.getAllProjects();
-    this.timekeeps = projects.map(project => ({
+    this.timekeeps = projects.map((project) => ({
       id: project._id,
       name: project.data.name,
       group: project.data.group,
       timeToday: 0,
       timeThisWeek: 0,
-      active: false
+      active: false,
     })) as ProjectView[];
-  },
-  components: {
-    IonDashboard,
-    IonFavorite,
-    IonRepeat,
-    IonTrending,
-    IonSearch,
-    TimekeepFab,
-    TimekeepIcon,
-    TimekeepShowcase,
-    TimekeepShowcaseItem,
-    TimekeepTimeCard,
-    TimekeepInput,
-  },
-});
+  }
+}
 </script>
 
 <style scoped>

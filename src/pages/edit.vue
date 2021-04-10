@@ -42,13 +42,13 @@
     <timekeep-notebook v-model:notes="notes" />
 
     <footer class="right">
-      <timekeep-icon @click="save" :active="saving" :class="{clickable: !saving, primary: !saving, inactive: saving}"><ion-save /></timekeep-icon>
+      <timekeep-icon @click="save" :active="saving" :class="{ clickable: !saving, primary: !saving, inactive: saving }"><ion-save /></timekeep-icon>
     </footer>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { Vue, Options, prop } from "vue-class-component";
 
 import IonStopwatch from "../components/ion-icons/stopwatch.vue";
 import IonDelete from "../components/ion-icons/delete.vue";
@@ -60,62 +60,55 @@ import TimekeepShowcaseItem from "../components/timekeep-showcase-item.vue";
 import TimekeepInput from "@/components/timekeep-input.vue";
 import TimekeepNotebook from "@/components/timekeep-notebook.vue";
 
-export default defineComponent({
+const components = {
+  IonStopwatch,
+  IonDelete,
+  IonTag,
+  IonSave,
+  TimekeepIcon,
+  TimekeepShowcase,
+  TimekeepShowcaseItem,
+  TimekeepInput,
+  TimekeepNotebook,
+};
+
+class Props {
+  projectId = prop<string | null>({ default: null });
+  createNew = prop<boolean>({ default: false });
+}
+
+@Options({ components })
+export default class EditPage extends Vue.with(Props) {
+  notes = [];
+  name = "";
+  group = "";
+  tags = [];
+  saving = false;
+
   mounted() {
     console.log(this.projectId);
-  },
-  data() {
-    return {
-      notes: [],
-      name: this.createNew ? "" : "Frontend Development",
-      group: this.createNew ? "" : "Timekeep",
-      tags: [],
-      saving: false,
-    };
-  },
-  methods: {
-    async save() {
-      if (this.saving) return;
+  }
 
-      this.saving = true;
+  async save() {
+    if (this.saving) return;
 
-      if (this.createNew) {
-        try {
-          const project = await this.$store.createProject({name: this.name, group: this.group});
-          console.log(project);
-          this.$router.replace({name: "edit", params: {projectId: project._id}});
-          this.saving = false;
-        } catch (error) {
-          console.log(error);
-          this.saving = false;
-        }
-      } else {
-        // TODO: Update
+    this.saving = true;
+
+    if (this.createNew) {
+      try {
+        const project = await this.$store.createProject({ name: this.name, group: this.group });
+        console.log(project);
+        this.$router.replace({ name: "edit", params: { projectId: project._id } });
+        this.saving = false;
+      } catch (error) {
+        console.log(error);
+        this.saving = false;
       }
+    } else {
+      // TODO: Update
     }
-  },
-  props: {
-    projectId: {
-      type: String,
-      default: null,
-    },
-    createNew: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  components: {
-    IonStopwatch,
-    IonDelete,
-    IonTag,
-    IonSave,
-    TimekeepIcon,
-    TimekeepShowcase,
-    TimekeepShowcaseItem,
-    TimekeepInput,
-    TimekeepNotebook,
-  },
-});
+  }
+}
 </script>
 
 <style scoped>

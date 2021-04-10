@@ -13,21 +13,20 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { Vue, Options } from "vue-class-component";
 
-export default defineComponent({
-  props: {
-    modelValue: String,
-    placeholder: String,
-  },
-  methods: {
-    update(event: InputEvent) {
-      const input = event.target as HTMLInputElement;
-      this.$emit("update:modelValue", input.value);
-    },
-  },
-  emits: ["update:modelValue"],
-});
+class Props {
+  modelValue!: string;
+  placeholder!: string;
+}
+
+@Options({ emits: ["update:modelValue"] })
+export default class TimekeepInput extends Vue.with(Props) {
+  update(event: InputEvent) {
+    const input = event.target as HTMLInputElement;
+    this.$emit("update:modelValue", input.value);
+  }
+}
 </script>
 
 <style scoped>

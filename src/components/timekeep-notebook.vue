@@ -27,14 +27,20 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { Vue, Options } from "vue-class-component";
 
 import IonNote from "./ion-icons/note.vue";
 import IonRemove from "./ion-icons/remove.vue";
 import IonAdd from "./ion-icons/add.vue";
 import UniversalDate from "../utils/universal-date";
 
-import { ref, PropType } from "vue";
+const components = {
+  IonNote,
+  IonRemove,
+  IonAdd,
+};
+
+import { ref } from "vue";
 
 interface Note {
   id: string;
@@ -42,39 +48,33 @@ interface Note {
   date: UniversalDate;
 }
 
-export default defineComponent({
-  components: { IonNote, IonRemove, IonAdd },
-  methods: {
-    add() {
-      if (!this.input) return;
+class Props {
+  notes!: Note[];
+}
 
-      const note: Note = { id: this.notes.length.toString(), text: this.input.value, date: new UniversalDate() };
-      const notes = [note, ...this.notes];
-      if (this.input) this.input.value = "";
-      this.$emit("update:notes", notes);
-    },
-    remove(note: Note) {
-      const notes = this.notes.filter((x) => x.id !== note.id);
-      this.$emit("update:notes", notes);
-    },
-    change(note: Note) {
-      console.log(note.id);
-      this.$emit("update:notes", this.notes);
-    },
-  },
-  props: {
-    notes: {
-      type: Array as PropType<Note[]>,
-      default: [],
-      required: true,
-    },
-  },
-  emits: ["update:notes"],
-  setup() {
-    const input = ref<HTMLTextAreaElement>();
-    return { input };
-  },
-});
+@Options({ components, emits: ["update:notes"] })
+export default class TimekeepNotebook extends Vue.with(Props) {
+  input = (ref<HTMLTextAreaElement | null>(null) as unknown) as HTMLTextAreaElement | null;
+
+  add() {
+    if (this.input === null) return;
+
+    const note: Note = { id: this.notes.length.toString(), text: this.input.value, date: new UniversalDate() };
+    const notes = [note, ...this.notes];
+    this.input.value = "";
+    this.$emit("update:notes", notes);
+  }
+
+  remove(note: Note) {
+    const notes = this.notes.filter((x) => x.id !== note.id);
+    this.$emit("update:notes", notes);
+  }
+
+  change(note: Note) {
+    console.log(note.id);
+    this.$emit("update:notes", this.notes);
+  }
+}
 </script>
 
 <style scoped>

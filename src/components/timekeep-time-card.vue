@@ -16,31 +16,36 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { Vue, Options, prop } from "vue-class-component";
 import IonMore from "./ion-icons/more.vue";
 import IonStopwatch from "./ion-icons/stopwatch.vue";
 import TimekeepIcon from "./timekeep-icon/model.vue";
 import { humanReadableTime } from "../utils/time";
 
-export default defineComponent({
-  components: { IonMore, TimekeepIcon, IonStopwatch },
-  name: "timekeep-time-card",
-  computed: {
-    readableTimeToday(): string {
-      return humanReadableTime(this.timeToday);
-    },
-    readableTimeThisWeek(): string {
-      return humanReadableTime(this.timeThisWeek);
-    },
-  },
-  props: {
-    group: { type: String, required: true },
-    timeToday: { type: Number, required: true },
-    name: { type: String, required: true },
-    timeThisWeek: { type: Number, required: true },
-    active: { type: Boolean, default: false },
-  },
-});
+const components = {
+  IonMore,
+  TimekeepIcon,
+  IonStopwatch,
+};
+
+class Props {
+  group!: string;
+  timeToday!: number;
+  name!: string;
+  timeThisWeek!: number;
+  active = prop<boolean>({ default: false });
+}
+
+@Options({ components })
+export default class TimekeepTimeCard extends Vue.with(Props) {
+  get readableTimeToday() {
+    return humanReadableTime(this.timeToday);
+  }
+
+  get readableTimeThisWeek() {
+    return humanReadableTime(this.timeThisWeek);
+  }
+}
 </script>
 
 <style scoped>

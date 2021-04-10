@@ -1,8 +1,8 @@
 <template>
-  <menu class="timekeep-menu" :class="{ open }">
+  <menu class="timekeep-menu" :class="{ open: isOpen }">
     <ul class="top">
-      <li @click="open = !open">
-        <ion-close v-if="open" />
+      <li @click="isOpen = !isOpen">
+        <ion-close v-if="isOpen" />
         <ion-menu v-else />
         <p>Close</p>
       </li>
@@ -72,24 +72,32 @@ import IonTag from "./ion-icons/tag.vue";
 import IonReceipt from "./ion-icons/receipt.vue";
 import IonCog from "./ion-icons/cog.vue";
 
-export default {
-  data() {
-    return {
-      open: false,
-    };
-  },
-  components: {
-    IonClose,
-    IonMenu,
-    IonDashboard,
-    IonFavorite,
-    IonCalendar,
-    IonFlask,
-    IonTag,
-    IonReceipt,
-    IonCog,
-  },
+import { Vue, Options } from "vue-class-component";
+
+const components = {
+  IonClose,
+  IonMenu,
+  IonDashboard,
+  IonFavorite,
+  IonCalendar,
+  IonFlask,
+  IonTag,
+  IonReceipt,
+  IonCog,
 };
+
+@Options({ components })
+export default class TimekeepMenu extends Vue {
+  isOpen = false;
+
+  open() {
+    this.isOpen = true;
+  }
+
+  close() {
+    this.isOpen = false;
+  }
+}
 </script>
 
 <style scoped>

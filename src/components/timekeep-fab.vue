@@ -7,10 +7,12 @@
 <script lang="ts">
 import IonAdd from "./ion-icons/add.vue";
 
-export default {
-  components: { IonAdd },
-  name: "timekeep-fab",
-};
+import { Vue, Options } from "vue-class-component";
+
+const components = { IonAdd };
+
+@Options({ components })
+export default class TimekeepFab extends Vue {}
 </script>
 
 <style scoped>
