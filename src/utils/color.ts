@@ -9,6 +9,5 @@ export function colorHash(text: string): string {
   }
 
   const color = "#" + hash.map(value => (value % 16).toString(16)).join("").substr(0, 6);
-  console.log(color);
   return color;
 }
