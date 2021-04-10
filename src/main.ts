@@ -6,7 +6,7 @@ import "./style/main.css";
 
 import App from "./app.vue";
 
-import { createStore } from "./state/store";
+import { createStore } from "./plugins/store";
 import router from "./router";
 
 const database = new PouchDB("timekeep");

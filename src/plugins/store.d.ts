@@ -1,5 +1,5 @@
 /* eslint-disable */
-import Store from "./state/store"
+import Store from "./store"
 
 declare module '@vue/runtime-core' {
   // Provide typings for `this.$store`
