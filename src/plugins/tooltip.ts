@@ -4,7 +4,8 @@ import "./tooltip.css";
 
 enum TooltipPlacement {
   Under,
-  Above
+  Above,
+  Right
 }
 
 type TooltipTarget = {
@@ -35,6 +36,8 @@ export default class ContextMenuManager {
       let placement = TooltipPlacement.Under;
       if (element.hasAttribute("tooltip-above"))
         placement = TooltipPlacement.Above;
+      else if (element.hasAttribute("tooltip-right"))
+        placement = TooltipPlacement.Right;
 
       this.setTarget({ element, tooltip, placement });
     } else if (this.target && element !== this.target.element) {
@@ -55,20 +58,27 @@ export default class ContextMenuManager {
 
     this.element.classList.remove("placement-under");
     this.element.classList.remove("placement-above");
+    this.element.classList.remove("placement-right");
     if (target.placement == TooltipPlacement.Above)
       this.element.classList.add("placement-above");
     else if (target.placement == TooltipPlacement.Under)
       this.element.classList.add("placement-under");
+    else if (target.placement == TooltipPlacement.Right)
+      this.element.classList.add("placement-right");
 
     // Trick to make the text render before using the element's offsetWidth
     setTimeout(() => {
       const bounds = target.element.getBoundingClientRect();
-      this.element.style.left = `${bounds.left + bounds.width / 2 - this.element.offsetWidth / 2}px`;
-
-      if (target.placement == TooltipPlacement.Above)
+      if (target.placement == TooltipPlacement.Above) {
         this.element.style.top = `${bounds.top - this.element.offsetHeight - 5}px`;
-      else if (target.placement == TooltipPlacement.Under)
+        this.element.style.left = `${bounds.left + bounds.width / 2 - this.element.offsetWidth / 2}px`;
+      } else if (target.placement == TooltipPlacement.Under) {
         this.element.style.top = `${bounds.top + bounds.height + 5}px`;
+        this.element.style.left = `${bounds.left + bounds.width / 2 - this.element.offsetWidth / 2}px`;
+      } else if (target.placement == TooltipPlacement.Right) {
+        this.element.style.top = `${bounds.top + bounds.height / 2 - this.element.offsetHeight / 2}px`;
+        this.element.style.left = `${bounds.left + bounds.width + 5}px`;
+      }
 
       this.element.classList.add("visible");
     }, 1);

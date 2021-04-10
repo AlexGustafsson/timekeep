@@ -3,42 +3,42 @@
     <ul class="top">
       <li @click="isOpen = !isOpen">
         <ion-close v-if="isOpen" />
-        <ion-menu v-else />
+        <ion-menu v-else :tooltip="isOpen ? '' : 'Menu'" tooltip-right />
         <p>Close</p>
       </li>
     </ul>
     <ul class="middle">
-      <router-link to="/">
+      <router-link to="/" >
         <li>
-          <ion-dashboard />
+          <ion-dashboard :tooltip="isOpen ? '' : 'Dashboard'" tooltip-right />
           <p>Dashboard</p>
         </li>
       </router-link>
 
       <router-link to="/favorites">
         <li>
-          <ion-favorite />
+          <ion-favorite :tooltip="isOpen ? '' : 'Favorites'" tooltip-right />
           <p>Favorites</p>
         </li>
       </router-link>
 
       <router-link to="/date">
         <li>
-          <ion-calendar />
-          <p>Date</p>
+          <ion-calendar :tooltip="isOpen ? '' : 'History'" tooltip-right />
+          <p>History</p>
         </li>
       </router-link>
 
       <router-link to="/insights">
         <li>
-          <ion-flask />
+          <ion-flask :tooltip="isOpen ? '' : 'Insights'" tooltip-right />
           <p>Insights</p>
         </li>
       </router-link>
 
       <router-link to="/tags">
         <li>
-          <ion-tag />
+          <ion-tag :tooltip="isOpen ? '' : 'Tags'" tooltip-right />
           <p>Tags</p>
         </li>
       </router-link>
@@ -46,14 +46,14 @@
     <ul class="bottom">
       <router-link to="/export">
         <li>
-          <ion-receipt />
+          <ion-receipt :tooltip="isOpen ? '' : 'Export'" tooltip-right />
           <p>Export</p>
         </li>
       </router-link>
 
       <router-link to="/settings">
         <li>
-          <ion-cog />
+          <ion-cog :tooltip="isOpen ? '' : 'Settings'" tooltip-right />
           <p>Settings</p>
         </li>
       </router-link>
