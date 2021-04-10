@@ -4,6 +4,7 @@
       <ion-stopwatch />
       <h1>Dashboard</h1>
       <h2>- {{ name }}</h2>
+      <router-link :to="{ name: 'create' }"><timekeep-fab tooltip="Add Project" /></router-link>
     </header>
 
     <header v-if="projectId" class="right">
@@ -61,6 +62,7 @@ import TimekeepShowcase from "../components/timekeep-showcase.vue";
 import TimekeepShowcaseItem from "../components/timekeep-showcase-item.vue";
 import TimekeepInput from "@/components/timekeep-input.vue";
 import TimekeepNotebook from "@/components/timekeep-notebook.vue";
+import TimekeepFab from "@/components/timekeep-fab.vue";
 
 const components = {
   IonStopwatch,
@@ -72,6 +74,7 @@ const components = {
   TimekeepShowcaseItem,
   TimekeepInput,
   TimekeepNotebook,
+  TimekeepFab,
 };
 
 class Props {
@@ -118,5 +121,9 @@ export default class EditPage extends Vue.with(Props) {
 
 .page-edit > header .timekeep-icon {
   margin: 0 10px;
+}
+
+.page-edit > header > h2 {
+  flex-grow: 1;
 }
 </style>
