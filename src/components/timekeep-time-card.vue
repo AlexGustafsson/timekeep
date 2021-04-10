@@ -96,5 +96,6 @@ export default class TimekeepTimeCard extends Vue.with(Props) {
   top: 5px;
   right: 5px;
   color: #b7b7b7;
+  cursor: pointer;
 }
 </style>
