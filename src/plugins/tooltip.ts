@@ -16,6 +16,7 @@ export default class ContextMenuManager {
     this.element.id = "tooltip";
     document.body.appendChild(this.element);
     document.body.addEventListener("mousemove", this.onMouseMove.bind(this));
+    document.body.addEventListener("mousedown", this.onMouseDown.bind(this));
   }
 
   onMouseMove(event: MouseEvent) {
@@ -29,6 +30,10 @@ export default class ContextMenuManager {
     } else if (this.target && element !== this.target.element) {
       this.clearTarget();
     }
+  }
+
+  onMouseDown(_: MouseEvent) {
+    this.clearTarget();
   }
 
   setTarget(target: TooltipTarget) {
