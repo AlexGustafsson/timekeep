@@ -1,7 +1,9 @@
 export type UTCValues = {
   year?: number;
+  // 1-based month 1-12
   month?: number;
-  date?: number;
+  // 1-based day 1-31
+  dayOfTheMonth?: number;
   hours?: number;
   minutes?: number;
   seconds?: number;
@@ -14,40 +16,48 @@ type DateLike = Date | UniversalDate | string | number;
 export default class UniversalDate {
   public date: Date;
 
-  constructor(date?: DateLike) {
-    // TODO: Deep copy instead? this.date = new Date(date.date)?
-    if (date instanceof UniversalDate) this.date = date.date;
-    else if (date instanceof Date || typeof date === "number" || typeof date === "string") this.date = new Date(date);
-    else this.date = new Date();
+  constructor(timestamp?: number) {
+    this.date = new Date(timestamp ?? Date.now());
   }
 
+  // Create a date from UTC values
   static fromUTC(values: UTCValues): UniversalDate {
-    return new UniversalDate(
-      new Date(
-        Date.UTC(values.year ?? 0, values.month ?? 0, values.date ?? 0, values.hours ?? 0, values.minutes ?? 0, values.seconds ?? 0, values.milliseconds ?? 0)
-      )
-    );
+    return new UniversalDate(Date.UTC(values.year ?? 0, (values.month ?? 1) - 1, values.dayOfTheMonth ?? 1, values.hours ?? 0, values.minutes ?? 0, values.seconds ?? 0, values.milliseconds ?? 0));
   }
 
-  static fromWeek(year: number, week: number): UniversalDate {
+  // Create a date from a specific week of the year
+  static fromWeek(year: number, week: number, dayOfTheWeek = 0): UniversalDate {
     const startOfYear = UniversalDate.fromUTC({ year });
-    let targetWeek = new UniversalDate(startOfYear);
-    for (let i = 0; i < week; i++)
+    let targetWeek = UniversalDate.fromDate(startOfYear.date);
+    // Add one week at a time to safely handle leap years, week 52/53 - 1 etc.
+    while (targetWeek.week != week)
       targetWeek = new UniversalDate(targetWeek.timestamp + 1000 * 60 * 60 * 24 * 7);
+    // Rewind to the first day of the week
+    for (let i = targetWeek.dayOfTheWeek; i > 0; i--)
+      targetWeek = new UniversalDate(targetWeek.timestamp - 1000 * 60 * 60 * 24);
+    // Move to the target day of the week
+    for (let i = targetWeek.dayOfTheWeek; i < dayOfTheWeek; i++)
+      targetWeek = new UniversalDate(targetWeek.timestamp + 1000 * 60 * 60 * 24);
     return targetWeek;
   }
 
+  static fromDate(date: Date): UniversalDate {
+    return new UniversalDate(date.getTime());
+  }
+
+  // The year represented by the date
   get year(): number {
     return this.date.getUTCFullYear();
   }
 
+  // The one-based month of the year
   get month(): number {
-    return this.date.getUTCMonth();
+    return this.date.getUTCMonth() + 1;
   }
 
-  // Get the ISO 8601 week number
+  // The ISO 8601 week number
   get week(): number {
-    const nearestThursday = new Date(Date.UTC(this.year, this.month, this.day));
+    const nearestThursday = new Date(Date.UTC(this.date.getUTCFullYear(), this.date.getUTCMonth(), this.date.getUTCDate()));
     nearestThursday.setUTCDate(nearestThursday.getUTCDate() + 4 - (nearestThursday.getUTCDay() || 7));
 
     const firstDayOfYear = new Date(Date.UTC(nearestThursday.getUTCFullYear(), 0, 1));
@@ -58,17 +68,24 @@ export default class UniversalDate {
     return week;
   }
 
-  get day(): number {
+  // The one-based day of the month
+  get dayOfTheMonth(): number {
     return this.date.getUTCDate();
   }
 
-  // The zero-based day of week where weeks start with a monday
-  get dayOfWeek(): number {
+  // The zero-based day of week where weeks start on a Monday
+  get dayOfTheWeek(): number {
     return (this.date.getUTCDay() + 6) % 7;
   }
 
-  get dayOfWeekString(): string {
-    return ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"][this.dayOfWeek];
+  // The name of the day of the week
+  get dayOfTheWeekString(): string {
+    return ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"][this.dayOfTheWeek];
+  }
+
+  // The name of the month
+  get monthString(): string {
+    return ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"][this.month];
   }
 
   // The UTC timestamp (milliseconds since start of epoch)
@@ -77,21 +94,18 @@ export default class UniversalDate {
   }
 
   // Compare the year of two dates
-  isSameYear(date: DateLike): boolean {
-    const universalDate = new UniversalDate(date);
-    return universalDate.year === this.year;
+  isSameYear(date: UniversalDate): boolean {
+    return date.year === this.year;
   }
 
   // Compare the week (and implicitly year) of two dates
-  isSameWeek(date: DateLike): boolean {
-    const universalDate = new UniversalDate(date);
-    return universalDate.year === this.year && universalDate.week === this.week;
+  isSameWeek(date: UniversalDate): boolean {
+    return date.year === this.year && date.week === this.week;
   }
 
   // Compare the days (and implicitly week and year) of two dates
-  isSameDay(date: DateLike): boolean {
-    const universalDate = new UniversalDate(date);
-    return universalDate.year === this.year && universalDate.month === this.month && universalDate.day === this.day;
+  isSameDay(date: UniversalDate): boolean {
+    return date.year === this.year && date.month === this.month && date.dayOfTheMonth === this.dayOfTheMonth;
   }
 
   // Whether or not the date represents today's date
@@ -101,7 +115,7 @@ export default class UniversalDate {
 
   // Returns a UniversalDate corresponding to the last millisecond of the day
   getEndOfDay(): UniversalDate {
-    const endOfDay = new UniversalDate(this.date);
+    const endOfDay = UniversalDate.fromDate(this.date);
     endOfDay.date.setUTCHours(23);
     endOfDay.date.setUTCMinutes(59);
     endOfDay.date.setUTCSeconds(59);
@@ -112,7 +126,7 @@ export default class UniversalDate {
 
   // Returns a UniversalDate corresponding to the first millisecond of the day
   getStartOfDay(): UniversalDate {
-    const startOfDay = new UniversalDate(this.date);
+    const startOfDay = UniversalDate.fromDate(this.date);
     startOfDay.date.setUTCHours(0);
     startOfDay.date.setUTCMinutes(0);
     startOfDay.date.setUTCSeconds(0);
