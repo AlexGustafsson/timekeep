@@ -20,7 +20,7 @@ class Props {
 export default class TimekeepNotebook extends Vue.with(Props) {
   cells: { class: string; content: string }[] = [];
 
-  get monthName() {
+  get monthName(): string {
     return UniversalDate.monthNames[this.month - 1];
   }
 
@@ -37,8 +37,7 @@ export default class TimekeepNotebook extends Vue.with(Props) {
     // const days = endOfTheMonth.dayOfTheMonth;
 
     const weeks: number[] = [];
-    for (let i = 0; i < 6; i++)
-      weeks.push(startOfTheFirstWeek.offsetWeeks(i).week);
+    for (let i = 0; i < 6; i++) weeks.push(startOfTheFirstWeek.offsetWeeks(i).week);
 
     // Add a padding cell
     this.cells.push({ class: "", content: "" });
@@ -47,8 +46,7 @@ export default class TimekeepNotebook extends Vue.with(Props) {
 
     let currentDay = UniversalDate.fromDate(startOfTheFirstWeek.date);
     while (currentDay.week != weekBoundary) {
-      if (this.cells.length % 8 === 0)
-        this.cells.push({ class: "week-number", content: currentDay.week.toString() });
+      if (this.cells.length % 8 === 0) this.cells.push({ class: "week-number", content: currentDay.week.toString() });
       this.cells.push({ class: currentDay.month === this.month ? "day" : "other-day", content: currentDay.dayOfTheMonth.toString() });
       currentDay = currentDay.offsetDays(1);
     }

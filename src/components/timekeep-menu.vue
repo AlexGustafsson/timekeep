@@ -22,7 +22,7 @@
         </li>
       </router-link>
 
-      <router-link :to="{name: 'history', params: {year: new Date().getFullYear()}}">
+      <router-link :to="{ name: 'history', params: { year: new Date().getFullYear() } }">
         <li>
           <ion-calendar :tooltip="isOpen ? '' : 'History'" tooltip-right />
           <p>History</p>

@@ -35,14 +35,14 @@ const components = {
 };
 
 class Props {
-  year!: string
+  year!: string;
 }
 
 @Options({ components })
 export default class extends Vue.with(Props) {
   parsedYear = 0;
 
-  mounted() {
+  mounted(): void {
     this.parsedYear = Number.parseInt(this.year);
   }
 }

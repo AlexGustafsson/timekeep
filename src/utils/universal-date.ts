@@ -10,8 +10,6 @@ export type UTCValues = {
   milliseconds?: number;
 };
 
-type DateLike = Date | UniversalDate | string | number;
-
 // A wrapper around Date to provide simple-to-use, all-UTC methods
 export default class UniversalDate {
   public date: Date;
@@ -22,7 +20,17 @@ export default class UniversalDate {
 
   // Create a date from UTC values
   static fromUTC(values: UTCValues): UniversalDate {
-    return new UniversalDate(Date.UTC(values.year ?? 0, (values.month ?? 1) - 1, values.dayOfTheMonth ?? 1, values.hours ?? 0, values.minutes ?? 0, values.seconds ?? 0, values.milliseconds ?? 0));
+    return new UniversalDate(
+      Date.UTC(
+        values.year ?? 0,
+        (values.month ?? 1) - 1,
+        values.dayOfTheMonth ?? 1,
+        values.hours ?? 0,
+        values.minutes ?? 0,
+        values.seconds ?? 0,
+        values.milliseconds ?? 0
+      )
+    );
   }
 
   // Create a date from a specific week of the year
@@ -34,16 +42,13 @@ export default class UniversalDate {
     while (targetWeek.week != week && targetWeek.year === year) {
       targetWeek = new UniversalDate(targetWeek.timestamp + 1000 * 60 * 60 * 24);
     }
-    if (targetWeek.week !== week)
-      throw Error(`Year ${year} has no week ${week}`);
+    if (targetWeek.week !== week) throw Error(`Year ${year} has no week ${week}`);
 
     // Rewind to the first day of the week
-    for (let i = targetWeek.dayOfTheWeek; i > 0; i--)
-      targetWeek = new UniversalDate(targetWeek.timestamp - 1000 * 60 * 60 * 24);
+    for (let i = targetWeek.dayOfTheWeek; i > 0; i--) targetWeek = new UniversalDate(targetWeek.timestamp - 1000 * 60 * 60 * 24);
 
     // Move to the target day of the week
-    for (let i = targetWeek.dayOfTheWeek; i < dayOfTheWeek; i++)
-      targetWeek = new UniversalDate(targetWeek.timestamp + 1000 * 60 * 60 * 24);
+    for (let i = targetWeek.dayOfTheWeek; i < dayOfTheWeek; i++) targetWeek = new UniversalDate(targetWeek.timestamp + 1000 * 60 * 60 * 24);
 
     return targetWeek;
   }
@@ -96,7 +101,7 @@ export default class UniversalDate {
     return (this.date.getUTCDay() + 6) % 7;
   }
 
-  static get dayNames() {
+  static get dayNames(): string[] {
     return ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
   }
 
@@ -105,7 +110,7 @@ export default class UniversalDate {
     return UniversalDate.dayNames[this.dayOfTheWeek - 1];
   }
 
-  static get monthNames() {
+  static get monthNames(): string[] {
     return ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   }
 
