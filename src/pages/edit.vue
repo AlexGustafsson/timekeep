@@ -90,13 +90,19 @@ class Props {
   createNew = prop<boolean>({ default: false });
 }
 
+interface Tag {
+  id: number,
+  name: string,
+  color: string
+}
+
 @Options({ components })
 export default class EditPage extends Vue.with(Props) {
   notes = [];
   name = "";
   group = "";
   tagInput = "";
-  tags = [{ id: 0, name: "Development", color: "rgba(20, 20, 100, 0.3)" }];
+  tags: Tag[] = [];
   color = "";
   saving = false;
   project: Document<Project> | null = null;
