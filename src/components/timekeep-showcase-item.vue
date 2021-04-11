@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts">
-import { Vue, Options } from "vue-class-component";
+import { Vue } from "vue-class-component";
 
 class Props {
   primary!: string;

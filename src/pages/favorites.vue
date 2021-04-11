@@ -85,7 +85,7 @@ export default class extends Vue {
     recent: false,
   };
 
-  async mounted() {
+  async mounted(): Promise<void> {
     // TODO: Filter only favorites
     const projects = await this.$store.getAllProjects();
     this.timekeeps = projects.map((project) => ({

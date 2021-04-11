@@ -26,7 +26,7 @@ export default class ContextMenuManager {
     document.body.addEventListener("mousedown", this.onMouseDown.bind(this));
   }
 
-  onMouseMove(event: MouseEvent) {
+  private onMouseMove(event: MouseEvent) {
     if (!event.target) return;
 
     const element = event.target as HTMLElement;
@@ -43,11 +43,11 @@ export default class ContextMenuManager {
     }
   }
 
-  onMouseDown(_: MouseEvent) {
+  private onMouseDown() {
     this.clearTarget();
   }
 
-  setTarget(target: TooltipTarget) {
+  setTarget(target: TooltipTarget): void {
     if (this.target && target.element == this.target.element) return;
 
     this.target = target;
@@ -79,7 +79,7 @@ export default class ContextMenuManager {
     }, 1);
   }
 
-  clearTarget() {
+  clearTarget(): void {
     this.target = null;
     this.element.innerHTML = "";
     this.element.classList.remove("visible");

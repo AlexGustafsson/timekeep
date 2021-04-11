@@ -56,7 +56,7 @@ class Props {
 export default class TimekeepNotebook extends Vue.with(Props) {
   input = (ref<HTMLTextAreaElement | null>(null) as unknown) as HTMLTextAreaElement | null;
 
-  add() {
+  add(): void {
     if (this.input === null) return;
 
     const note: Note = { id: this.notes.length.toString(), text: this.input.value, date: new UniversalDate() };
@@ -65,12 +65,12 @@ export default class TimekeepNotebook extends Vue.with(Props) {
     this.$emit("update:notes", notes);
   }
 
-  remove(note: Note) {
+  remove(note: Note): void {
     const notes = this.notes.filter((x) => x.id !== note.id);
     this.$emit("update:notes", notes);
   }
 
-  change(note: Note) {
+  change(note: Note): void {
     console.log(note.id);
     this.$emit("update:notes", this.notes);
   }

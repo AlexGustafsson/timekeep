@@ -21,7 +21,7 @@ export default class UniversalDate {
     else this.date = new Date();
   }
 
-  static fromUTC(values: UTCValues) {
+  static fromUTC(values: UTCValues): UniversalDate {
     return new UniversalDate(
       new Date(
         Date.UTC(values.year ?? 0, values.month ?? 0, values.date ?? 0, values.hours ?? 0, values.minutes ?? 0, values.seconds ?? 0, values.milliseconds ?? 0)

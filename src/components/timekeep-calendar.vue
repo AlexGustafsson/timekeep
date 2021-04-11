@@ -22,12 +22,11 @@ export default class TimekeepNotebook extends Vue.with(Props) {
   monthsOfTheYear = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   cells: { class: string; content: string }[] = [];
 
-  mounted() {
+  mounted(): void {
     const startOfTheMonth = UniversalDate.fromUTC({ year: this.year, month: this.month });
     const endOfTheMonth = UniversalDate.fromUTC({ year: this.year, month: this.month, date: this.daysOfMonth(this.year, this.month + 1) });
     const firstWeekOffset = startOfTheMonth.dayOfWeek;
     const startWeek = startOfTheMonth.week;
-    const endWeek = endOfTheMonth.week;
     const days = endOfTheMonth.day;
 
     this.cells.push({ class: "", content: "" });

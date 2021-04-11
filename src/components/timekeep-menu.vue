@@ -90,11 +90,11 @@ const components = {
 export default class TimekeepMenu extends Vue {
   isOpen = false;
 
-  open() {
+  open(): void {
     this.isOpen = true;
   }
 
-  close() {
+  close(): void {
     this.isOpen = false;
   }
 }

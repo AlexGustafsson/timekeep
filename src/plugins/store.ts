@@ -139,7 +139,7 @@ export default class Store {
   }
 
   // Note: does not validate that projectId refers to valid project
-  public async toggleInterval(projectId: string, timestamp = Date.now()) {
+  public async toggleInterval(projectId: string, timestamp = Date.now()): Promise<void> {
     const hits = await this.query({ selector: { type: DocumentType.Interval, "data.projectId": projectId, "data.end": null } }, true);
     if (hits.length == 0) {
       const data = { projectId, start: timestamp, end: null };

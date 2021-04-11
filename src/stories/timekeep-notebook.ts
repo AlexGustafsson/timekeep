@@ -1,4 +1,3 @@
-import { Story } from "@storybook/vue3/types-6-0";
 import { reactive } from "vue";
 
 import TimekeepNotebook from "../components/timekeep-notebook.vue";
@@ -9,9 +8,7 @@ export default {
   component: TimekeepNotebook,
 };
 
-type TemplateArguments = {};
-
-const Template: Story<TemplateArguments> = (args) => ({
+const Template = () => ({
   components: { TimekeepNotebook },
   template: `<timekeep-notebook v-model:notes="notes" />`,
   setup() {
@@ -28,7 +25,7 @@ const Template: Story<TemplateArguments> = (args) => ({
       },
     ]);
 
-    return { args, notes };
+    return { notes };
   },
 });
 

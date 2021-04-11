@@ -11,7 +11,7 @@ export default {
 };
 
 type TemplateArguments = {
-  items: { props: { primary: string; secondary: string }; slot: any }[];
+  items: { props: { primary: string; secondary: string }; slot: string }[];
 };
 
 const Template: Story<TemplateArguments> = (args) => ({
@@ -64,7 +64,7 @@ WithoutIcon.args = {
         primary: "Active",
         secondary: "1",
       },
-      slot: null,
+      slot: "",
     },
   ],
 };

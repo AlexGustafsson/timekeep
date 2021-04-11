@@ -115,7 +115,7 @@ export default class extends Vue {
     recent: false,
   };
 
-  async mounted() {
+  async mounted(): Promise<void> {
     const projects = await this.$store.getAllProjects();
     this.timekeeps = projects.map((project) => ({
       id: project._id,

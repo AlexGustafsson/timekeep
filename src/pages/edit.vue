@@ -57,7 +57,6 @@
 
 <script lang="ts">
 import { Vue, Options, prop } from "vue-class-component";
-import { watch, ref } from "vue";
 
 import IonStopwatch from "../components/ion-icons/stopwatch.vue";
 import IonDelete from "../components/ion-icons/delete.vue";
@@ -102,15 +101,15 @@ export default class EditPage extends Vue.with(Props) {
   saving = false;
   project: Document<Project> | null = null;
 
-  async mounted() {
+  async mounted(): Promise<void> {
     await this.fetchData();
   }
 
-  async navigated(path: any) {
+  async navigated(): Promise<void> {
     await this.fetchData();
   }
 
-  async fetchData() {
+  async fetchData(): Promise<void> {
     if (this.projectId) {
       try {
         this.project = await this.$store.get<Project>(this.projectId);
@@ -123,13 +122,13 @@ export default class EditPage extends Vue.with(Props) {
     }
   }
 
-  addTag() {
+  addTag(): void {
     const tag = { id: this.tags.length + 1, name: this.tagInput, color: colorHash(this.tagInput) };
     this.tags.push(tag);
     this.tagInput = "";
   }
 
-  async save() {
+  async save(): Promise<void> {
     if (this.saving) return;
 
     this.saving = true;

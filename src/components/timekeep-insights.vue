@@ -6,7 +6,7 @@
 import { onMounted, ref } from "vue";
 
 export default {
-  setup() {
+  setup(): Record<string, unknown> {
     const canvas = ref<HTMLCanvasElement>();
 
     const groups = [
