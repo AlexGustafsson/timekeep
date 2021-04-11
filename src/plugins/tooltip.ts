@@ -5,7 +5,7 @@ import "./tooltip.css";
 enum TooltipPlacement {
   Under,
   Above,
-  Right
+  Right,
 }
 
 type TooltipTarget = {
@@ -34,10 +34,8 @@ export default class ContextMenuManager {
     const tooltip = element.getAttribute("tooltip");
     if (tooltip) {
       let placement = TooltipPlacement.Under;
-      if (element.hasAttribute("tooltip-above"))
-        placement = TooltipPlacement.Above;
-      else if (element.hasAttribute("tooltip-right"))
-        placement = TooltipPlacement.Right;
+      if (element.hasAttribute("tooltip-above")) placement = TooltipPlacement.Above;
+      else if (element.hasAttribute("tooltip-right")) placement = TooltipPlacement.Right;
 
       this.setTarget({ element, tooltip, placement });
     } else if (this.target && element !== this.target.element) {
@@ -59,12 +57,9 @@ export default class ContextMenuManager {
     this.element.classList.remove("placement-under");
     this.element.classList.remove("placement-above");
     this.element.classList.remove("placement-right");
-    if (target.placement == TooltipPlacement.Above)
-      this.element.classList.add("placement-above");
-    else if (target.placement == TooltipPlacement.Under)
-      this.element.classList.add("placement-under");
-    else if (target.placement == TooltipPlacement.Right)
-      this.element.classList.add("placement-right");
+    if (target.placement == TooltipPlacement.Above) this.element.classList.add("placement-above");
+    else if (target.placement == TooltipPlacement.Under) this.element.classList.add("placement-under");
+    else if (target.placement == TooltipPlacement.Right) this.element.classList.add("placement-right");
 
     // Trick to make the text render before using the element's offsetWidth
     setTimeout(() => {

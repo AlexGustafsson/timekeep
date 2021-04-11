@@ -1,14 +1,14 @@
 <template>
   <div class="timekeep-calendar">
-    <p>{{monthsOfTheYear[month]}}</p>
+    <p>{{ monthsOfTheYear[month] }}</p>
     <div class="grid">
-      <p :class="cell.class" v-for="cell in cells" :key="cell.content">{{cell.content}}</p>
+      <p :class="cell.class" v-for="cell in cells" :key="cell.content">{{ cell.content }}</p>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import {Vue} from "vue-class-component";
+import { Vue } from "vue-class-component";
 
 import UniversalDate from "@/utils/universal-date";
 
@@ -20,7 +20,7 @@ class Props {
 export default class TimekeepNotebook extends Vue.with(Props) {
   daysOfTheWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
   monthsOfTheYear = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-  cells: {class: string, content: string}[] = [];
+  cells: { class: string; content: string }[] = [];
 
   mounted() {
     const startOfTheMonth = UniversalDate.fromUTC({ year: this.year, month: this.month });
@@ -30,22 +30,21 @@ export default class TimekeepNotebook extends Vue.with(Props) {
     const endWeek = endOfTheMonth.week;
     const days = endOfTheMonth.day;
 
-    this.cells.push({class: "", content: ""});
-    for (let i = 0; i < 7; i++)
-      this.cells.push({class: "week-day", content: this.daysOfTheWeek[i][0]});
+    this.cells.push({ class: "", content: "" });
+    for (let i = 0; i < 7; i++) this.cells.push({ class: "week-day", content: this.daysOfTheWeek[i][0] });
 
     let day = 0;
     for (let i = 0; i < 6; i++) {
       const week = startWeek + i;
       const offset = i == 0 ? firstWeekOffset + 1 : 0;
-      this.cells.push({class: "week-number", content: week.toString()});
+      this.cells.push({ class: "week-number", content: week.toString() });
       for (let j = 0; j < 7; j++) {
         if (j < offset) {
-          this.cells.push({class: "day", content: ""});
+          this.cells.push({ class: "day", content: "" });
         } else if (day < days) {
-          this.cells.push({class: "day", content: (++day).toString()});
+          this.cells.push({ class: "day", content: (++day).toString() });
         } else {
-          this.cells.push({class: "day", content: ""});
+          this.cells.push({ class: "day", content: "" });
         }
       }
     }
@@ -53,7 +52,7 @@ export default class TimekeepNotebook extends Vue.with(Props) {
 
   // 1-based month
   daysOfMonth(year: number, month: number): number {
-    const date = UniversalDate.fromUTC({year, month: month + 1});
+    const date = UniversalDate.fromUTC({ year, month: month + 1 });
     // The dates are basically 1-indexed, meaing 0 will be -1 - the last day
     // of the previous month. We therefore offset the input month by one
     // to get the requested month's end day
@@ -82,7 +81,9 @@ export default class TimekeepNotebook extends Vue.with(Props) {
   column-gap: 5px;
 }
 
-.day, .week-number, .week-day {
+.day,
+.week-number,
+.week-day {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -93,7 +94,8 @@ export default class TimekeepNotebook extends Vue.with(Props) {
   background-color: #eeeeee;
 }
 
-.week-number, .week-day {
+.week-number,
+.week-day {
   font-weight: bold;
 }
 </style>

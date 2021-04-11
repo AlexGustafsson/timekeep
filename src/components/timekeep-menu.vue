@@ -8,7 +8,7 @@
       </li>
     </ul>
     <ul class="middle">
-      <router-link to="/" >
+      <router-link to="/">
         <li>
           <ion-dashboard :tooltip="isOpen ? '' : 'Dashboard'" tooltip-right />
           <p>Dashboard</p>

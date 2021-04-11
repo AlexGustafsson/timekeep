@@ -22,7 +22,11 @@ export default class UniversalDate {
   }
 
   static fromUTC(values: UTCValues) {
-    return new UniversalDate(new Date(Date.UTC(values.year ?? 0, values.month ?? 0, values.date ?? 0, values.hours ?? 0, values.minutes ?? 0, values.seconds ?? 0, values.milliseconds ?? 0)));
+    return new UniversalDate(
+      new Date(
+        Date.UTC(values.year ?? 0, values.month ?? 0, values.date ?? 0, values.hours ?? 0, values.minutes ?? 0, values.seconds ?? 0, values.milliseconds ?? 0)
+      )
+    );
   }
 
   get year(): number {

@@ -82,7 +82,7 @@ export default class extends Vue {
   filter = {
     favorites: false,
     popular: false,
-    recent: false
+    recent: false,
   };
 
   async mounted() {

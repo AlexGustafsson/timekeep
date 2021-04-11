@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import {Vue, Options} from "vue-class-component";
+import { Vue, Options } from "vue-class-component";
 
 import TimekeepCalendar from "@/components/timekeep-calendar.vue";
 import IonCalendar from "@/components/ion-icons/calendar.vue";
@@ -21,10 +21,8 @@ const components = {
   IonCalendar,
 };
 
-@Options({components})
-export default class extends Vue {
-
-}
+@Options({ components })
+export default class extends Vue {}
 </script>
 
 <style>

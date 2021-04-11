@@ -8,7 +8,7 @@
     </header>
 
     <header v-if="projectId" class="right">
-      <timekeep-icon class="clickable" :style="{color}"><ion-stopwatch /></timekeep-icon>
+      <timekeep-icon class="clickable" :style="{ color }"><ion-stopwatch /></timekeep-icon>
       <timekeep-icon class="clickable negative"><ion-delete /></timekeep-icon>
     </header>
 
@@ -39,7 +39,7 @@
       </template>
       <template v-slot:footer>
         <div class="tag-container">
-          <p v-for="tag in tags" :key="tag.id" :style="{backgroundColor: tag.color}">{{tag.name}}</p>
+          <p v-for="tag in tags" :key="tag.id" :style="{ backgroundColor: tag.color }">{{ tag.name }}</p>
         </div>
       </template>
     </timekeep-input>
@@ -70,8 +70,8 @@ import TimekeepInput from "@/components/timekeep-input.vue";
 import TimekeepNotebook from "@/components/timekeep-notebook.vue";
 import TimekeepFab from "@/components/timekeep-fab.vue";
 
-import {Document, Project} from "@/plugins/store";
-import {colorHash} from "@/utils/color";
+import { Document, Project } from "@/plugins/store";
+import { colorHash } from "@/utils/color";
 
 const components = {
   IonStopwatch,
@@ -97,7 +97,7 @@ export default class EditPage extends Vue.with(Props) {
   name = "";
   group = "";
   tagInput = "";
-  tags = [{id: 0, name: "Development", color: "rgba(20, 20, 100, 0.3)"}];
+  tags = [{ id: 0, name: "Development", color: "rgba(20, 20, 100, 0.3)" }];
   color = "";
   saving = false;
   project: Document<Project> | null = null;
@@ -124,7 +124,7 @@ export default class EditPage extends Vue.with(Props) {
   }
 
   addTag() {
-    const tag = {id: this.tags.length + 1, name: this.tagInput, color: colorHash(this.tagInput)};
+    const tag = { id: this.tags.length + 1, name: this.tagInput, color: colorHash(this.tagInput) };
     this.tags.push(tag);
     this.tagInput = "";
   }

@@ -9,19 +9,34 @@
     <!-- Filter -->
     <timekeep-showcase>
       <timekeep-showcase-item primary="Favorites" secondary="4">
-        <timekeep-icon :class="{positive: filter.favorites, negative: !filter.favorites}" @click="filter.favorites = !filter.favorites" tooltip="Toggle Favorites" tooltip-above>
+        <timekeep-icon
+          :class="{ positive: filter.favorites, negative: !filter.favorites }"
+          @click="filter.favorites = !filter.favorites"
+          tooltip="Toggle Favorites"
+          tooltip-above
+        >
           <ion-favorite />
         </timekeep-icon>
       </timekeep-showcase-item>
 
       <timekeep-showcase-item primary="Popular" secondary="5">
-        <timekeep-icon :class="{positive: filter.popular, negative: !filter.popular}" @click="filter.popular = !filter.popular" tooltip="Toggle Popular" tooltip-above>
+        <timekeep-icon
+          :class="{ positive: filter.popular, negative: !filter.popular }"
+          @click="filter.popular = !filter.popular"
+          tooltip="Toggle Popular"
+          tooltip-above
+        >
           <ion-trending />
         </timekeep-icon>
       </timekeep-showcase-item>
 
       <timekeep-showcase-item primary="Recent" secondary="10">
-        <timekeep-icon :class="{positive: filter.recent, negative: !filter.recent}" @click="filter.recent = !filter.recent" tooltip="Toggle Recent" tooltip-above>
+        <timekeep-icon
+          :class="{ positive: filter.recent, negative: !filter.recent }"
+          @click="filter.recent = !filter.recent"
+          tooltip="Toggle Recent"
+          tooltip-above
+        >
           <ion-repeat />
         </timekeep-icon>
       </timekeep-showcase-item>
@@ -97,7 +112,7 @@ export default class extends Vue {
   filter = {
     favorites: false,
     popular: false,
-    recent: false
+    recent: false,
   };
 
   async mounted() {

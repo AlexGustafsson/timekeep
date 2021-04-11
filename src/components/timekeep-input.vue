@@ -4,7 +4,7 @@
       <div class="icon">
         <slot name="icon" />
       </div>
-      <input type="text" :placeholder="placeholder" :value="modelValue" @input="update" @keyup.enter="$emit('submit')"/>
+      <input type="text" :placeholder="placeholder" :value="modelValue" @input="update" @keyup.enter="$emit('submit')" />
     </header>
     <footer>
       <slot name="footer" />
