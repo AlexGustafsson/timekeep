@@ -129,7 +129,9 @@ export default class EditPage extends Vue.with(Props) {
   }
 
   addTag(): void {
-    const tag = { id: this.tags.length + 1, name: this.tagInput, color: colorHash(this.tagInput) };
+    if (this.tagInput.trim() == "") return;
+
+    const tag = { id: this.tags.length + 1, name: this.tagInput.trim(), color: colorHash(this.tagInput.trim()) };
     this.tags.push(tag);
     this.tagInput = "";
   }
