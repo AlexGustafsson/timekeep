@@ -3,7 +3,7 @@ import type { RouterScrollBehavior, RouteRecordRaw } from "vue-router";
 
 import DashboardPage from "./pages/dashboard.vue";
 import FavoritesPage from "./pages/favorites.vue";
-import DatePage from "./pages/date.vue";
+import HistoryPage from "./pages/history.vue";
 import InsightsPage from "./pages/insights.vue";
 import TagsPage from "./pages/tags.vue";
 import ExportPage from "./pages/export.vue";
@@ -13,7 +13,7 @@ import EditPage from "./pages/edit.vue";
 export const routes: RouteRecordRaw[] = [
   { path: "/", name: "dashboard", component: DashboardPage },
   { path: "/favorites", name: "favorites", component: FavoritesPage },
-  { path: "/date", name: "date", component: DatePage },
+  { path: "/history/:year", name: "history", component: HistoryPage, props: true },
   { path: "/insights", name: "insights", component: InsightsPage },
   { path: "/tags", name: "tags", component: TagsPage },
   { path: "/export", name: "export", component: ExportPage },

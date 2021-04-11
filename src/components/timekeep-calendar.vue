@@ -65,17 +65,22 @@ export default class TimekeepNotebook extends Vue.with(Props) {
 .timekeep-calendar {
   display: flex;
   flex-direction: column;
+  background-color: white;
+  border-radius: 15px;
+  padding: 15px;
+  padding-right: 47px;
 }
 
 .timekeep-calendar > p {
   font-size: 22px;
   margin-bottom: 10px;
+  text-align: center;
 }
 
 .timekeep-calendar .grid {
   display: grid;
   grid-template-columns: repeat(8, 32px);
-  grid-template-rows: auto repeat(7, 32px);
+  grid-template-rows: auto repeat(6, 32px);
   row-gap: 5px;
   column-gap: 5px;
 }
