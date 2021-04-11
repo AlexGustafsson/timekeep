@@ -29,6 +29,14 @@ export default class UniversalDate {
     );
   }
 
+  static fromWeek(year: number, week: number): UniversalDate {
+    const startOfYear = UniversalDate.fromUTC({ year });
+    let targetWeek = new UniversalDate(startOfYear);
+    for (let i = 0; i < week; i++)
+      targetWeek = new UniversalDate(targetWeek.timestamp + 1000 * 60 * 60 * 24 * 7);
+    return targetWeek;
+  }
+
   get year(): number {
     return this.date.getUTCFullYear();
   }

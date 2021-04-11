@@ -29,12 +29,16 @@ export default class TimekeepNotebook extends Vue.with(Props) {
     const startWeek = startOfTheMonth.week;
     const days = endOfTheMonth.day;
 
+    const weeks = [startWeek];
+    for (let i = 1; i < 6; i++)
+      weeks.push(UniversalDate.fromWeek(this.year, startWeek + i).week);
+
     this.cells.push({ class: "", content: "" });
     for (let i = 0; i < 7; i++) this.cells.push({ class: "week-day", content: this.daysOfTheWeek[i][0] });
 
     let day = 0;
     for (let i = 0; i < 6; i++) {
-      const week = startWeek + i;
+      const week = weeks[i];
       const offset = i == 0 ? firstWeekOffset + 1 : 0;
       this.cells.push({ class: "week-number", content: week.toString() });
       for (let j = 0; j < 7; j++) {
