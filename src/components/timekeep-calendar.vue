@@ -1,6 +1,6 @@
 <template>
   <div class="timekeep-calendar">
-    <p>{{ monthsOfTheYear[month] }}</p>
+    <p>{{ monthName }}</p>
     <div class="grid">
       <p :class="cell.class" v-for="cell in cells" :key="cell.content">{{ cell.content }}</p>
     </div>
@@ -18,49 +18,40 @@ class Props {
 }
 
 export default class TimekeepNotebook extends Vue.with(Props) {
-  daysOfTheWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-  monthsOfTheYear = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   cells: { class: string; content: string }[] = [];
+
+  get monthName() {
+    return UniversalDate.monthNames[this.month - 1];
+  }
 
   mounted(): void {
     const startOfTheMonth = UniversalDate.fromUTC({ year: this.year, month: this.month });
-    const endOfTheMonth = UniversalDate.fromUTC({ year: this.year, month: this.month, date: this.daysOfMonth(this.year, this.month + 1) });
-    const firstWeekOffset = startOfTheMonth.dayOfWeek;
-    const startWeek = startOfTheMonth.week;
-    const days = endOfTheMonth.day;
+    const startOfTheFirstWeek = UniversalDate.fromWeek(this.year, startOfTheMonth.week);
+    const endOfTheMonth = UniversalDate.fromUTC({ year: this.year, month: this.month, dayOfTheMonth: UniversalDate.daysOfMonth(this.year, this.month) });
+    const endOfTheLastWeek = UniversalDate.fromWeek(this.year, endOfTheMonth.week, 6);
+    const weekBoundary = endOfTheLastWeek.offsetWeeks(1).week;
 
-    const weeks = [startWeek];
-    for (let i = 1; i < 6; i++)
-      weeks.push(UniversalDate.fromWeek(this.year, startWeek + i).week);
+    // const endOfTheMonth = UniversalDate.fromUTC({ year: this.year, month: this.month, dayOfTheMonth: UniversalDate.daysOfMonth(this.year, this.month + 1) });
+    // const firstWeekOffset = startOfTheMonth.dayOfTheWeek;
+    // const startWeek = UniversalDate.fromWeek(this.year, startOfTheMonth.week);
+    // const days = endOfTheMonth.dayOfTheMonth;
 
+    const weeks: number[] = [];
+    for (let i = 0; i < 6; i++)
+      weeks.push(startOfTheFirstWeek.offsetWeeks(i).week);
+
+    // Add a padding cell
     this.cells.push({ class: "", content: "" });
-    for (let i = 0; i < 7; i++) this.cells.push({ class: "week-day", content: this.daysOfTheWeek[i][0] });
+    // Add the names of the week days
+    for (let i = 0; i < 7; i++) this.cells.push({ class: "week-day", content: UniversalDate.dayNames[i][0] });
 
-    let day = 0;
-    for (let i = 0; i < 6; i++) {
-      const week = weeks[i];
-      const offset = i == 0 ? firstWeekOffset + 1 : 0;
-      this.cells.push({ class: "week-number", content: week.toString() });
-      for (let j = 0; j < 7; j++) {
-        if (j < offset) {
-          this.cells.push({ class: "day", content: "" });
-        } else if (day < days) {
-          this.cells.push({ class: "day", content: (++day).toString() });
-        } else {
-          this.cells.push({ class: "day", content: "" });
-        }
-      }
+    let currentDay = UniversalDate.fromDate(startOfTheFirstWeek.date);
+    while (currentDay.week != weekBoundary) {
+      if (this.cells.length % 8 === 0)
+        this.cells.push({ class: "week-number", content: currentDay.week.toString() });
+      this.cells.push({ class: currentDay.month === this.month ? "day" : "other-day", content: currentDay.dayOfTheMonth.toString() });
+      currentDay = currentDay.offsetDays(1);
     }
-  }
-
-  // 1-based month
-  daysOfMonth(year: number, month: number): number {
-    const date = UniversalDate.fromUTC({ year, month: month + 1 });
-    // The dates are basically 1-indexed, meaing 0 will be -1 - the last day
-    // of the previous month. We therefore offset the input month by one
-    // to get the requested month's end day
-    date.date.setDate(0);
-    return date.day;
   }
 }
 </script>
@@ -90,6 +81,7 @@ export default class TimekeepNotebook extends Vue.with(Props) {
 }
 
 .day,
+.other-day,
 .week-number,
 .week-day {
   display: flex;
@@ -100,6 +92,11 @@ export default class TimekeepNotebook extends Vue.with(Props) {
 
 .day {
   background-color: #eeeeee;
+}
+
+.other-day {
+  background-color: #fafafa;
+  color: #eeeeee;
 }
 
 .week-number,

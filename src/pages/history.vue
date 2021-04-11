@@ -12,8 +12,8 @@
       <timekeep-showcase-item primary="Monday" secondary="Top Weekday" />
       <timekeep-showcase-item primary="41" secondary="Top Week" />
     </timekeep-showcase>
-    <main>
-      <timekeep-calendar v-for="(_, i) in 12" :key="i" :year="year" :month="i" />
+    <main v-if="parsedYear >= 1970">
+      <timekeep-calendar v-for="(_, i) in 12" :key="i" :year="parsedYear" :month="i + 1" />
     </main>
   </div>
 </template>
@@ -35,11 +35,17 @@ const components = {
 };
 
 class Props {
-  year!: number
+  year!: string
 }
 
 @Options({ components })
-export default class extends Vue.with(Props) {}
+export default class extends Vue.with(Props) {
+  parsedYear = 0;
+
+  mounted() {
+    this.parsedYear = Number.parseInt(this.year);
+  }
+}
 </script>
 
 <style>

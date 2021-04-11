@@ -27,22 +27,40 @@ export default class UniversalDate {
 
   // Create a date from a specific week of the year
   static fromWeek(year: number, week: number, dayOfTheWeek = 0): UniversalDate {
-    const startOfYear = UniversalDate.fromUTC({ year });
-    let targetWeek = UniversalDate.fromDate(startOfYear.date);
-    // Add one week at a time to safely handle leap years, week 52/53 - 1 etc.
-    while (targetWeek.week != week)
-      targetWeek = new UniversalDate(targetWeek.timestamp + 1000 * 60 * 60 * 24 * 7);
+    // Start at the first week of the year
+    let targetWeek = UniversalDate.fromUTC({ year });
+
+    // Add a day at a time to safely handle leap years, week 52/53 - 1 etc.
+    while (targetWeek.week != week && targetWeek.year === year) {
+      targetWeek = new UniversalDate(targetWeek.timestamp + 1000 * 60 * 60 * 24);
+    }
+    if (targetWeek.week !== week)
+      throw Error(`Year ${year} has no week ${week}`);
+
     // Rewind to the first day of the week
     for (let i = targetWeek.dayOfTheWeek; i > 0; i--)
       targetWeek = new UniversalDate(targetWeek.timestamp - 1000 * 60 * 60 * 24);
+
     // Move to the target day of the week
     for (let i = targetWeek.dayOfTheWeek; i < dayOfTheWeek; i++)
       targetWeek = new UniversalDate(targetWeek.timestamp + 1000 * 60 * 60 * 24);
+
     return targetWeek;
   }
 
+  // Wrap a regular date
   static fromDate(date: Date): UniversalDate {
     return new UniversalDate(date.getTime());
+  }
+
+  // The number of days of a month. Month is 1-based
+  static daysOfMonth(year: number, month: number): number {
+    const date = UniversalDate.fromUTC({ year, month: month + 1 });
+    // The dates are basically 1-indexed, meaing 0 will be -1 - the last day
+    // of the previous month. We therefore offset the input month by one
+    // to get the requested month's end day
+    date.date.setDate(0);
+    return date.dayOfTheMonth;
   }
 
   // The year represented by the date
@@ -78,14 +96,22 @@ export default class UniversalDate {
     return (this.date.getUTCDay() + 6) % 7;
   }
 
+  static get dayNames() {
+    return ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+  }
+
   // The name of the day of the week
   get dayOfTheWeekString(): string {
-    return ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"][this.dayOfTheWeek];
+    return UniversalDate.dayNames[this.dayOfTheWeek - 1];
+  }
+
+  static get monthNames() {
+    return ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   }
 
   // The name of the month
   get monthString(): string {
-    return ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"][this.month];
+    return UniversalDate.monthNames[this.month - 1];
   }
 
   // The UTC timestamp (milliseconds since start of epoch)
@@ -133,5 +159,16 @@ export default class UniversalDate {
     startOfDay.date.setUTCMilliseconds(0);
 
     return startOfDay;
+  }
+
+  // Offset the date with some number of days
+  offsetDays(days: number): UniversalDate {
+    const timeOffset = days * 24 * 60 * 60 * 1000;
+    return new UniversalDate(this.timestamp + timeOffset);
+  }
+
+  // Offset the date with some number of weeks
+  offsetWeeks(weeks: number): UniversalDate {
+    return this.offsetDays(7 * weeks);
   }
 }

@@ -67,4 +67,41 @@ describe("universal-date", () => {
     for (const [dayOfTheWeek, utcValues] of days)
       expect(UniversalDate.fromUTC(utcValues).dayOfTheWeek).to.equal(dayOfTheWeek);
   });
+
+  it("calculates the days of a month", () => {
+    const months: [number, number, number][] = [
+      [2021, 4, 30],
+      [2020, 2, 29],
+      [2021, 2, 28],
+    ];
+
+    for (const [year, month, days] of months)
+      expect(UniversalDate.daysOfMonth(year, month)).to.equal(days);
+  });
+
+  it("offsets weeks", () => {
+    const date = UniversalDate.fromUTC({year: 2021, month: 4, dayOfTheMonth: 11});
+
+    const oneWeekOffset = date.offsetWeeks(1);
+    expect(oneWeekOffset.week).to.equal(15);
+
+    const oneYearOffset = date.offsetWeeks(52);
+    expect(oneYearOffset.week).to.equal(14);
+
+    const negativeOffset = date.offsetWeeks(-14);
+    expect(negativeOffset.week).to.equal(53);
+  });
+
+  it("offsets days", () => {
+    const date = UniversalDate.fromUTC({year: 2021, month: 4, dayOfTheMonth: 11});
+
+    const oneDayOffset = date.offsetDays(1);
+    expect(oneDayOffset.dayOfTheMonth).to.equal(12);
+
+    const oneYearOffset = date.offsetDays(365);
+    expect(oneYearOffset.year).to.equal(2022);
+
+    const negativeOffset = date.offsetDays(-1);
+    expect(negativeOffset.dayOfTheMonth).to.equal(10);
+  });
 });
