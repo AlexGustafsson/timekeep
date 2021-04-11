@@ -1,5 +1,17 @@
 <template>
   <div class="page-settings">
     <h1>Settings</h1>
+    <button @click="nuke">Nuke store</button>
   </div>
 </template>
+
+<script lang="ts">
+  import {Vue} from "vue-class-component";
+
+  export default class extends Vue {
+    async nuke() {
+      await this.$store.nuke();
+      window.location.replace("/");
+    }
+  }
+</script>

@@ -141,7 +141,7 @@ export default class EditPage extends Vue.with(Props) {
 
     if (this.createNew) {
       try {
-        const project = await this.$store.createProject({ name: this.name, group: this.group });
+        const project = await this.$store.createProject({ name: this.name, group: this.group, tags: new Set<string>(), color: "", favorite: false });
         this.saving = false;
         this.$router.replace({ name: "edit", params: { projectId: project._id } });
       } catch (error) {

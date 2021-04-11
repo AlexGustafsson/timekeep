@@ -189,6 +189,10 @@ export default class Store {
     const response = await this.database.put<Document<T>>(document);
     document._rev = response.rev;
   }
+
+  public nuke(): Promise<void> {
+    return this.database.destroy();
+  }
 }
 
 export function createStore(database: PouchDB.Database): (app: App) => void {
