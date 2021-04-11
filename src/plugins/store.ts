@@ -2,7 +2,7 @@ import PouchDB from "pouchdb";
 import FindPlugin from "pouchdb-find";
 PouchDB.plugin(FindPlugin);
 
-import { App } from "vue";
+import type { App } from "vue";
 
 // TODO: Use the changes API to make the database reactive?
 // All instances have read observability, on write use database to save the instance
@@ -35,12 +35,27 @@ export interface DocumentHit extends PouchDB.Core.IdMeta, PouchDB.Core.RevisionI
 export interface Project extends DocumentData {
   name: string;
   group: string | null;
+  favorite: boolean;
+  color: string;
+  tags: Set<string>;
 }
 
 export interface Interval extends DocumentData {
   projectId: string;
-  start: number;
-  end: number | null;
+  started: number;
+  ended: number | null;
+}
+
+export interface Note extends DocumentData {
+  projectId: string;
+  created: number;
+  text: string;
+}
+
+export interface Tag extends DocumentData {
+  name: string;
+  color: string;
+  created: number;
 }
 
 export const STORE_CURRENT_VERSION = "2.0.0";
@@ -48,6 +63,8 @@ export const STORE_CURRENT_VERSION = "2.0.0";
 export enum DocumentType {
   Project = "project",
   Interval = "interval",
+  Tag = "tag",
+  Note = "note",
   Any = "any",
 }
 
@@ -128,6 +145,11 @@ export default class Store {
     return document;
   }
 
+  public async getBulk<T extends DocumentData>(ids: string[]): Promise<(Document<T> | null)[]> {
+    const documents = await this.database.allDocs({keys: ids, include_docs: true});
+    return documents.rows.map((x) => x.doc ? x.doc : null) as Document<T>[];
+  }
+
   public async create<T extends DocumentData>(data: T, type: DocumentType): Promise<Document<T>> {
     const entry = { data, type, version: STORE_CURRENT_VERSION };
     const response = await this.database.post(entry);
@@ -140,15 +162,27 @@ export default class Store {
 
   // Note: does not validate that projectId refers to valid project
   public async toggleInterval(projectId: string, timestamp = Date.now()): Promise<void> {
-    const hits = await this.query({ selector: { type: DocumentType.Interval, "data.projectId": projectId, "data.end": null } }, true);
+    const hits = await this.query({ selector: { type: DocumentType.Interval, "data.projectId": projectId, "data.ended": null } }, true);
     if (hits.length == 0) {
-      const data = { projectId, start: timestamp, end: null };
+      const data = { projectId, started: timestamp, ended: null };
       await this.create<Interval>(data, DocumentType.Interval);
     } else {
       const ongoingInterval = hits[0] as Document<Interval>;
-      ongoingInterval.data.end = timestamp;
+      ongoingInterval.data.ended = timestamp;
       await this.update<Interval>(ongoingInterval);
     }
+  }
+
+  public createNote(data: Note): Promise<Document<Note>> {
+    return this.create<Note>(data, DocumentType.Note);
+  }
+
+  public createTag(data: Tag): Promise<Document<Tag>> {
+    return this.create<Tag>(data, DocumentType.Tag);
+  }
+
+  public async getNotes(projectId: string): Promise<Document<Note>[]> {
+    return await this.query({ selector: { type: DocumentType.Note, "data.projectId": projectId } }, true) as Document<Note>[];
   }
 
   public async update<T extends DocumentData>(document: Document<T>): Promise<void> {
