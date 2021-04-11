@@ -2,8 +2,8 @@
   <div class="page page-edit">
     <header>
       <ion-stopwatch />
-      <h1>Dashboard</h1>
-      <h2>- {{ name }}</h2>
+      <h1>{{ createNew ? "New Project" :  "Details" }}</h1>
+      <h2>{{ createNew ? (name === "" ? "" : `- ${name}`) : `- ${name}` }}</h2>
       <router-link :to="{ name: 'create' }" v-if="!createNew"><timekeep-fab tooltip="Add Project" /></router-link>
     </header>
 
