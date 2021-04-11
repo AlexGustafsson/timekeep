@@ -1,10 +1,7 @@
 export function colorHash(text: string): string {
   // TODO: Improve aesthetics, increase possible colors. Center around a certain palette?
   const textValues = text.split("").map((char) => char.charCodeAt(0));
-  const hash = ""
-    .padEnd(6, " ")
-    .split("")
-    .map((char) => char.charCodeAt(0));
+  const hash = [255, 255, 255, 255, 255, 255];
 
   for (let i = 0; i < text.length; i += hash.length) {
     for (let j = 0; j < hash.length && i + j < text.length; j++) hash[j] ^= textValues[i + j];
