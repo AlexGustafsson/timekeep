@@ -39,7 +39,7 @@
       </template>
       <template v-slot:footer>
         <div class="tag-container">
-          <p v-for="tag in tags" :key="tag.id" :style="{ backgroundColor: tag.color }">{{ tag.name }}</p>
+          <p v-for="tag in tags" :key="tag.id" :style="{ backgroundColor: tag.color }" tooltip="Click to remove" @click="removeTag(tag)">{{ tag.name }}</p>
         </div>
       </template>
     </timekeep-input>
@@ -134,6 +134,10 @@ export default class EditPage extends Vue.with(Props) {
     this.tagInput = "";
   }
 
+  removeTag(tag: Tag): void {
+    this.tags = this.tags.filter(x => x.name != tag.name);
+  }
+
   async save(): Promise<void> {
     if (this.saving) return;
 
@@ -203,5 +207,6 @@ export default class EditPage extends Vue.with(Props) {
   border-radius: 5px;
   margin-top: 5px;
   margin-right: 5px;
+  cursor: pointer;
 }
 </style>
