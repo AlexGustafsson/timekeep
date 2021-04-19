@@ -111,13 +111,14 @@ export default class TimekeepMenu extends Vue {
   display: flex;
   flex-direction: column;
   background-color: white;
-  transition: 0.1s ease-in-out width;
+  transition: 0.1s ease-in-out width, 0.1s ease-in-out box-shadow;
   padding: 15px 0;
   z-index: 1000;
 }
 
 .timekeep-menu.open {
   width: 220px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
 }
 
 .timekeep-menu ul {
