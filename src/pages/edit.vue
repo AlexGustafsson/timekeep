@@ -69,7 +69,7 @@ import TimekeepInput from "@/components/timekeep-input.vue";
 import TimekeepNotebook from "@/components/timekeep-notebook.vue";
 import TimekeepFab from "@/components/timekeep-fab.vue";
 
-import { Document, Project } from "@/plugins/store";
+import { Document, Project, Tag } from "@/plugins/store";
 import { colorHash } from "@/utils/color";
 
 const components = {
@@ -88,12 +88,6 @@ const components = {
 class Props {
   projectId = prop<string | null>({ default: null });
   createNew = prop<boolean>({ default: false });
-}
-
-interface Tag {
-  id: number,
-  name: string,
-  color: string
 }
 
 @Options({ components })
@@ -122,6 +116,10 @@ export default class EditPage extends Vue.with(Props) {
         this.name = this.project.data.name;
         this.group = this.project.data.group ?? "";
         this.color = colorHash(this.project.data.group ?? this.project.data.name);
+        for (const tagName of this.project.data.tags) {
+          const tag = await this.$store.getTag(tagName);
+          this.tags.push(tag!.data);
+        }
       } catch (error) {
         console.log(error);
       }
@@ -131,7 +129,7 @@ export default class EditPage extends Vue.with(Props) {
   addTag(): void {
     if (this.tagInput.trim() == "") return;
 
-    const tag = { id: this.tags.length + 1, name: this.tagInput.trim(), color: colorHash(this.tagInput.trim()) };
+    const tag = { id: this.tags.length + 1, name: this.tagInput.trim(), color: colorHash(this.tagInput.trim()), created: Date.now() };
     this.tags.push(tag);
     this.tagInput = "";
   }
@@ -143,7 +141,13 @@ export default class EditPage extends Vue.with(Props) {
 
     if (this.createNew) {
       try {
-        const project = await this.$store.createProject({ name: this.name, group: this.group, tags: new Set<string>(), color: "", favorite: false });
+        const tags = new Set<string>();
+        for (const tag of this.tags) {
+          await this.$store.createOrFetchTag(tag);
+          tags.add(tag.name);
+        }
+
+        const project = await this.$store.createProject({ name: this.name, group: this.group, tags, color: "", favorite: false });
         this.saving = false;
         this.$router.replace({ name: "edit", params: { projectId: project._id } });
       } catch (error) {

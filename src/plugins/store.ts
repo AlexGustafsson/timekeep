@@ -181,6 +181,22 @@ export default class Store {
     return this.create<Tag>(data, DocumentType.Tag);
   }
 
+  public async createOrFetchTag(data: Tag): Promise<Document<Tag>> {
+    const tag = await this.getTag(data.name);
+    if (tag)
+      return tag;
+
+    return await this.create<Tag>(data, DocumentType.Tag);
+  }
+
+  public async getTag(name: string): Promise<Document<Tag> | null> {
+    const hits = await this.query({ selector: { type: DocumentType.Tag, "data.name": name } }, true);
+    if (hits.length == 0)
+      return null;
+
+    return hits[0] as Document<Tag>;
+  }
+
   public async getNotes(projectId: string): Promise<Document<Note>[]> {
     return await this.query({ selector: { type: DocumentType.Note, "data.projectId": projectId } }, true) as Document<Note>[];
   }
