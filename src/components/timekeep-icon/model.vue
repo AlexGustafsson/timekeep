@@ -1,7 +1,7 @@
 <template>
-  <div class="timekeep-icon">
+  <div class="w-12 h-12 flex flex-cols items-center justify-center relative">
     <slot></slot>
-    <timekeep-icon-circles class="circles" :class="{ active }" />
+    <timekeep-icon-circles class="absolute top-1/2 left-1/2 w-12 h-12 transform -translate-x-1/2 -translate-y-1/2" :class="{ active }" />
   </div>
 </template>
 
@@ -24,18 +24,7 @@ export {TimekeepIcon as default};
 </script>
 
 <style>
-.timekeep-icon {
-  width: 48px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  color: #398f47;
-  transition: 0.2s color ease-in-out;
-}
-
-.timekeep-icon.negative {
+/* .timekeep-icon.negative {
   color: #e28884;
 }
 
@@ -49,19 +38,5 @@ export {TimekeepIcon as default};
 
 .timekeep-icon.clickable {
   cursor: pointer;
-}
-
-.timekeep-icon .circles {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 48px;
-  height: 48px;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-}
-
-.timekeep-icon .ion-icon {
-  pointer-events: none;
-}
+} */
 </style>

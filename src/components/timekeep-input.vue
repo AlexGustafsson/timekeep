@@ -1,10 +1,10 @@
 <template>
-  <div class="timekeep-input">
-    <header>
-      <div class="icon">
+  <div class="flex flex-col p-4 rounded-2xl bg-white">
+    <header class="relative flex flex-row">
+      <div class="flex items-center text-lg">
         <slot name="icon" />
       </div>
-      <input type="text" :placeholder="placeholder" :value="modelValue" @input="update" @keyup.enter="$emit('submit')" />
+      <input type="text" class="text-lg ml-4 flex-grow" :placeholder="placeholder" :value="modelValue" @input="update" @keyup.enter="$emit('submit')" />
     </header>
     <footer>
       <slot name="footer" />
@@ -29,33 +29,3 @@ class TimekeepInput extends Vue.with(Props) {
 }
 export {TimekeepInput as default}
 </script>
-
-<style scoped>
-.timekeep-input {
-  display: flex;
-  flex-direction: column;
-  padding: 15px;
-  border-radius: 10px;
-  background-color: white;
-}
-
-.timekeep-input > header {
-  position: relative;
-  display: flex;
-  flex-direction: row;
-}
-
-.timekeep-input > header > .icon {
-  display: flex;
-  align-items: center;
-  font-size: 22px;
-}
-
-.timekeep-input > header > input {
-  border: none;
-  outline: none;
-  font-size: 22px;
-  margin-left: 15px;
-  flex-grow: 1;
-}
-</style>

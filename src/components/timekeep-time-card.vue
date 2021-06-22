@@ -1,16 +1,16 @@
 <template>
-  <div class="timekeep-time-card">
-    <ion-more class="top-right" />
-    <header>
+  <div class="box-border p-6 bg-white relative rounded-2xl flex flex-col justify-items-between">
+    <ion-more class="absolute top-1 right-1 text-gray-500 cursor-pointer" />
+    <header class="flex flex-row h-12 my-1 mb-6">
       <timekeep-icon class="icon" :style="{ color }" :active="active" tooltip="Toggle" @click="$emit('toggled')"><ion-stopwatch /></timekeep-icon>
-      <div>
-        <p>{{ group }}</p>
-        <p>{{ readableTimeToday }} today</p>
+      <div class="flex items-left flex-col justify-content-ceter ml-2">
+        <p class="my-1">{{ group }}</p>
+        <p class="my-1">{{ readableTimeToday }} today</p>
       </div>
     </header>
     <footer>
-      <p>{{ name }}</p>
-      <p>{{ readableTimeThisWeek }} this week</p>
+      <p class="my-1 text-gray-500">{{ name }}</p>
+      <p class="my-1 text-gray-500">{{ readableTimeThisWeek }} this week</p>
     </footer>
   </div>
 </template>
@@ -49,54 +49,3 @@ class TimekeepTimeCard extends Vue.with(Props) {
 }
 export {TimekeepTimeCard as default};
 </script>
-
-<style scoped>
-.timekeep-time-card {
-  box-sizing: border-box;
-  padding: 15px;
-  background-color: white;
-  position: relative;
-  width: 250px;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-items: space-between;
-  justify-content: space-between;
-}
-
-.timekeep-time-card header {
-  display: flex;
-  height: 48px;
-  flex-direction: row;
-  margin-bottom: 25px;
-}
-
-.timekeep-time-card header > .icon {
-  cursor: pointer;
-}
-
-.timekeep-time-card header > div {
-  display: flex;
-  align-items: left;
-  flex-direction: column;
-  justify-content: center;
-  margin-left: 10px;
-}
-
-.timekeep-time-card header > div p {
-  margin: 2px 0;
-}
-
-.timekeep-time-card footer p {
-  color: #808080;
-  margin: 5px 0;
-}
-
-.timekeep-time-card .top-right {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  color: #b7b7b7;
-  cursor: pointer;
-}
-</style>

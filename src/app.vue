@@ -1,5 +1,5 @@
 <template>
-  <div class="app">
+  <div class="pl-12">
     <timekeep-menu />
     <router-view :key="$route.fullPath"></router-view>
   </div>
@@ -13,9 +13,3 @@ const App = {
 };
 export {App as default};
 </script>
-
-<style scoped>
-.app {
-  padding-left: 48px;
-}
-</style>

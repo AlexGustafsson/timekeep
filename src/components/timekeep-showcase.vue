@@ -1,18 +1,5 @@
 <template>
-  <div class="timekeep-showcase">
+  <div class="flex flex-row p-5 bg-white rounded-2xl flex-wrap">
     <slot></slot>
   </div>
 </template>
-
-<style scoped>
-.timekeep-showcase {
-  display: flex;
-  padding: 15px;
-  background-color: white;
-  border-radius: 15px;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-</style>

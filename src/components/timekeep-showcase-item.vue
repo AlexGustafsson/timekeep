@@ -1,5 +1,5 @@
 <template>
-  <div class="timekeep-showcase-item">
+  <div class="flex flex-col items-center justify-content-center p-5 mh-3">
     <slot></slot>
     <p class="primary">{{ primary }}</p>
     <p class="secondary">{{ secondary }}</p>

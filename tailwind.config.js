@@ -27,7 +27,6 @@ module.exports = {
     extend: {
       gridTemplateColumns: {
         "triple": "3.5rem 1fr 3.5rem",
-        "48": "48px",
       },
       fontFamily: {
         sans: ["Inter var", ...defaultTheme.fontFamily.sans],
