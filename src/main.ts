@@ -1,8 +1,8 @@
 import PouchDB from "pouchdb";
 import { createApp } from "vue";
 
-// Import global style (contains reset-css which needs to be loaded first)
-import "./style/main.css";
+// Import global style
+import "./main.css";
 
 import App from "./app.vue";
 

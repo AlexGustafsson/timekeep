@@ -12,7 +12,8 @@ import { Vue, Options } from "vue-class-component";
 const components = { IonAdd };
 
 @Options({ components })
-export default class TimekeepFab extends Vue {}
+class TimekeepFab extends Vue {}
+export {TimekeepFab as default};
 </script>
 
 <style scoped>

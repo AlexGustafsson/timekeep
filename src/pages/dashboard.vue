@@ -107,7 +107,7 @@ interface ProjectView {
 }
 
 @Options({ components })
-export default class extends Vue {
+class DashboardPage extends Vue {
   timekeeps: ProjectView[] = [];
   filter = {
     favorites: false,
@@ -128,6 +128,7 @@ export default class extends Vue {
     })) as ProjectView[];
   }
 }
+export {DashboardPage as default};
 </script>
 
 <style scoped>

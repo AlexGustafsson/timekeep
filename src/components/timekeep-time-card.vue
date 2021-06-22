@@ -38,7 +38,7 @@ class Props {
 }
 
 @Options({ components })
-export default class TimekeepTimeCard extends Vue.with(Props) {
+class TimekeepTimeCard extends Vue.with(Props) {
   get readableTimeToday(): string {
     return humanReadableTime(this.timeToday);
   }
@@ -47,6 +47,7 @@ export default class TimekeepTimeCard extends Vue.with(Props) {
     return humanReadableTime(this.timeThisWeek);
   }
 }
+export {TimekeepTimeCard as default};
 </script>
 
 <style scoped>

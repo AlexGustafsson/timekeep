@@ -39,13 +39,14 @@ class Props {
 }
 
 @Options({ components })
-export default class extends Vue.with(Props) {
+class HistoryPage extends Vue.with(Props) {
   parsedYear = 0;
 
   mounted(): void {
     this.parsedYear = Number.parseInt(this.year);
   }
 }
+export {HistoryPage as default};
 </script>
 
 <style>

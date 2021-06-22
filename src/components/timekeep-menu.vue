@@ -87,7 +87,7 @@ const components = {
 };
 
 @Options({ components })
-export default class TimekeepMenu extends Vue {
+class TimekeepMenu extends Vue {
   isOpen = false;
 
   open(): void {
@@ -98,6 +98,7 @@ export default class TimekeepMenu extends Vue {
     this.isOpen = false;
   }
 }
+export {TimekeepMenu as default};
 </script>
 
 <style scoped>

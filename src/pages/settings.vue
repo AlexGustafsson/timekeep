@@ -8,10 +8,11 @@
 <script lang="ts">
   import {Vue} from "vue-class-component";
 
-  export default class extends Vue {
+  class SettingsPage extends Vue {
     async nuke() {
       await this.$store.nuke();
       window.location.replace("/");
     }
   }
+  export {SettingsPage as default};
 </script>

@@ -14,6 +14,10 @@
       <p>This website does not function without JavaScript enabled. Please enable JavaScript to continue.</p>
     </noscript>
     <div id="app"></div>
+    <script>
+      // Fix for immediate requiring global to be defined
+      const global = globalThis;
+    </script>
     <script type="module" src="/src/main.ts"></script>
   </body>
 

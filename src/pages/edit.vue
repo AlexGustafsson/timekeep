@@ -91,7 +91,7 @@ class Props {
 }
 
 @Options({ components })
-export default class EditPage extends Vue.with(Props) {
+class EditPage extends Vue.with(Props) {
   notes = [];
   name = "";
   group = "";
@@ -182,6 +182,7 @@ export default class EditPage extends Vue.with(Props) {
     }
   }
 }
+export {EditPage as default};
 </script>
 
 <style scoped>

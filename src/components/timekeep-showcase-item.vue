@@ -14,7 +14,8 @@ class Props {
   secondary!: string;
 }
 
-export default class TimekeepShowcaseItem extends Vue.with(Props) {}
+class TimekeepShowcaseItem extends Vue.with(Props) {}
+export {TimekeepShowcaseItem as default};
 </script>
 
 <style scoped>

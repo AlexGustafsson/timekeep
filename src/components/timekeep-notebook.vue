@@ -53,7 +53,7 @@ class Props {
 }
 
 @Options({ components, emits: ["update:notes"] })
-export default class TimekeepNotebook extends Vue.with(Props) {
+class TimekeepNotebook extends Vue.with(Props) {
   input = (ref<HTMLTextAreaElement | null>(null) as unknown) as HTMLTextAreaElement | null;
 
   add(): void {
@@ -75,6 +75,7 @@ export default class TimekeepNotebook extends Vue.with(Props) {
     this.$emit("update:notes", this.notes);
   }
 }
+export {TimekeepNotebook as default};
 </script>
 
 <style scoped>

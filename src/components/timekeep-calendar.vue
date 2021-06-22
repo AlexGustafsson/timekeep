@@ -17,7 +17,7 @@ class Props {
   month!: number;
 }
 
-export default class TimekeepNotebook extends Vue.with(Props) {
+class TimekeepNotebook extends Vue.with(Props) {
   cells: { class: string; content: string }[] = [];
 
   get monthName(): string {
@@ -52,6 +52,7 @@ export default class TimekeepNotebook extends Vue.with(Props) {
     }
   }
 }
+export {TimekeepNotebook as default};
 </script>
 
 <style scoped>

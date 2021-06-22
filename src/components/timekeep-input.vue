@@ -21,12 +21,13 @@ class Props {
 }
 
 @Options({ emits: ["update:modelValue", "submit"] })
-export default class TimekeepInput extends Vue.with(Props) {
+class TimekeepInput extends Vue.with(Props) {
   update(event: InputEvent): void {
     const input = event.target as HTMLInputElement;
     this.$emit("update:modelValue", input.value);
   }
 }
+export {TimekeepInput as default}
 </script>
 
 <style scoped>

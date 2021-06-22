@@ -8,9 +8,10 @@
 <script lang="ts">
 import TimekeepMenu from "./components/timekeep-menu.vue";
 
-export default {
+const App = {
   components: { TimekeepMenu },
 };
+export {App as default};
 </script>
 
 <style scoped>

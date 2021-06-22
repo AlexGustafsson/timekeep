@@ -19,7 +19,8 @@ class Props {
 }
 
 @Options({ components })
-export default class TimekeepIcon extends Vue.with(Props) {}
+class TimekeepIcon extends Vue.with(Props) {}
+export {TimekeepIcon as default};
 </script>
 
 <style>
