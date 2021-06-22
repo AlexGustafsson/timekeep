@@ -1,3 +1,5 @@
+@import url('https://rsms.me/inter/inter.css');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -13,7 +15,16 @@
     touch-actions: none;
   }
 
+  menu {
+    margin: 0;
+    padding: 0;
+  }
+
   #app {
     @apply min-h-screen flex justify-center overflow-x-hidden;
   }
+}
+
+@layer components {
+
 }

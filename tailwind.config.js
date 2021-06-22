@@ -1,9 +1,10 @@
 const colors = require("tailwindcss/colors");
+const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
   mode: "jit",
   purge: [
-    "./src/**/*.tsx",
+    "./src/**/*.vue",
   ],
   darkMode: "media",
   theme: {
@@ -26,6 +27,10 @@ module.exports = {
     extend: {
       gridTemplateColumns: {
         "triple": "3.5rem 1fr 3.5rem",
+        "48": "48px",
+      },
+      fontFamily: {
+        sans: ["Inter var", ...defaultTheme.fontFamily.sans],
       },
     },
   },
