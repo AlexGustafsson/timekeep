@@ -1,5 +1,6 @@
-@import '../../node_modules/reset-css/reset.css';
-@import './type.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 html, body {
   overflow: hidden;

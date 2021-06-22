@@ -21,16 +21,16 @@ export default class Calendar {
     // of the previous month. We therefore offset the input month by one
     // to get the requested month's end day
     date.date.setDate(0);
-    return date.day;
+    return date.dayOfTheMonth;
   }
 
   static getMonth(year: number, month: number): Month {
     const startOfTheMonth = UniversalDate.fromUTC({ year, month });
-    const endOfTheMonth = UniversalDate.fromUTC({ year, month, date: Calendar.daysOfMonth(year, month) });
-    const firstWeekOffset = startOfTheMonth.dayOfWeek;
+    const endOfTheMonth = UniversalDate.fromUTC({ year, month, dayOfTheMonth: Calendar.daysOfMonth(year, month) });
+    const firstWeekOffset = startOfTheMonth.dayOfTheWeek;
     const startWeek = startOfTheMonth.week;
     const endWeek = endOfTheMonth.week;
-    const days = endOfTheMonth.day;
+    const days = endOfTheMonth.dayOfTheMonth;
 
     return { year, month, startWeek, endWeek, firstWeekOffset, days };
   }

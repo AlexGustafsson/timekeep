@@ -1,4 +1,4 @@
-import UniversalDate, { UTCValues } from "../../src/utils/universal-date";
+import UniversalDate, { UTCValues } from "./universal-date";
 
 import * as chai from 'chai'
 import chaiAsPromised from 'chai-as-promised'

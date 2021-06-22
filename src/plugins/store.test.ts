@@ -6,7 +6,7 @@ import chaiAsPromised from 'chai-as-promised'
 chai.use(chaiAsPromised);
 const {expect} = chai;
 
-import Store, { Project, Document, Interval, STORE_CURRENT_VERSION, DocumentType, Tag, Note } from "../../src/plugins/store";
+import Store, { Project, Document, Interval, STORE_CURRENT_VERSION, DocumentType, Tag, Note } from "./store";
 
 PouchDB.plugin(MemoryAdapter);
 
