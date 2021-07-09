@@ -23,6 +23,11 @@
   #app {
     @apply min-h-screen flex justify-center overflow-x-hidden;
   }
+
+  input {
+    outline: none;
+    border: none;
+  }
 }
 
 @layer components {
