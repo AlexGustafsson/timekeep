@@ -65,8 +65,8 @@
   </div>
 </template>
 
-<script lang="ts">
-import { Vue, Options } from "vue-class-component";
+<script setup lang="ts">
+import {ref} from "vue";
 
 import IonDashboard from "../components/ion-icons/dashboard.vue";
 import IonFavorite from "../components/ion-icons/favorite.vue";
@@ -82,20 +82,6 @@ import TimekeepInput from "../components/timekeep-input.vue";
 
 import { colorHash } from "../utils/color";
 
-const components = {
-  IonDashboard,
-  IonFavorite,
-  IonRepeat,
-  IonTrending,
-  IonSearch,
-  TimekeepFab,
-  TimekeepIcon,
-  TimekeepShowcase,
-  TimekeepShowcaseItem,
-  TimekeepTimeCard,
-  TimekeepInput,
-};
-
 interface ProjectView {
   id: string;
   group: string;
@@ -106,29 +92,24 @@ interface ProjectView {
   color: string;
 }
 
-@Options({ components })
-class DashboardPage extends Vue {
-  timekeeps: ProjectView[] = [];
-  filter = {
-    favorites: false,
-    popular: false,
-    recent: false,
-  };
+const timekeeps = ref<ProjectView[]>([]);
+const filter = ref({
+  favorites: false,
+  popular: false,
+  recent: false
+});
 
-  async mounted(): Promise<void> {
-    const projects = await this.$store.getAllProjects();
-    this.timekeeps = projects.map((project) => ({
-      id: project._id,
-      name: project.data.name,
-      group: project.data.group,
-      timeToday: 0,
-      timeThisWeek: 0,
-      active: false,
-      color: colorHash(project.data.group ?? project.data.name),
-    })) as ProjectView[];
-  }
-}
-export {DashboardPage as default};
+// TODO: Implement again
+// const projects = await $store.getAllProjects();
+// timekeeps.value = projects.map(project => ({
+//   id: project._id,
+//   name: project.data.name,
+//   group: project.data.group,
+//   timeToday: 0,
+//   timeThisWeek: 0,
+//   active: false,
+//   color: colorHash(project.data.group ?? project.data.name),
+// }));
 </script>
 
 <style scoped>

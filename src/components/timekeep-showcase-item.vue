@@ -1,19 +1,16 @@
 <template>
-  <div class="flex flex-col items-center justify-content-center p-5 mh-3">
+  <div class="flex flex-col items-center justify-content-center p-5 mx-3">
     <slot></slot>
-    <p class="my-2">{{ primary }}</p>
-    <p class="my-2 text-gray-50">{{ secondary }}</p>
+    <p class="mt-1">{{ primary }}</p>
+    <p class="text-gray-400">{{ secondary }}</p>
   </div>
 </template>
 
-<script lang="ts">
-import { Vue } from "vue-class-component";
-
-class Props {
-  primary!: string;
-  secondary!: string;
+<script setup lang="ts">
+interface Props {
+  primary: string,
+  secondary: string
 }
 
-class TimekeepShowcaseItem extends Vue.with(Props) {}
-export {TimekeepShowcaseItem as default};
+defineProps<Props>();
 </script>

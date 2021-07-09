@@ -4,14 +4,6 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import IonAdd from "./ion-icons/add.vue";
-
-import { Vue, Options } from "vue-class-component";
-
-const components = { IonAdd };
-
-@Options({ components })
-class TimekeepFab extends Vue {}
-export {TimekeepFab as default};
 </script>

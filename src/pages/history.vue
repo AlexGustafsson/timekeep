@@ -18,35 +18,18 @@
   </div>
 </template>
 
-<script lang="ts">
-import { Vue, Options } from "vue-class-component";
-
+<script setup lang="ts">
 import TimekeepCalendar from "@/components/timekeep-calendar.vue";
 import TimekeepShowcase from "@/components/timekeep-showcase.vue";
 import TimekeepShowcaseItem from "@/components/timekeep-showcase-item.vue";
 import TimekeepFab from "@/components/timekeep-fab.vue";
 import IonCalendar from "@/components/ion-icons/calendar.vue";
-const components = {
-  TimekeepCalendar,
-  TimekeepShowcase,
-  TimekeepShowcaseItem,
-  TimekeepFab,
-  IonCalendar,
-};
 
-class Props {
-  year!: string;
+interface Props {
+  year: number;
 }
 
-@Options({ components })
-class HistoryPage extends Vue.with(Props) {
-  parsedYear = 0;
-
-  mounted(): void {
-    this.parsedYear = Number.parseInt(this.year);
-  }
-}
-export {HistoryPage as default};
+const props = defineProps<Props>();
 </script>
 
 <style>

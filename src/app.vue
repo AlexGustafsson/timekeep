@@ -5,11 +5,6 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import TimekeepMenu from "./components/timekeep-menu.vue";
-
-const App = {
-  components: { TimekeepMenu },
-};
-export {App as default};
 </script>

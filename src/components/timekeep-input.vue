@@ -4,7 +4,7 @@
       <div class="flex items-center text-lg">
         <slot name="icon" />
       </div>
-      <input type="text" class="text-lg ml-4 flex-grow" :placeholder="placeholder" :value="modelValue" @input="update" @keyup.enter="$emit('submit')" />
+      <input type="text" class="text-lg ml-4 flex-grow" :placeholder="placeholder" :value="modelValue" @input="update" @keyup.enter="submit" />
     </header>
     <footer>
       <slot name="footer" />
@@ -12,20 +12,26 @@
   </div>
 </template>
 
-<script lang="ts">
-import { Vue, Options } from "vue-class-component";
-
-class Props {
-  modelValue!: string;
-  placeholder!: string;
+<script setup lang="ts">
+interface Props {
+  modelValue: string,
+  placeholder: string
 }
 
-@Options({ emits: ["update:modelValue", "submit"] })
-class TimekeepInput extends Vue.with(Props) {
-  update(event: InputEvent): void {
-    const input = event.target as HTMLInputElement;
-    this.$emit("update:modelValue", input.value);
-  }
+const props = defineProps<Props>();
+
+const emit = defineEmits<{
+   (e: "update:modelValue", value: number): void
+   (e: "submit"): void
+ }>()
+
+function update(event: InputEvent): void {
+  const input = event.target as HTMLInputElement;
+  emit("update:modelValue", Number(input.value));
 }
-export {TimekeepInput as default}
+
+function submit(): void {
+  emit("submit");
+}
+
 </script>

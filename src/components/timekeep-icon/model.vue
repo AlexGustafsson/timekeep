@@ -5,22 +5,14 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import TimekeepIconCircles from "./circles.vue";
 
-import { Vue, Options, prop } from "vue-class-component";
-
-const components = {
-  TimekeepIconCircles,
-};
-
-class Props {
-  active = prop<boolean>({ default: false });
+interface Props {
+  active: boolean
 }
 
-@Options({ components })
-class TimekeepIcon extends Vue.with(Props) {}
-export {TimekeepIcon as default};
+withDefaults(defineProps<Props>(), {active: false});
 </script>
 
 <style>

@@ -26,21 +26,13 @@
   </div>
 </template>
 
-<script lang="ts">
-import { Vue, Options } from "vue-class-component";
+<script setup lang="ts">
+import { ref } from "vue";
 
 import IonNote from "./ion-icons/note.vue";
 import IonRemove from "./ion-icons/remove.vue";
 import IonAdd from "./ion-icons/add.vue";
 import UniversalDate from "../utils/universal-date";
-
-const components = {
-  IonNote,
-  IonRemove,
-  IonAdd,
-};
-
-import { ref } from "vue";
 
 interface Note {
   id: string;
@@ -48,34 +40,36 @@ interface Note {
   date: UniversalDate;
 }
 
-class Props {
-  notes!: Note[];
+interface Props {
+  notes: Note[];
+}
+const props = defineProps<Props>();
+
+const emit = defineEmits<{
+   (e: "update:notes", notes: Note[]): void
+ }>()
+
+const notes = ref<Note[]>([]);
+const input = ref<HTMLTextAreaElement | null>(null);
+
+function add(): void {
+  if (input.value === null) return;
+
+  const note: Note = { id: notes.value.length.toString(), text: input.value, date: new UniversalDate() };
+  notes.value = [note, ...notes.value];
+  input.value.value = "";
+  emit("update:notes", notes.value);
 }
 
-@Options({ components, emits: ["update:notes"] })
-class TimekeepNotebook extends Vue.with(Props) {
-  input = (ref<HTMLTextAreaElement | null>(null) as unknown) as HTMLTextAreaElement | null;
-
-  add(): void {
-    if (this.input === null) return;
-
-    const note: Note = { id: this.notes.length.toString(), text: this.input.value, date: new UniversalDate() };
-    const notes = [note, ...this.notes];
-    this.input.value = "";
-    this.$emit("update:notes", notes);
-  }
-
-  remove(note: Note): void {
-    const notes = this.notes.filter((x) => x.id !== note.id);
-    this.$emit("update:notes", notes);
-  }
-
-  change(note: Note): void {
-    console.log(note.id);
-    this.$emit("update:notes", this.notes);
-  }
+function remove(note: Note): void {
+  notes.value = notes.value.filter((x) => x.id !== note.id);
+  emit("update:notes", notes.value);
 }
-export {TimekeepNotebook as default};
+
+function change(note: Note): void {
+  // TODO: Implement
+  emit("update:notes", notes.value);
+}
 </script>
 
 <style scoped>

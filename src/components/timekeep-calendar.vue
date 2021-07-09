@@ -8,51 +8,51 @@
 </template>
 
 <script lang="ts">
-import { Vue } from "vue-class-component";
+// import { Vue } from "vue-class-component";
 
-import UniversalDate from "@/utils/universal-date";
+// import UniversalDate from "@/utils/universal-date";
 
-class Props {
-  year!: number;
-  month!: number;
-}
+// class Props {
+//   year!: number;
+//   month!: number;
+// }
 
-class TimekeepNotebook extends Vue.with(Props) {
-  cells: { class: string; content: string }[] = [];
+// class TimekeepNotebook extends Vue.with(Props) {
+//   cells: { class: string; content: string }[] = [];
 
-  get monthName(): string {
-    return UniversalDate.monthNames[this.month - 1];
-  }
+//   get monthName(): string {
+//     return UniversalDate.monthNames[this.month - 1];
+//   }
 
-  mounted(): void {
-    const startOfTheMonth = UniversalDate.fromUTC({ year: this.year, month: this.month });
-    const startOfTheFirstWeek = UniversalDate.fromWeek(this.year, startOfTheMonth.week);
-    const endOfTheMonth = UniversalDate.fromUTC({ year: this.year, month: this.month, dayOfTheMonth: UniversalDate.daysOfMonth(this.year, this.month) });
-    const endOfTheLastWeek = UniversalDate.fromWeek(this.year, endOfTheMonth.week, 6);
-    const weekBoundary = endOfTheLastWeek.offsetWeeks(1).week;
+//   mounted(): void {
+//     const startOfTheMonth = UniversalDate.fromUTC({ year: this.year, month: this.month });
+//     const startOfTheFirstWeek = UniversalDate.fromWeek(this.year, startOfTheMonth.week);
+//     const endOfTheMonth = UniversalDate.fromUTC({ year: this.year, month: this.month, dayOfTheMonth: UniversalDate.daysOfMonth(this.year, this.month) });
+//     const endOfTheLastWeek = UniversalDate.fromWeek(this.year, endOfTheMonth.week, 6);
+//     const weekBoundary = endOfTheLastWeek.offsetWeeks(1).week;
 
-    // const endOfTheMonth = UniversalDate.fromUTC({ year: this.year, month: this.month, dayOfTheMonth: UniversalDate.daysOfMonth(this.year, this.month + 1) });
-    // const firstWeekOffset = startOfTheMonth.dayOfTheWeek;
-    // const startWeek = UniversalDate.fromWeek(this.year, startOfTheMonth.week);
-    // const days = endOfTheMonth.dayOfTheMonth;
+//     // const endOfTheMonth = UniversalDate.fromUTC({ year: this.year, month: this.month, dayOfTheMonth: UniversalDate.daysOfMonth(this.year, this.month + 1) });
+//     // const firstWeekOffset = startOfTheMonth.dayOfTheWeek;
+//     // const startWeek = UniversalDate.fromWeek(this.year, startOfTheMonth.week);
+//     // const days = endOfTheMonth.dayOfTheMonth;
 
-    const weeks: number[] = [];
-    for (let i = 0; i < 6; i++) weeks.push(startOfTheFirstWeek.offsetWeeks(i).week);
+//     const weeks: number[] = [];
+//     for (let i = 0; i < 6; i++) weeks.push(startOfTheFirstWeek.offsetWeeks(i).week);
 
-    // Add a padding cell
-    this.cells.push({ class: "", content: "" });
-    // Add the names of the week days
-    for (let i = 0; i < 7; i++) this.cells.push({ class: "week-day", content: UniversalDate.dayNames[i][0] });
+//     // Add a padding cell
+//     this.cells.push({ class: "", content: "" });
+//     // Add the names of the week days
+//     for (let i = 0; i < 7; i++) this.cells.push({ class: "week-day", content: UniversalDate.dayNames[i][0] });
 
-    let currentDay = UniversalDate.fromDate(startOfTheFirstWeek.date);
-    while (currentDay.week != weekBoundary) {
-      if (this.cells.length % 8 === 0) this.cells.push({ class: "week-number", content: currentDay.week.toString() });
-      this.cells.push({ class: currentDay.month === this.month ? "day" : "other-day", content: currentDay.dayOfTheMonth.toString() });
-      currentDay = currentDay.offsetDays(1);
-    }
-  }
-}
-export {TimekeepNotebook as default};
+//     let currentDay = UniversalDate.fromDate(startOfTheFirstWeek.date);
+//     while (currentDay.week != weekBoundary) {
+//       if (this.cells.length % 8 === 0) this.cells.push({ class: "week-number", content: currentDay.week.toString() });
+//       this.cells.push({ class: currentDay.month === this.month ? "day" : "other-day", content: currentDay.dayOfTheMonth.toString() });
+//       currentDay = currentDay.offsetDays(1);
+//     }
+//   }
+// }
+// export {TimekeepNotebook as default};
 </script>
 
 <style scoped>

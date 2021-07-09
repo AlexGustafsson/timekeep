@@ -61,7 +61,9 @@
   </menu>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
+import {ref} from "vue";
+
 import IonClose from "./ion-icons/close.vue";
 import IonMenu from "./ion-icons/menu.vue";
 import IonDashboard from "./ion-icons/dashboard.vue";
@@ -72,33 +74,15 @@ import IonTag from "./ion-icons/tag.vue";
 import IonReceipt from "./ion-icons/receipt.vue";
 import IonCog from "./ion-icons/cog.vue";
 
-import { Vue, Options } from "vue-class-component";
+let isOpen = ref(false);
 
-const components = {
-  IonClose,
-  IonMenu,
-  IonDashboard,
-  IonFavorite,
-  IonCalendar,
-  IonFlask,
-  IonTag,
-  IonReceipt,
-  IonCog,
-};
-
-@Options({ components })
-class TimekeepMenu extends Vue {
-  isOpen = false;
-
-  open(): void {
-    this.isOpen = true;
-  }
-
-  close(): void {
-    this.isOpen = false;
-  }
+function open() {
+  isOpen.value = true;
 }
-export {TimekeepMenu as default};
+
+function close() {
+  isOpen.value = false;
+}
 </script>
 
 <style scoped>

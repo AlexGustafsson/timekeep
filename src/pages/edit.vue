@@ -55,134 +55,123 @@
   </div>
 </template>
 
-<script lang="ts">
-import { Vue, Options, prop } from "vue-class-component";
+<script setup lang="ts">
+import {ref} from "vue";
 
-import IonStopwatch from "../components/ion-icons/stopwatch.vue";
-import IonDelete from "../components/ion-icons/delete.vue";
-import IonTag from "../components/ion-icons/tag.vue";
-import IonSave from "../components/ion-icons/save.vue";
-import TimekeepIcon from "../components/timekeep-icon/model.vue";
-import TimekeepShowcase from "../components/timekeep-showcase.vue";
-import TimekeepShowcaseItem from "../components/timekeep-showcase-item.vue";
+import IonStopwatch from "@/components/ion-icons/stopwatch.vue";
+import IonDelete from "@/components/ion-icons/delete.vue";
+import IonTag from "@/components/ion-icons/tag.vue";
+import IonSave from "@/components/ion-icons/save.vue";
+import TimekeepIcon from "@/components/timekeep-icon/model.vue";
+import TimekeepShowcase from "@/components/timekeep-showcase.vue";
+import TimekeepShowcaseItem from "@/components/timekeep-showcase-item.vue";
 import TimekeepInput from "@/components/timekeep-input.vue";
 import TimekeepNotebook from "@/components/timekeep-notebook.vue";
 import TimekeepFab from "@/components/timekeep-fab.vue";
 
-import { Document, Project, Tag } from "@/plugins/store";
+import type { Document, Project, Tag } from "@/plugins/store";
 import { colorHash } from "@/utils/color";
 
-const components = {
-  IonStopwatch,
-  IonDelete,
-  IonTag,
-  IonSave,
-  TimekeepIcon,
-  TimekeepShowcase,
-  TimekeepShowcaseItem,
-  TimekeepInput,
-  TimekeepNotebook,
-  TimekeepFab,
-};
-
-class Props {
-  projectId = prop<string | null>({ default: null });
-  createNew = prop<boolean>({ default: false });
+interface Props {
+  projectId?: string,
+  createNew: boolean
 }
 
-@Options({ components })
-class EditPage extends Vue.with(Props) {
-  notes = [];
-  name = "";
-  group = "";
-  tagInput = "";
-  tags: Tag[] = [];
-  color = "";
-  saving = false;
-  project: Document<Project> | null = null;
+const props = withDefaults(defineProps<Props>(), {createNew: false});
 
-  async mounted(): Promise<void> {
-    await this.fetchData();
-  }
+const notes = ref([]);
+const name = ref("");
+const group = ref("");
+const tagInput = ref("");
+const tags = ref<Tag[]>([]);
+const color = ref("");
+const saving = ref(false);
+const project = ref<Document<Project> | null>(null);
 
-  async navigated(): Promise<void> {
-    await this.fetchData();
-  }
+// TODO: Implement
+// async function navigated(): Promise<void> {
+//   await fetchData();
+// }
 
-  async fetchData(): Promise<void> {
-    if (this.projectId) {
-      try {
-        this.project = await this.$store.get<Project>(this.projectId);
-        this.name = this.project.data.name;
-        this.group = this.project.data.group ?? "";
-        this.color = colorHash(this.project.data.group ?? this.project.data.name);
-        for (const tagName of this.project.data.tags) {
-          const tag = await this.$store.getTag(tagName);
-          this.tags.push(tag!.data);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  }
+// TODO: Implement
+// async function mounted(): Promise<void> {
+//   await fetchData();
+// }
 
-  addTag(): void {
-    if (this.tagInput.trim() == "") return;
-
-    const tag = { id: this.tags.length + 1, name: this.tagInput.trim(), color: colorHash(this.tagInput.trim()), created: Date.now() };
-    this.tags.push(tag);
-    this.tagInput = "";
-  }
-
-  removeTag(tag: Tag): void {
-    this.tags = this.tags.filter(x => x.name != tag.name);
-  }
-
-  async save(): Promise<void> {
-    if (this.saving) return;
-
-    this.saving = true;
-
-    if (this.createNew) {
-      try {
-        const tags = new Set<string>();
-        for (const tag of this.tags) {
-          await this.$store.createOrFetchTag(tag);
-          tags.add(tag.name);
-        }
-
-        const project = await this.$store.createProject({ name: this.name, group: this.group, tags, color: "", favorite: false });
-        this.saving = false;
-        this.$router.replace({ name: "edit", params: { projectId: project._id } });
-      } catch (error) {
-        console.log(error);
-        this.saving = false;
-      }
-    } else if (this.projectId && this.project) {
-      let changed = false;
-      if (this.name !== this.project.data.name) {
-        this.project.data.name = this.name;
-        changed = true;
-      }
-      if (this.group !== this.project.data.group) {
-        this.project.data.group = this.group;
-        changed = true;
-      }
-      if (changed) {
-        try {
-          await this.$store.update<Project>(this.project);
-          this.saving = false;
-        } catch (error) {
-          console.log(error);
-          this.saving = false;
-        }
-      } else {
-        this.saving = false;
-      }
-    }
-  }
+// TODO: Implement
+async function fetchData(): Promise<void> {
+//   if (projectId.value) {
+//     try {
+//       project.value = await store.get<Project>(projectId.value);
+//       name.value = project.data.name;
+//       group.value = project.data.group ?? "";
+//       color.value = colorHash(project.data.group ?? project.data.name);
+//       for (const tagName of project.data.tags) {
+//         const tag = await store.getTag(tagName);
+//         tags.value.push(tag!.data);
+//       }
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   }
 }
-export {EditPage as default};
+
+function addTag(): void {
+  if (tagInput.value.trim() == "") return;
+
+  const tag = { id: tags.value.length + 1, name: tagInput.value.trim(), color: colorHash(tagInput.value.trim()), created: Date.now() };
+  tags.value.push(tag);
+  tagInput.value = "";
+}
+
+function removeTag(tag: Tag): void {
+  tags.value = tags.value.filter(x => x.name != tag.name);
+}
+
+// TODO: Implement
+async function save(): Promise<void> {
+  // if (saving.value) return;
+
+  // saving.value = true;
+
+  // if (createNew.value) {
+  //   try {
+  //     const tags = new Set<string>();
+  //     for (const tag of this.tags) {
+  //       await store.createOrFetchTag(tag);
+  //       tags.add(tag.name);
+  //     }
+
+  //     const project = await this.$store.createProject({ name: name.value, group: group.value, tags, color: "", favorite: false });
+  //     saving.value = false;
+  //     router.replace({ name: "edit", params: { projectId: project._id } });
+  //   } catch (error) {
+  //     console.log(error);
+  //     saving.value = false;
+  //   }
+  // } else if (projectId.value && project.value) {
+  //   let changed = false;
+  //   if (name.value !== project.data.name) {
+  //     project.data.name = name;
+  //     changed = true;
+  //   }
+  //   if (group !== project.data.group) {
+  //     project.data.group = group;
+  //     changed = true;
+  //   }
+  //   if (changed) {
+  //     try {
+  //       await $store.update<Project>(project);
+  //       saving = false;
+  //     } catch (error) {
+  //       console.log(error);
+  //       saving = false;
+  //     }
+  //   } else {
+  //     saving = false;
+  //   }
+  // }
+}
 </script>
 
 <style scoped>
