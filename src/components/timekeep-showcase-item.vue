@@ -1,8 +1,8 @@
 <template>
   <div class="flex flex-col items-center justify-content-center p-5 mh-3">
     <slot></slot>
-    <p class="primary">{{ primary }}</p>
-    <p class="secondary">{{ secondary }}</p>
+    <p class="my-2">{{ primary }}</p>
+    <p class="my-2 text-gray-50">{{ secondary }}</p>
   </div>
 </template>
 
@@ -17,22 +17,3 @@ class Props {
 class TimekeepShowcaseItem extends Vue.with(Props) {}
 export {TimekeepShowcaseItem as default};
 </script>
-
-<style scoped>
-.timekeep-showcase-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 15px;
-  margin: 0 10px;
-}
-
-.timekeep-showcase-item p {
-  margin: 5px 0;
-}
-
-.timekeep-showcase-item p.secondary {
-  color: #808080;
-}
-</style>
