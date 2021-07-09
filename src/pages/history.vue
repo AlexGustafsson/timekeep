@@ -1,12 +1,12 @@
 <template>
-  <div class="page page-history">
-    <header>
+  <div class="page">
+    <header class="page-header">
       <ion-calendar />
-      <h1>History</h1>
-      <h2>- {{ year }}</h2>
+      <h1 class="page-title">History</h1>
+      <h2 class="page-subtitle">- {{ year }}</h2>
       <router-link :to="{ name: 'create' }"><timekeep-fab tooltip="Add Project" /></router-link>
     </header>
-    <timekeep-showcase>
+    <timekeep-showcase class="my-3">
       <timekeep-showcase-item primary="16h 12m 32s" secondary="Total Time" />
       <timekeep-showcase-item primary="January" secondary="Top Month" />
       <timekeep-showcase-item primary="Monday" secondary="Top Weekday" />
@@ -50,8 +50,6 @@ export {HistoryPage as default};
 </script>
 
 <style>
-@import "../style/page.css";
-
 .page-history > main {
   display: grid;
   grid-template-columns: repeat(3, auto);

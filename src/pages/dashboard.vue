@@ -1,13 +1,13 @@
 <template>
-  <div class="page page-dashboard">
-    <header class="split">
+  <div class="page">
+    <header class="page-header">
       <ion-dashboard />
-      <h1>Dashboard</h1>
+      <h1 class="page-title">Dashboard</h1>
       <router-link :to="{ name: 'create' }"><timekeep-fab tooltip="Add Project" /></router-link>
     </header>
 
     <!-- Filter -->
-    <timekeep-showcase>
+    <timekeep-showcase class="my-3">
       <timekeep-showcase-item primary="Favorites" secondary="4">
         <timekeep-icon
           :class="{ positive: filter.favorites, negative: !filter.favorites }"
@@ -43,7 +43,7 @@
     </timekeep-showcase>
 
     <!-- Search -->
-    <timekeep-input placeholder="Filter by project, group and tags">
+    <timekeep-input class="my-3" placeholder="Filter by project, group and tags">
       <template v-slot:icon>
         <ion-search />
       </template>
@@ -132,8 +132,6 @@ export {DashboardPage as default};
 </script>
 
 <style scoped>
-@import "../style/page.css";
-
 .page-dashboard > main {
   display: grid;
   grid-template-columns: repeat(4, auto);

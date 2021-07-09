@@ -1,5 +1,5 @@
 <template>
-  <div class="page-insights">
+  <div class="page">
     <h1>Insights</h1>
   </div>
 </template>

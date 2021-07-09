@@ -1,9 +1,9 @@
 <template>
-  <div class="page page-edit">
-    <header>
+  <div class="page">
+    <header class="page-header">
       <ion-stopwatch />
-      <h1>{{ createNew ? "New Project" : "Details" }}</h1>
-      <h2>{{ createNew ? (name === "" ? "" : `- ${name}`) : `- ${name}` }}</h2>
+      <h1 class="page-title">{{ createNew ? "New Project" : "Details" }}</h1>
+      <h2 class="page-subtitle">{{ createNew ? (name === "" ? "" : `- ${name}`) : `- ${name}` }}</h2>
       <router-link :to="{ name: 'create' }" v-if="!createNew"><timekeep-fab tooltip="Add Project" /></router-link>
     </header>
 
@@ -12,28 +12,28 @@
       <timekeep-icon class="clickable negative"><ion-delete /></timekeep-icon>
     </header>
 
-    <timekeep-showcase v-if="projectId">
+    <timekeep-showcase v-if="projectId" class="my-3">
       <timekeep-showcase-item primary="42m 32s" secondary="Today" />
       <timekeep-showcase-item primary="12h 41m" secondary="This Week" />
       <timekeep-showcase-item primary="1d 11h 51m" secondary="Total" />
     </timekeep-showcase>
 
     <!-- Project name -->
-    <timekeep-input v-model="name" placeholder="The project's name">
+    <timekeep-input v-model="name" class="my-3" placeholder="The project's name">
       <template v-slot:icon>
         <p>Name</p>
       </template>
     </timekeep-input>
 
     <!-- Project group -->
-    <timekeep-input v-model="group" placeholder="The project's optional group">
+    <timekeep-input v-model="group" class="my-3" placeholder="The project's optional group">
       <template v-slot:icon>
         <p>Group</p>
       </template>
     </timekeep-input>
 
     <!-- Project tags -->
-    <timekeep-input placeholder="Add a tag" @submit="addTag" v-model="tagInput">
+    <timekeep-input placeholder="Add a tag" class="my-3" @submit="addTag" v-model="tagInput">
       <template v-slot:icon>
         <ion-tag />
       </template>
@@ -45,9 +45,9 @@
     </timekeep-input>
 
     <!-- Notes -->
-    <timekeep-notebook v-model:notes="notes" />
+    <timekeep-notebook v-model:notes="notes" class="my-3" />
 
-    <footer class="right">
+    <footer class="page-footer">
       <timekeep-icon @click="save" tooltip="Save" :active="saving" :class="{ clickable: !saving, primary: !saving, inactive: saving }"
         ><ion-save
       /></timekeep-icon>
@@ -186,8 +186,6 @@ export {EditPage as default};
 </script>
 
 <style scoped>
-@import "../style/page.css";
-
 .page-edit > header .timekeep-icon {
   margin: 0 10px;
 }

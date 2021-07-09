@@ -26,5 +26,19 @@
 }
 
 @layer components {
+  .page {
+    @apply p-12
+  }
 
+  .page-header, .page-footer {
+    @apply flex flex-row items-center mb-5
+  }
+
+  .page-title {
+    @apply mx-3
+  }
+
+  .page-subtitle {
+    @apply text-gray-50
+  }
 }

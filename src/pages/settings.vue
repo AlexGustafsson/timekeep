@@ -1,5 +1,5 @@
 <template>
-  <div class="page-settings">
+  <div class="page">
     <h1>Settings</h1>
     <button @click="nuke">Nuke store</button>
   </div>

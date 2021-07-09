@@ -1,19 +1,19 @@
 <template>
-  <div class="page page-favorites">
-    <header class="split">
+  <div class="page">
+    <header class="page-header">
       <ion-favorite />
-      <h1>Favorites</h1>
+      <h1 class="page-title">Favorites</h1>
       <router-link :to="{ name: 'create' }"><timekeep-fab tooltip="Add Project" /></router-link>
     </header>
 
-    <timekeep-showcase>
+    <timekeep-showcase class="my-3">
       <timekeep-showcase-item primary="42m 32s" secondary="Today" />
       <timekeep-showcase-item primary="12h 41m" secondary="This Week" />
       <timekeep-showcase-item primary="1d 11h 51m" secondary="Total" />
     </timekeep-showcase>
 
     <!-- Search -->
-    <timekeep-input placeholder="Filter by project, group and tags">
+    <timekeep-input class="my-3" placeholder="Filter by project, group and tags">
       <template v-slot:icon>
         <ion-search />
       </template>
@@ -103,8 +103,6 @@ export {FavoritesPage as default};
 </script>
 
 <style scoped>
-@import "../style/page.css";
-
 .page-favorites > main {
   display: grid;
   grid-template-columns: repeat(4, auto);
