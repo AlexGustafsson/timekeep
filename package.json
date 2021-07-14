@@ -14,7 +14,7 @@
     "start": "node ./server.js"
   },
   "author": "Alex Gustafsson",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "autoprefixer": "^9.7.3",
     "ava": "^2.4.0",
