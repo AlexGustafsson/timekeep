@@ -1,4 +1,7 @@
 node_modules
 dist
 .git
+test
+LICENSE.md
+docker-build.sh
 README.md

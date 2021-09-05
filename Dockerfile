@@ -10,16 +10,8 @@ COPY . .
 
 RUN npm run build
 
-FROM node:12.6.0-alpine
+FROM dragas/thttpd
 
-WORKDIR /app
+COPY --from=builder /app/dist /var/www/http
 
-COPY server.js .
-
-COPY --from=builder /app/dist /app/dist
-
-EXPOSE 3000
-
-USER node
-
-CMD ["node", "server.js"]
+EXPOSE 80
