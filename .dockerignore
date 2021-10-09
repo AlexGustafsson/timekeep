@@ -1,0 +1,8 @@
+.storybook
+.storybook.backup
+dist
+node_modules
+design.md
+design.sketch
+README.md
+test.html
