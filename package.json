@@ -21,7 +21,7 @@
     "jsinspect": "^0.12.7",
     "nyc": "^15.0.0",
     "poi": "^12.7.5",
-    "stylelint": "^13.0.0",
+    "stylelint": "^15.10.1",
     "stylelint-config-standard": "^19.0.0",
     "xo": "^0.25.3"
   },
